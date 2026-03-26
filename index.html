@@ -10,25 +10,13 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 ```
-:root {
-  --black: #0c0a08;
-  --dark: #141210;
-  --card: #1a1714;
-  --amber: #c8860a;
-  --amber-light: #e8a020;
-  --gold: #d4a843;
-  --cream: #f0e8d8;
-  --muted: #7a6f60;
-  --border: rgba(200, 134, 10, 0.18);
-}
-
 html { scroll-behavior: smooth; background-color: #0c0a08; }
 
 body {
   background-color: #0c0a08;
-  background-color: var(--black);
+  background-color: #0c0a08;
   color: #f0e8d8;
-  color: var(--cream);
+  color: #f0e8d8;
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 18px;
   line-height: 1.7;
@@ -65,7 +53,7 @@ nav {
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #e8a020; color: var(--amber-light);
+  color: #e8a020; color: #e8a020;
   text-decoration: none;
 }
 
@@ -80,12 +68,12 @@ nav {
   font-size: 0.65rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #7a6f60; color: var(--muted);
+  color: #7a6f60; color: #7a6f60;
   text-decoration: none;
   transition: color 0.25s;
 }
 
-.nav-links a:hover { color: #e8a020; color: var(--amber-light); }
+.nav-links a:hover { color: #e8a020; color: #e8a020; }
 
 /* ── HERO ── */
 .hero {
@@ -104,7 +92,7 @@ nav {
   background:
     radial-gradient(ellipse 60% 70% at 70% 50%, rgba(200,134,10,0.09) 0%, transparent 70%),
     radial-gradient(ellipse 40% 60% at 20% 80%, rgba(180,100,5,0.06) 0%, transparent 60%),
-    var(--black);
+    #0c0a08;
 }
 
 .hero-eyebrow {
@@ -112,7 +100,7 @@ nav {
   font-size: 0.65rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: #c8860a; color: var(--amber);
+  color: #c8860a; color: #c8860a;
   margin-bottom: 1.5rem;
   opacity: 0;
   animation: fadeUp 0.8s ease forwards 0.2s;
@@ -124,7 +112,7 @@ nav {
   font-weight: 900;
   line-height: 0.95;
   letter-spacing: -0.02em;
-  color: var(--cream);
+  color: #f0e8d8;
   max-width: 820px;
   position: relative;
   z-index: 1;
@@ -134,13 +122,13 @@ nav {
 
 .hero-title em {
   font-style: italic;
-  color: #e8a020; color: var(--amber-light);
+  color: #e8a020; color: #e8a020;
 }
 
 .hero-sub {
   font-size: 1.25rem;
   font-weight: 300;
-  color: #7a6f60; color: var(--muted);
+  color: #7a6f60; color: #7a6f60;
   max-width: 480px;
   margin-top: 2rem;
   opacity: 0;
@@ -161,9 +149,9 @@ nav {
   align-items: center;
   gap: 0.5rem;
   background: #c8860a;
-  background: #c8860a; background: var(--amber);
+  background: #c8860a; background: #c8860a;
   color: #0c0a08;
-  color: var(--black);
+  color: #0c0a08;
   font-family: 'DM Mono', monospace;
   font-size: 0.65rem;
   font-weight: 400;
@@ -174,16 +162,16 @@ nav {
   transition: background 0.2s, transform 0.2s;
 }
 
-.btn-primary:hover { background: #e8a020; background: var(--amber-light); transform: translateY(-2px); }
+.btn-primary:hover { background: #e8a020; background: #e8a020; transform: translateY(-2px); }
 
 .btn-ghost {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   border: 1px solid rgba(200, 134, 10, 0.18);
-  border: 1px solid var(--border);
+  border: 1px solid rgba(200,134,10,0.18);
   color: #f0e8d8;
-  color: var(--cream);
+  color: #f0e8d8;
   font-family: 'DM Mono', monospace;
   font-size: 0.65rem;
   font-weight: 400;
@@ -194,7 +182,7 @@ nav {
   transition: border-color 0.2s, color 0.2s, transform 0.2s;
 }
 
-.btn-ghost:hover { border-color: #c8860a; color: var(--amber); color: #e8a020; color: var(--amber-light); transform: translateY(-2px); }
+.btn-ghost:hover { border-color: #c8860a; color: #c8860a; color: #e8a020; color: #e8a020; transform: translateY(-2px); }
 
 .hero-divider {
   position: absolute;
@@ -211,7 +199,7 @@ nav {
 .hero-divider-line {
   flex: 1;
   height: 1px;
-  background: var(--border);
+  background: rgba(200,134,10,0.18);
 }
 
 .hero-stat {
@@ -221,7 +209,7 @@ nav {
 .hero-stat-num {
   font-family: 'Playfair Display', serif;
   font-size: 1.6rem;
-  color: #e8a020; color: var(--amber-light);
+  color: #e8a020; color: #e8a020;
   display: block;
 }
 
@@ -230,7 +218,7 @@ nav {
   font-size: 0.55rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #7a6f60; color: var(--muted);
+  color: #7a6f60; color: #7a6f60;
 }
 
 /* ── SECTION COMMON ── */
@@ -242,7 +230,7 @@ section { padding: 7rem 3rem; }
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: #c8860a;
-  color: #c8860a; color: var(--amber);
+  color: #c8860a; color: #c8860a;
   margin-bottom: 1.2rem;
 }
 
@@ -251,11 +239,11 @@ section { padding: 7rem 3rem; }
   font-size: clamp(2rem, 4vw, 3.2rem);
   font-weight: 700;
   line-height: 1.15;
-  color: var(--cream);
+  color: #f0e8d8;
   margin-bottom: 1.5rem;
 }
 
-.section-title em { font-style: italic; color: #e8a020; color: var(--amber-light); }
+.section-title em { font-style: italic; color: #e8a020; color: #e8a020; }
 
 /* ── ABOUT ── */
 .about {
@@ -274,14 +262,14 @@ section { padding: 7rem 3rem; }
 .about-img-placeholder {
   width: 100%;
   aspect-ratio: 3/4;
-  background: #1a1714; background: var(--card);
-  border: 1px solid var(--border);
+  background: #1a1714; background: #1a1714;
+  border: 1px solid rgba(200,134,10,0.18);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  color: #7a6f60; color: var(--muted);
+  color: #7a6f60; color: #7a6f60;
   position: relative;
   overflow: hidden;
 }
@@ -309,8 +297,8 @@ section { padding: 7rem 3rem; }
   position: absolute;
   bottom: -1.5rem;
   right: -1.5rem;
-  background: #c8860a; background: var(--amber);
-  color: var(--black);
+  background: #c8860a; background: #c8860a;
+  color: #0c0a08;
   padding: 1.2rem 1.5rem;
   font-family: 'Playfair Display', serif;
   font-style: italic;
@@ -327,15 +315,15 @@ section { padding: 7rem 3rem; }
 }
 
 .about-text p strong {
-  color: var(--cream);
+  color: #f0e8d8;
   font-weight: 500;
 }
 
 /* ── FEATURED ── */
 .featured-section {
-  background: #141210; background: var(--dark);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  background: #141210; background: #141210;
+  border-top: 1px solid rgba(200,134,10,0.18);
+  border-bottom: 1px solid rgba(200,134,10,0.18);
 }
 
 .featured-header {
@@ -352,11 +340,11 @@ section { padding: 7rem 3rem; }
   gap: 1.5px;
   max-width: 1200px;
   margin: 0 auto;
-  background: var(--border);
+  background: rgba(200,134,10,0.18);
 }
 
 .bottle-card {
-  background: #1a1714; background: var(--card);
+  background: #1a1714; background: #1a1714;
   padding: 2.5rem;
   position: relative;
   overflow: hidden;
@@ -371,7 +359,7 @@ section { padding: 7rem 3rem; }
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 2px;
-  background: #c8860a; background: var(--amber);
+  background: #c8860a; background: #c8860a;
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s ease;
@@ -384,7 +372,7 @@ section { padding: 7rem 3rem; }
   font-size: 0.55rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: #c8860a; color: var(--amber);
+  color: #c8860a; color: #c8860a;
   margin-bottom: 1rem;
 }
 
@@ -392,7 +380,7 @@ section { padding: 7rem 3rem; }
   font-family: 'Playfair Display', serif;
   font-size: 1.4rem;
   font-weight: 700;
-  color: var(--cream);
+  color: #f0e8d8;
   margin-bottom: 0.5rem;
   line-height: 1.2;
 }
@@ -400,7 +388,7 @@ section { padding: 7rem 3rem; }
 .bottle-sub {
   font-family: 'DM Mono', monospace;
   font-size: 0.6rem;
-  color: #7a6f60; color: var(--muted);
+  color: #7a6f60; color: #7a6f60;
   letter-spacing: 0.1em;
   margin-bottom: 1.5rem;
 }
@@ -430,19 +418,19 @@ section { padding: 7rem 3rem; }
   grid-template-columns: repeat(4, 1fr);
   gap: 2px;
   margin-top: 4rem;
-  background: var(--border);
+  background: rgba(200,134,10,0.18);
 }
 
 .pillar {
-  background: #0c0a08; background: var(--black);
+  background: #0c0a08; background: #0c0a08;
   padding: 2.5rem 2rem;
   border-bottom: 2px solid transparent;
   transition: border-color 0.25s, background 0.25s;
 }
 
 .pillar:hover {
-  background: #1a1714; background: var(--card);
-  border-bottom-color: #c8860a; color: var(--amber);
+  background: #1a1714; background: #1a1714;
+  border-bottom-color: #c8860a; color: #c8860a;
 }
 
 .pillar-icon {
@@ -455,21 +443,21 @@ section { padding: 7rem 3rem; }
   font-family: 'Playfair Display', serif;
   font-size: 1.15rem;
   font-weight: 700;
-  color: var(--cream);
+  color: #f0e8d8;
   margin-bottom: 0.75rem;
 }
 
 .pillar-desc {
   font-size: 0.9rem;
-  color: #7a6f60; color: var(--muted);
+  color: #7a6f60; color: #7a6f60;
   font-weight: 300;
   line-height: 1.6;
 }
 
 /* ── COLLAB ── */
 .collab {
-  background: #1a1714; background: var(--card);
-  border-top: 1px solid var(--border);
+  background: #1a1714; background: #1a1714;
+  border-top: 1px solid rgba(200,134,10,0.18);
 }
 
 .collab-inner {
@@ -486,11 +474,11 @@ section { padding: 7rem 3rem; }
   display: flex;
   flex-direction: column;
   gap: 1px;
-  background: var(--border);
+  background: rgba(200,134,10,0.18);
 }
 
 .collab-type {
-  background: #0c0a08; background: var(--black);
+  background: #0c0a08; background: #0c0a08;
   padding: 1.2rem 1.5rem;
   display: flex;
   align-items: center;
@@ -500,13 +488,13 @@ section { padding: 7rem 3rem; }
   transition: background 0.2s, color 0.2s;
 }
 
-.collab-type:hover { background: #141210; background: var(--dark); color: var(--cream); }
+.collab-type:hover { background: #141210; background: #141210; color: #f0e8d8; }
 
 .collab-type-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #c8860a; background: var(--amber);
+  background: #c8860a; background: #c8860a;
   flex-shrink: 0;
 }
 
@@ -534,15 +522,15 @@ section { padding: 7rem 3rem; }
   font-size: 0.55rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #7a6f60; color: var(--muted);
+  color: #7a6f60; color: #7a6f60;
 }
 
 .form-field input,
 .form-field select,
 .form-field textarea {
-  background: #0c0a08; background: var(--black);
-  border: 1px solid var(--border);
-  color: var(--cream);
+  background: #0c0a08; background: #0c0a08;
+  border: 1px solid rgba(200,134,10,0.18);
+  color: #f0e8d8;
   font-family: 'Cormorant Garamond', serif;
   font-size: 1rem;
   padding: 0.85rem 1rem;
@@ -555,18 +543,18 @@ section { padding: 7rem 3rem; }
 .form-field input:focus,
 .form-field select:focus,
 .form-field textarea:focus {
-  border-color: #c8860a; color: var(--amber);
+  border-color: #c8860a; color: #c8860a;
 }
 
 .form-field input::placeholder,
 .form-field textarea::placeholder {
-  color: #7a6f60; color: var(--muted);
+  color: #7a6f60; color: #7a6f60;
   font-style: italic;
 }
 
 /* ── SOCIAL BAR ── */
 .social-bar {
-  background: #c8860a; background: var(--amber);
+  background: #c8860a; background: #c8860a;
   padding: 3rem;
   display: flex;
   align-items: center;
@@ -594,7 +582,7 @@ section { padding: 7rem 3rem; }
   font-family: 'Playfair Display', serif;
   font-size: 1.3rem;
   font-weight: 700;
-  color: var(--black);
+  color: #0c0a08;
   display: block;
   transition: opacity 0.2s;
 }
@@ -603,8 +591,8 @@ section { padding: 7rem 3rem; }
 
 /* ── FOOTER ── */
 footer {
-  background: #0c0a08; background: var(--black);
-  border-top: 1px solid var(--border);
+  background: #0c0a08; background: #0c0a08;
+  border-top: 1px solid rgba(200,134,10,0.18);
   padding: 2.5rem 3rem;
   display: flex;
   justify-content: space-between;
@@ -617,14 +605,14 @@ footer {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #c8860a; color: var(--amber);
+  color: #c8860a; color: #c8860a;
 }
 
 .footer-disclaimer {
   font-family: 'DM Mono', monospace;
   font-size: 0.55rem;
   letter-spacing: 0.12em;
-  color: #7a6f60; color: var(--muted);
+  color: #7a6f60; color: #7a6f60;
   max-width: 500px;
   text-align: center;
 }
@@ -632,7 +620,7 @@ footer {
 .footer-copy {
   font-family: 'DM Mono', monospace;
   font-size: 0.55rem;
-  color: #7a6f60; color: var(--muted);
+  color: #7a6f60; color: #7a6f60;
 }
 
 /* ── ANIMATIONS ── */
@@ -727,12 +715,12 @@ footer {
         <p>This isn't a rating site. It's a love letter to <strong>wheated mash bills</strong>, impossible allocations, and the community of people who genuinely care about what's in the glass.</p>
         <div style="margin-top: 2.5rem; display: flex; gap: 3rem;">
           <div>
-            <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--amber-light);">Chicago</div>
-            <div style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);">Home Base</div>
+            <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#e8a020;">Chicago</div>
+            <div style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:#7a6f60;">Home Base</div>
           </div>
           <div>
-            <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--amber-light);">Wheated</div>
-            <div style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);">Mash Bill of Choice</div>
+            <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#e8a020;">Wheated</div>
+            <div style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:#7a6f60;">Mash Bill of Choice</div>
           </div>
         </div>
       </div>
@@ -812,7 +800,7 @@ footer {
       <div>
         <p class="section-label">Work Together</p>
         <h2 class="section-title">Let's Do<br/><em>Something</em><br/>Worth Pouring Over</h2>
-        <p style="color:var(--muted);font-size:1.05rem;font-weight:300;margin-top:1rem;max-width:400px;">NeatSipper is open to partnerships with distilleries, retailers, events, and brands that fit the culture. Here's what that can look like:</p>
+        <p style="color:#7a6f60;font-size:1.05rem;font-weight:300;margin-top:1rem;max-width:400px;">NeatSipper is open to partnerships with distilleries, retailers, events, and brands that fit the culture. Here's what that can look like:</p>
         <div class="collab-types">
           <div class="collab-type"><div class="collab-type-dot"></div>Distillery visits & barrel features</div>
           <div class="collab-type"><div class="collab-type-dot"></div>Sponsored tasting content (Instagram & TikTok)</div>
@@ -823,7 +811,7 @@ footer {
       </div>
       <div>
         <p class="section-label" style="margin-top:0.5rem;">Get in Touch</p>
-        <p style="color:var(--muted);font-size:1.05rem;font-weight:300;margin-bottom:2rem;max-width:380px;">Have a collab idea, want to send a bottle, or just want to talk bourbon? Drop me an email and I'll get back to you.</p>
+        <p style="color:#7a6f60;font-size:1.05rem;font-weight:300;margin-bottom:2rem;max-width:380px;">Have a collab idea, want to send a bottle, or just want to talk bourbon? Drop me an email and I'll get back to you.</p>
         <a href="/cdn-cgi/l/email-protection#9fd5f0ecfaeff7dff1fafeebecf6efeffaedb1fcf0f2a0eceafdf5fafceba2d1fafeebccf6efeffaedbaadafdcf0f3f3fefdbaadafd6f1eeeaf6ede6" class="btn-primary" style="display:inline-flex;">↗ Email <span class="__cf_email__" data-cfemail="ca80a5b9afbaa28aa4afabbeb9a3babaafb8e4a9a5a7">[email&#160;protected]</span></a>
       </div>
     </div>
