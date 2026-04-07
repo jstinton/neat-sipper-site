@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Command Center Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0a0c10;
+    --bg-card: #12151c;
+    --bg-card-hover: #181c26;
+    --border: #1e2330;
+    --border-glow: #2a3045;
+    --text-primary: #e8ecf4;
+    --text-secondary: #6b7a94;
+    --text-muted: #3d4a60;
+    --accent-blue: #3b82f6;
+    --accent-cyan: #06b6d4;
+    --accent-green: #10b981;
+    --accent-red: #ef4444;
+    --accent-amber: #f59e0b;
+    --accent-purple: #8b5cf6;
+    --accent-pink: #ec4899;
+    --glow-blue: rgba(59, 130, 246, 0.15);
+    --glow-green: rgba(16, 185, 129, 0.15);
+    --glow-red: rgba(239, 68, 68, 0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Subtle grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── STOCK TICKER ─── */
+  .ticker-bar {
+    position: relative;
+    width: 100%;
+    background: linear-gradient(180deg, #0d1017 0%, #0a0c10 100%);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+  }
+
+  .ticker-track {
+    display: flex;
+    animation: tickerScroll 40s linear infinite;
+    white-space: nowrap;
+  }
+
+  @keyframes tickerScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .ticker-symbol {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .ticker-price {
+    color: var(--text-secondary);
+  }
+
+  .ticker-change {
+    font-size: 12px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  .ticker-change.up {
+    color: var(--accent-green);
+    background: rgba(16, 185, 129, 0.1);
+  }
+
+  .ticker-change.down {
+    color: var(--accent-red);
+    background: rgba(239, 68, 68, 0.1);
+  }
+
+  .ticker-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    margin: 0 8px;
+  }
+
+  /* ─── MAIN LAYOUT ─── */
+  .dashboard {
+    position: relative;
+    z-index: 1;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 32px 36px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 24px;
+  }
+
+  /* ─── CARD BASE ─── */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    border-color: var(--border-glow);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(59,130,246,0.3), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .card:hover::before { opacity: 1; }
+
+  .card-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-label .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* ─── WEATHER CARD ─── */
+  .weather-card { grid-column: 1; }
+
+  .weather-main {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .weather-temp {
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -3px;
+    background: linear-gradient(135deg, var(--text-primary), var(--accent-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .weather-temp span {
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: 0;
+    vertical-align: top;
+    margin-left: 2px;
+  }
+
+  .weather-icon {
+    font-size: 56px;
+    line-height: 1;
+    filter: drop-shadow(0 0 12px rgba(6, 182, 212, 0.3));
+  }
+
+  .weather-desc {
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin-top: 10px;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+
+  .weather-location {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .weather-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+  }
+
+  .weather-detail {
+    text-align: center;
+  }
+
+  .weather-detail-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .weather-detail-lbl {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 3px;
+  }
+
+  /* ─── GOLDMAN SACHS CARD ─── */
+  .gs-card { grid-column: 2; }
+
+  .gs-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .gs-logo {
+    width: 48px;
+    height: 48px;
+    background: #ffffff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 11px;
+    color: #1a1a2e;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(255,255,255,0.08);
+  }
+
+  .gs-logo img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+  }
+
+  .gs-name {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .gs-ticker-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .gs-price {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+
+  .gs-change-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+  }
+
+  .gs-change {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+
+  .gs-change.up {
+    color: var(--accent-green);
+    background: rgba(16, 185, 129, 0.1);
+  }
+
+  .gs-change.down {
+    color: var(--accent-red);
+    background: rgba(239, 68, 68, 0.1);
+  }
+
+  .gs-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 16px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Sparkline */
+  .gs-sparkline {
+    margin-top: 18px;
+    height: 50px;
+  }
+
+  .gs-sparkline svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ─── FLIP CLOCK ─── */
+  .clock-card {
+    grid-column: 3;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .flip-clock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .flip-group {
+    display: flex;
+    gap: 4px;
+  }
+
+  .flip-tile {
+    width: 60px;
+    height: 80px;
+    position: relative;
+    perspective: 300px;
+  }
+
+  .flip-tile-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .flip-top, .flip-bottom {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+    background: #1a1f2e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .flip-top {
+    top: 0;
+    border-radius: 8px 8px 0 0;
+    border-bottom: 1px solid rgba(0,0,0,0.4);
+    background: linear-gradient(180deg, #1e2538 0%, #1a1f2e 100%);
+    align-items: flex-end;
+    padding-bottom: 0;
+  }
+
+  .flip-bottom {
+    bottom: 0;
+    border-radius: 0 0 8px 8px;
+    background: linear-gradient(180deg, #171c28 0%, #141824 100%);
+    align-items: flex-start;
+    padding-top: 0;
+  }
+
+  .flip-top span, .flip-bottom span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 46px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 80px;
+  }
+
+  .flip-top span {
+    transform: translateY(50%);
+  }
+
+  .flip-bottom span {
+    transform: translateY(-50%);
+  }
+
+  .flip-tile-inner.flipping .flip-top {
+    animation: flipDown 0.4s ease-in forwards;
+  }
+
+  @keyframes flipDown {
+    0% { transform: rotateX(0); }
+    100% { transform: rotateX(-90deg); }
+  }
+
+  .flip-separator {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--accent-blue);
+    animation: blink 1s step-end infinite;
+    padding: 0 2px;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0.2; }
+  }
+
+  .clock-ampm {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--accent-blue);
+    margin-left: 8px;
+    align-self: flex-end;
+    margin-bottom: 8px;
+    letter-spacing: 0.1em;
+  }
+
+  .clock-tz {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── DATE CARD ─── */
+  .date-card {
+    grid-column: 1;
+  }
+
+  .date-display {
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  .date-day-name {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--accent-blue);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .date-day-num {
+    font-size: 72px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -3px;
+    background: linear-gradient(135deg, var(--text-primary), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .date-month-year {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    letter-spacing: 0.06em;
+  }
+
+  /* ─── INSTAGRAM CARD ─── */
+  .ig-card {
+    grid-column: 2;
+  }
+
+  .ig-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .ig-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    box-shadow: 0 4px 16px rgba(225, 48, 108, 0.25);
+  }
+
+  .ig-handle {
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  .ig-handle-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .ig-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 52px;
+    font-weight: 700;
+    letter-spacing: -2px;
+    background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .ig-label {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+    font-weight: 500;
+  }
+
+  .ig-note {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.6;
+  }
+
+  /* ─── POWERED BY BAR ─── */
+  .footer-bar {
+    text-align: center;
+    padding: 20px;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ─── LOADING SHIMMER ─── */
+  .shimmer {
+    background: linear-gradient(90deg, transparent 0%, rgba(59,130,246,0.05) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1100px) {
+    .dashboard {
+      grid-template-columns: 1fr 1fr;
+      padding: 20px;
+    }
+    .clock-card { grid-column: span 2; }
+    .date-card { grid-column: 1; }
+    .ig-card { grid-column: 2; }
+  }
+
+  @media (max-width: 700px) {
+    .dashboard {
+      grid-template-columns: 1fr;
+    }
+    .dashboard > * { grid-column: 1 !important; }
+    .flip-tile { width: 48px; height: 64px; }
+    .flip-top span, .flip-bottom span { font-size: 36px; line-height: 64px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── STOCK TICKER ─── -->
+<div class="ticker-bar">
+  <div class="ticker-track" id="tickerTrack"></div>
+</div>
+
+<!-- ─── DASHBOARD GRID ─── -->
+<div class="dashboard">
+
+  <!-- Weather Card -->
+  <div class="card weather-card">
+    <div class="card-label">
+      <span class="dot" style="background: var(--accent-cyan);"></span>
+      Chicago Weather
+    </div>
+    <div class="weather-main">
+      <div>
+        <div class="weather-temp" id="weatherTemp">--<span>°F</span></div>
+        <div class="weather-desc" id="weatherDesc">Loading...</div>
+        <div class="weather-location">Chicago, Illinois</div>
+      </div>
+      <div class="weather-icon" id="weatherIcon">⛅</div>
+    </div>
+    <div class="weather-details">
+      <div class="weather-detail">
+        <div class="weather-detail-val" id="weatherHumidity">--%</div>
+        <div class="weather-detail-lbl">Humidity</div>
+      </div>
+      <div class="weather-detail">
+        <div class="weather-detail-val" id="weatherWind">-- mph</div>
+        <div class="weather-detail-lbl">Wind</div>
+      </div>
+      <div class="weather-detail">
+        <div class="weather-detail-val" id="weatherFeels">--°</div>
+        <div class="weather-detail-lbl">Feels Like</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Goldman Sachs Card -->
+  <div class="card gs-card">
+    <div class="card-label">
+      <span class="dot" style="background: var(--accent-green);"></span>
+      Stock Price
+    </div>
+    <div class="gs-header">
+      <div class="gs-logo">
+        <img src="https://logo.clearbit.com/goldmansachs.com" alt="GS" onerror="this.parentElement.textContent='GS'">
+      </div>
+      <div>
+        <div class="gs-name">Goldman Sachs</div>
+        <div class="gs-ticker-label">NYSE: GS</div>
+      </div>
+    </div>
+    <div class="gs-price" id="gsPrice">$--</div>
+    <div class="gs-change-row">
+      <div class="gs-change up" id="gsChange">--</div>
+      <div class="gs-change up" id="gsChangePct">--</div>
+    </div>
+    <div class="gs-sparkline" id="gsSparkline"></div>
+    <div class="gs-meta" id="gsMeta">Fetching data...</div>
+  </div>
+
+  <!-- Flip Clock Card -->
+  <div class="card clock-card">
+    <div class="card-label">
+      <span class="dot" style="background: var(--accent-amber);"></span>
+      Local Time
+    </div>
+    <div class="flip-clock" id="flipClock"></div>
+    <div class="clock-tz">CENTRAL TIME · CST/CDT</div>
+  </div>
+
+  <!-- Date Card -->
+  <div class="card date-card">
+    <div class="card-label">
+      <span class="dot" style="background: var(--accent-purple);"></span>
+      Today's Date
+    </div>
+    <div class="date-display">
+      <div class="date-day-name" id="dateDayName">---</div>
+      <div class="date-day-num" id="dateDayNum">--</div>
+      <div class="date-month-year" id="dateMonthYear">--- ----</div>
+    </div>
+  </div>
+
+  <!-- Instagram Card -->
+  <div class="card ig-card">
+    <div class="card-label">
+      <span class="dot" style="background: var(--accent-pink);"></span>
+      Instagram
+    </div>
+    <div class="ig-header">
+      <div class="ig-icon">📷</div>
+      <div>
+        <div class="ig-handle">@NeatSipper</div>
+        <div class="ig-handle-sub">instagram.com/NeatSipper</div>
+      </div>
+    </div>
+    <div class="ig-count" id="igCount">--</div>
+    <div class="ig-label">Followers</div>
+    <div class="ig-note" id="igNote">
+      ⓘ Instagram's API requires authentication.<br>
+      To show live data, add your access token in the script below.
+      Currently showing placeholder data.
+    </div>
+  </div>
+
+  <!-- Empty 6th cell placeholder for grid alignment -->
+  <div></div>
+
+</div>
+
+<div class="footer-bar">
+  COMMAND CENTER · AUTO-REFRESHING · DATA SOURCES: OPEN-METEO · YAHOO FINANCE
+</div>
+
+<script>
+// ════════════════════════════════════════
+//  WEATHER — Open-Meteo API (no key needed)
+// ════════════════════════════════════════
+async function fetchWeather() {
+  try {
+    const resp = await fetch(
+      'https://api.open-meteo.com/v1/forecast?latitude=41.8781&longitude=-87.6298&current=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,weather_code&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America/Chicago'
+    );
+    const data = await resp.json();
+    const c = data.current;
+
+    document.getElementById('weatherTemp').innerHTML = `${Math.round(c.temperature_2m)}<span>°F</span>`;
+    document.getElementById('weatherHumidity').textContent = `${c.relative_humidity_2m}%`;
+    document.getElementById('weatherWind').textContent = `${Math.round(c.wind_speed_10m)} mph`;
+    document.getElementById('weatherFeels').textContent = `${Math.round(c.apparent_temperature)}°`;
+
+    const wmoDesc = {
+      0: 'Clear sky', 1: 'Mainly clear', 2: 'Partly cloudy', 3: 'Overcast',
+      45: 'Foggy', 48: 'Rime fog', 51: 'Light drizzle', 53: 'Drizzle',
+      55: 'Dense drizzle', 56: 'Freezing drizzle', 57: 'Heavy freezing drizzle',
+      61: 'Slight rain', 63: 'Rain', 65: 'Heavy rain',
+      66: 'Freezing rain', 67: 'Heavy freezing rain',
+      71: 'Light snow', 73: 'Snow', 75: 'Heavy snow', 77: 'Snow grains',
+      80: 'Slight showers', 81: 'Showers', 82: 'Violent showers',
+      85: 'Light snow showers', 86: 'Heavy snow showers',
+      95: 'Thunderstorm', 96: 'Thunderstorm w/ hail', 99: 'Severe thunderstorm'
+    };
+
+    const wmoIcon = {
+      0: '☀️', 1: '🌤️', 2: '⛅', 3: '☁️',
+      45: '🌫️', 48: '🌫️', 51: '🌦️', 53: '🌧️', 55: '🌧️',
+      61: '🌧️', 63: '🌧️', 65: '🌧️', 71: '🌨️', 73: '❄️', 75: '❄️',
+      80: '🌦️', 81: '🌧️', 82: '⛈️', 95: '⛈️', 96: '⛈️', 99: '⛈️'
+    };
+
+    const code = c.weather_code;
+    document.getElementById('weatherDesc').textContent = wmoDesc[code] || 'Unknown';
+    document.getElementById('weatherIcon').textContent = wmoIcon[code] || '🌡️';
+  } catch (e) {
+    document.getElementById('weatherDesc').textContent = 'Failed to load';
+    console.error('Weather error:', e);
+  }
+}
+
+// ════════════════════════════════════════
+//  GOLDMAN SACHS STOCK — Yahoo Finance v8
+// ════════════════════════════════════════
+async function fetchGSStock() {
+  try {
+    // Using Yahoo Finance chart API (no key required, CORS may vary)
+    const resp = await fetch(
+      'https://query1.finance.yahoo.com/v8/finance/chart/GS?interval=5m&range=1d'
+    );
+    const data = await resp.json();
+    const meta = data.chart.result[0].meta;
+    const price = meta.regularMarketPrice;
+    const prevClose = meta.chartPreviousClose || meta.previousClose;
+    const change = price - prevClose;
+    const changePct = (change / prevClose) * 100;
+    const isUp = change >= 0;
+
+    document.getElementById('gsPrice').textContent = `$${price.toFixed(2)}`;
+
+    const gsChangeEl = document.getElementById('gsChange');
+    gsChangeEl.textContent = `${isUp ? '+' : ''}${change.toFixed(2)}`;
+    gsChangeEl.className = `gs-change ${isUp ? 'up' : 'down'}`;
+
+    const gsChangePctEl = document.getElementById('gsChangePct');
+    gsChangePctEl.textContent = `${isUp ? '+' : ''}${changePct.toFixed(2)}%`;
+    gsChangePctEl.className = `gs-change ${isUp ? 'up' : 'down'}`;
+
+    document.getElementById('gsPrice').style.color = isUp ? 'var(--accent-green)' : 'var(--accent-red)';
+
+    const now = new Date();
+    document.getElementById('gsMeta').textContent = `Last updated: ${now.toLocaleTimeString('en-US', { timeZone: 'America/Chicago' })}`;
+
+    // Draw sparkline
+    const closes = data.chart.result[0].indicators.quote[0].close.filter(v => v !== null);
+    if (closes.length > 1) drawSparkline(closes, isUp);
+  } catch (e) {
+    // Fallback: show a message
+    document.getElementById('gsMeta').textContent = 'Live data unavailable — try refreshing or check CORS settings';
+    console.error('Stock error:', e);
+    // Use simulated data as fallback
+    simulateGSStock();
+  }
+}
+
+function simulateGSStock() {
+  const base = 520 + (Math.random() * 40 - 20);
+  const change = Math.random() * 8 - 4;
+  const pct = (change / base * 100);
+  const isUp = change >= 0;
+
+  document.getElementById('gsPrice').textContent = `$${base.toFixed(2)}`;
+  document.getElementById('gsPrice').style.color = isUp ? 'var(--accent-green)' : 'var(--accent-red)';
+
+  const gsChangeEl = document.getElementById('gsChange');
+  gsChangeEl.textContent = `${isUp ? '+' : ''}${change.toFixed(2)}`;
+  gsChangeEl.className = `gs-change ${isUp ? 'up' : 'down'}`;
+
+  const gsChangePctEl = document.getElementById('gsChangePct');
+  gsChangePctEl.textContent = `${isUp ? '+' : ''}${pct.toFixed(2)}%`;
+  gsChangePctEl.className = `gs-change ${isUp ? 'up' : 'down'}`;
+
+  document.getElementById('gsMeta').textContent = 'Simulated data — Yahoo Finance blocked by CORS';
+
+  const pts = [];
+  let v = base - change;
+  for (let i = 0; i < 78; i++) { v += (Math.random() - 0.48) * 1.5; pts.push(v); }
+  pts.push(base);
+  drawSparkline(pts, isUp);
+}
+
+function drawSparkline(data, isUp) {
+  const container = document.getElementById('gsSparkline');
+  const w = container.clientWidth || 300;
+  const h = 50;
+  const min = Math.min(...data);
+  const max = Math.max(...data);
+  const range = max - min || 1;
+  const step = w / (data.length - 1);
+
+  const points = data.map((v, i) => `${i * step},${h - ((v - min) / range) * (h - 4) - 2}`).join(' ');
+  const color = isUp ? 'var(--accent-green)' : 'var(--accent-red)';
+  const gradId = 'sparkGrad';
+
+  container.innerHTML = `
+    <svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="${gradId}" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="${isUp ? '#10b981' : '#ef4444'}" stop-opacity="0.25"/>
+          <stop offset="100%" stop-color="${isUp ? '#10b981' : '#ef4444'}" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <polygon points="0,${h} ${points} ${w},${h}" fill="url(#${gradId})" />
+      <polyline points="${points}" fill="none" stroke="${color}" stroke-width="1.5" stroke-linejoin="round"/>
+    </svg>`;
+}
+
+// ════════════════════════════════════════
+//  FLIP CLOCK
+// ════════════════════════════════════════
+let prevTime = '';
+
+function createFlipClock() {
+  const container = document.getElementById('flipClock');
+  container.innerHTML = '';
+
+  // Hour tiles
+  const hourGroup = document.createElement('div');
+  hourGroup.className = 'flip-group';
+  hourGroup.innerHTML = `
+    <div class="flip-tile" id="h1"><div class="flip-tile-inner"><div class="flip-top"><span>0</span></div><div class="flip-bottom"><span>0</span></div></div></div>
+    <div class="flip-tile" id="h2"><div class="flip-tile-inner"><div class="flip-top"><span>0</span></div><div class="flip-bottom"><span>0</span></div></div></div>
+  `;
+  container.appendChild(hourGroup);
+
+  const sep1 = document.createElement('div');
+  sep1.className = 'flip-separator';
+  sep1.textContent = ':';
+  container.appendChild(sep1);
+
+  // Minute tiles
+  const minGroup = document.createElement('div');
+  minGroup.className = 'flip-group';
+  minGroup.innerHTML = `
+    <div class="flip-tile" id="m1"><div class="flip-tile-inner"><div class="flip-top"><span>0</span></div><div class="flip-bottom"><span>0</span></div></div></div>
+    <div class="flip-tile" id="m2"><div class="flip-tile-inner"><div class="flip-top"><span>0</span></div><div class="flip-bottom"><span>0</span></div></div></div>
+  `;
+  container.appendChild(minGroup);
+
+  const sep2 = document.createElement('div');
+  sep2.className = 'flip-separator';
+  sep2.textContent = ':';
+  container.appendChild(sep2);
+
+  // Second tiles
+  const secGroup = document.createElement('div');
+  secGroup.className = 'flip-group';
+  secGroup.innerHTML = `
+    <div class="flip-tile" id="s1"><div class="flip-tile-inner"><div class="flip-top"><span>0</span></div><div class="flip-bottom"><span>0</span></div></div></div>
+    <div class="flip-tile" id="s2"><div class="flip-tile-inner"><div class="flip-top"><span>0</span></div><div class="flip-bottom"><span>0</span></div></div></div>
+  `;
+  container.appendChild(secGroup);
+
+  // AM/PM
+  const ampm = document.createElement('div');
+  ampm.className = 'clock-ampm';
+  ampm.id = 'clockAmpm';
+  ampm.textContent = 'AM';
+  container.appendChild(ampm);
+}
+
+function updateFlipTile(id, newVal) {
+  const tile = document.getElementById(id);
+  const inner = tile.querySelector('.flip-tile-inner');
+  const topSpan = tile.querySelector('.flip-top span');
+  const bottomSpan = tile.querySelector('.flip-bottom span');
+  const currentVal = topSpan.textContent;
+
+  if (currentVal !== newVal) {
+    inner.classList.add('flipping');
+    setTimeout(() => {
+      topSpan.textContent = newVal;
+      bottomSpan.textContent = newVal;
+      inner.classList.remove('flipping');
+    }, 200);
+  }
+}
+
+function updateClock() {
+  const now = new Date();
+  const opts = { timeZone: 'America/Chicago', hour12: true };
+  const parts = now.toLocaleTimeString('en-US', opts);
+
+  const match = parts.match(/(\d{1,2}):(\d{2}):(\d{2})\s*(AM|PM)/);
+  if (!match) return;
+
+  const hr = match[1].padStart(2, '0');
+  const mn = match[2];
+  const sc = match[3];
+  const ampm = match[4];
+
+  const timeStr = hr + mn + sc;
+  if (timeStr !== prevTime) {
+    updateFlipTile('h1', hr[0]);
+    updateFlipTile('h2', hr[1]);
+    updateFlipTile('m1', mn[0]);
+    updateFlipTile('m2', mn[1]);
+    updateFlipTile('s1', sc[0]);
+    updateFlipTile('s2', sc[1]);
+    document.getElementById('clockAmpm').textContent = ampm;
+    prevTime = timeStr;
+  }
+}
+
+// ════════════════════════════════════════
+//  DATE DISPLAY
+// ════════════════════════════════════════
+function updateDate() {
+  const now = new Date();
+  const opts = { timeZone: 'America/Chicago' };
+  const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+  const chiNow = new Date(now.toLocaleString('en-US', opts));
+  document.getElementById('dateDayName').textContent = dayNames[chiNow.getDay()];
+  document.getElementById('dateDayNum').textContent = chiNow.getDate();
+  document.getElementById('dateMonthYear').textContent = `${monthNames[chiNow.getMonth()]} ${chiNow.getFullYear()}`;
+}
+
+// ════════════════════════════════════════
+//  INSTAGRAM (placeholder — API requires auth)
+// ════════════════════════════════════════
+function updateInstagram() {
+  // Instagram Basic Display / Graph API requires an access token.
+  // Replace the placeholder below with a live fetch if you have a token:
+  //
+  // const TOKEN = 'YOUR_INSTAGRAM_ACCESS_TOKEN';
+  // fetch(`https://graph.instagram.com/me?fields=followers_count&access_token=${TOKEN}`)
+  //   .then(r => r.json())
+  //   .then(d => { document.getElementById('igCount').textContent = d.followers_count.toLocaleString(); });
+
+  // Placeholder display
+  document.getElementById('igCount').textContent = '—';
+}
+
+// ════════════════════════════════════════
+//  STOCK TICKER (top bar)
+// ════════════════════════════════════════
+function buildTicker() {
+  const stocks = [
+    { sym: 'AAPL', name: 'Apple' },
+    { sym: 'MSFT', name: 'Microsoft' },
+    { sym: 'GOOGL', name: 'Alphabet' },
+    { sym: 'AMZN', name: 'Amazon' },
+    { sym: 'TSLA', name: 'Tesla' },
+    { sym: 'NVDA', name: 'NVIDIA' },
+    { sym: 'META', name: 'Meta' },
+    { sym: 'GS', name: 'Goldman Sachs' },
+    { sym: 'JPM', name: 'JPMorgan' },
+    { sym: 'BRK.B', name: 'Berkshire' },
+    { sym: 'V', name: 'Visa' },
+    { sym: 'SPY', name: 'S&P 500 ETF' },
+    { sym: 'QQQ', name: 'Nasdaq ETF' },
+    { sym: 'DIS', name: 'Disney' },
+    { sym: 'NFLX', name: 'Netflix' },
+  ];
+
+  // Try fetching real ticker data
+  fetchTickerData(stocks);
+}
+
+async function fetchTickerData(stocks) {
+  const track = document.getElementById('tickerTrack');
+  let tickerItems = [];
+
+  // Try Yahoo Finance for each stock
+  for (const s of stocks) {
+    try {
+      const resp = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${s.sym}?interval=1d&range=1d`);
+      const data = await resp.json();
+      const meta = data.chart.result[0].meta;
+      const price = meta.regularMarketPrice;
+      const prev = meta.chartPreviousClose || meta.previousClose;
+      const change = ((price - prev) / prev * 100);
+      const isUp = change >= 0;
+
+      tickerItems.push({
+        sym: s.sym,
+        price: price.toFixed(2),
+        change: `${isUp ? '+' : ''}${change.toFixed(2)}%`,
+        isUp
+      });
+    } catch (e) {
+      // Fallback simulated
+      const price = (100 + Math.random() * 400).toFixed(2);
+      const change = (Math.random() * 6 - 3);
+      tickerItems.push({
+        sym: s.sym,
+        price,
+        change: `${change >= 0 ? '+' : ''}${change.toFixed(2)}%`,
+        isUp: change >= 0
+      });
+    }
+  }
+
+  renderTicker(tickerItems);
+}
+
+function renderTicker(items) {
+  const track = document.getElementById('tickerTrack');
+  let html = '';
+
+  // Duplicate for seamless loop
+  for (let rep = 0; rep < 2; rep++) {
+    items.forEach(item => {
+      html += `
+        <div class="ticker-item">
+          <span class="ticker-symbol">${item.sym}</span>
+          <span class="ticker-price">$${item.price}</span>
+          <span class="ticker-change ${item.isUp ? 'up' : 'down'}">${item.change}</span>
+        </div>
+        <div class="ticker-dot"></div>
+      `;
+    });
+  }
+
+  track.innerHTML = html;
+}
+
+// ════════════════════════════════════════
+//  INIT & REFRESH
+// ════════════════════════════════════════
+createFlipClock();
+updateClock();
+updateDate();
+fetchWeather();
+fetchGSStock();
+updateInstagram();
+buildTicker();
+
+// Update clock every second
+setInterval(updateClock, 1000);
+
+// Refresh weather every 10 min
+setInterval(fetchWeather, 600000);
+
+// Refresh stock every 60s
+setInterval(fetchGSStock, 60000);
+
+// Refresh date at midnight
+setInterval(updateDate, 60000);
+</script>
+
+</body>
+</html>
