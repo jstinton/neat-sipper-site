@@ -459,7 +459,7 @@ const TICKER_SYMBOLS = ['AAPL','MSFT','GOOGL','AMZN','TSLA','NVDA','META','GS','
 async function finnhubQuote(symbol) {
   if (!FINNHUB_KEY) return null;
   try {
-    const r = await fetch('https://finnhub.io/api/v1/quote?symbol=' + 'GS' + 'd7ahm0hr01qmvlmg15u0d7ahm0hr01qmvlmg15ug' + FINNHUB_KEY);
+    const r = await fetch('https://finnhub.io/api/v1/quote?symbol=' + symbol + '&token=' + d7ahm0hr01qmvlmg15u0d7ahm0hr01qmvlmg15ug);
     const d = await r.json();
     if (d && d.c > 0) return { sym: symbol, price: d.c, change: d.d, changePct: d.dp };
   } catch(e) {}
