@@ -20,650 +20,1012 @@
   <meta name="twitter:description" content="ASMR-style pours, rare bottle hunts, and tasting notes from the hard-to-find bottles worth chasing." />
   <meta name="twitter:image" content="https://neatsipper.com/logo.png" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,700;1,9..144,900&family=Barlow+Condensed:wght@400;600;700&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-```
-html { scroll-behavior: smooth; background-color: #0c0a08; }
-
-body {
-  background-color: #0c0a08;
-  background-color: #0c0a08;
-  color: #f0e8d8;
-  color: #f0e8d8;
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 18px;
-  line-height: 1.7;
-  overflow-x: hidden;
-}
-
-/* ── NOISE OVERLAY ── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 1000;
-  opacity: 0.4;
-}
-
-/* ── NAV ── */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.4rem 3rem;
-  background: linear-gradient(to bottom, rgba(12,10,8,0.97) 0%, rgba(12,10,8,0.7) 100%);
-  backdrop-filter: blur(2px);
-}
-
-.nav-logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.2rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: #e8a020; color: #e8a020;
-  text-decoration: none;
-}
-
-.nav-links {
-  display: flex;
-  gap: 2.5rem;
-  list-style: none;
-}
-
-.nav-links a {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #7a6f60; color: #7a6f60;
-  text-decoration: none;
-  transition: color 0.25s;
-}
-
-.nav-links a:hover { color: #e8a020; color: #e8a020; }
-
-/* ── HERO ── */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 8rem 3rem 5rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 70% at 70% 50%, rgba(200,134,10,0.09) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 60% at 20% 80%, rgba(180,100,5,0.06) 0%, transparent 60%),
-    #0c0a08;
-}
-
-.hero-eyebrow {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: #c8860a; color: #c8860a;
-  margin-bottom: 1.5rem;
-  opacity: 0;
-  animation: fadeUp 0.8s ease forwards 0.2s;
-}
-
-.hero-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(3.5rem, 9vw, 8rem);
-  font-weight: 900;
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  color: #f0e8d8;
-  max-width: 820px;
-  position: relative;
-  z-index: 1;
-  opacity: 0;
-  animation: fadeUp 0.9s ease forwards 0.4s;
-}
-
-.hero-title em {
-  font-style: italic;
-  color: #e8a020; color: #e8a020;
-}
-
-.hero-sub {
-  font-size: 1.25rem;
-  font-weight: 300;
-  color: #7a6f60; color: #7a6f60;
-  max-width: 480px;
-  margin-top: 2rem;
-  opacity: 0;
-  animation: fadeUp 0.9s ease forwards 0.65s;
-}
-
-.hero-ctas {
-  display: flex;
-  gap: 1.2rem;
-  margin-top: 3rem;
-  flex-wrap: wrap;
-  opacity: 0;
-  animation: fadeUp 0.9s ease forwards 0.85s;
-}
-
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: #c8860a;
-  background: #c8860a; background: #c8860a;
-  color: #0c0a08;
-  color: #0c0a08;
-  font-family: 'DM Mono', monospace;
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  padding: 1rem 2rem;
-  text-decoration: none;
-  transition: background 0.2s, transform 0.2s;
-}
-
-.btn-primary:hover { background: #e8a020; background: #e8a020; transform: translateY(-2px); }
-
-.btn-ghost {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  border: 1px solid rgba(200, 134, 10, 0.18);
-  border: 1px solid rgba(200,134,10,0.18);
-  color: #f0e8d8;
-  color: #f0e8d8;
-  font-family: 'DM Mono', monospace;
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  padding: 1rem 2rem;
-  text-decoration: none;
-  transition: border-color 0.2s, color 0.2s, transform 0.2s;
-}
-
-.btn-ghost:hover { border-color: #c8860a; color: #c8860a; color: #e8a020; color: #e8a020; transform: translateY(-2px); }
-
-.hero-divider {
-  position: absolute;
-  bottom: 3rem;
-  left: 3rem;
-  right: 3rem;
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  opacity: 0;
-  animation: fadeUp 0.9s ease forwards 1.1s;
-}
-
-.hero-divider-line {
-  flex: 1;
-  height: 1px;
-  background: rgba(200,134,10,0.18);
-}
-
-.hero-stat {
-  text-align: center;
-}
-
-.hero-stat-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.6rem;
-  color: #e8a020; color: #e8a020;
-  display: block;
-}
-
-.hero-stat-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.55rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #7a6f60; color: #7a6f60;
-}
-
-/* ── SECTION COMMON ── */
-section { padding: 7rem 3rem; }
-
-.section-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: #c8860a;
-  color: #c8860a; color: #c8860a;
-  margin-bottom: 1.2rem;
-}
-
-.section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  font-weight: 700;
-  line-height: 1.15;
-  color: #f0e8d8;
-  margin-bottom: 1.5rem;
-}
-
-.section-title em { font-style: italic; color: #e8a020; color: #e8a020; }
-
-/* ── ABOUT ── */
-.about {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6rem;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.about-visual {
-  position: relative;
-}
-
-.about-img-placeholder {
-  width: 100%;
-  aspect-ratio: 3/4;
-  background: #1a1714; background: #1a1714;
-  border: 1px solid rgba(200,134,10,0.18);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  color: #7a6f60; color: #7a6f60;
-  position: relative;
-  overflow: hidden;
-}
-
-.about-img-placeholder::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 50% 80%, rgba(200,134,10,0.12) 0%, transparent 70%);
-}
-
-.glass-icon {
-  font-size: 4rem;
-  line-height: 1;
-}
-
-.about-img-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-
-.about-accent-box {
-  position: absolute;
-  bottom: -1.5rem;
-  right: -1.5rem;
-  background: #c8860a; background: #c8860a;
-  color: #0c0a08;
-  padding: 1.2rem 1.5rem;
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: 1rem;
-  max-width: 200px;
-  line-height: 1.4;
-}
-
-.about-text p {
-  color: #b0a090;
-  font-size: 1.1rem;
-  font-weight: 300;
-  margin-bottom: 1.2rem;
-}
-
-.about-text p strong {
-  color: #f0e8d8;
-  font-weight: 500;
-}
-
-/* ── FEATURED ── */
-.featured-section {
-  background: #141210; background: #141210;
-  border-top: 1px solid rgba(200,134,10,0.18);
-  border-bottom: 1px solid rgba(200,134,10,0.18);
-}
-
-.featured-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  max-width: 1200px;
-  margin: 0 auto 3.5rem;
-}
-
-.featured-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5px;
-  max-width: 1200px;
-  margin: 0 auto;
-  background: rgba(200,134,10,0.18);
-}
-
-.bottle-card {
-  background: #1a1714; background: #1a1714;
-  padding: 2.5rem;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  transition: background 0.25s;
-}
-
-.bottle-card:hover { background: #201e1b; }
-
-.bottle-card::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 2px;
-  background: #c8860a; background: #c8860a;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s ease;
-}
-
-.bottle-card:hover::after { transform: scaleX(1); }
-
-.bottle-tag {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.55rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: #c8860a; color: #c8860a;
-  margin-bottom: 1rem;
-}
-
-.bottle-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #f0e8d8;
-  margin-bottom: 0.5rem;
-  line-height: 1.2;
-}
-
-.bottle-sub {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.6rem;
-  color: #7a6f60; color: #7a6f60;
-  letter-spacing: 0.1em;
-  margin-bottom: 1.5rem;
-}
-
-.bottle-notes {
-  font-size: 0.95rem;
-  font-weight: 300;
-  color: #8a7d6d;
-  font-style: italic;
-  line-height: 1.6;
-}
-
-.bottle-emoji {
-  font-size: 2.5rem;
-  margin-bottom: 1.2rem;
-  display: block;
-}
-
-/* ── CONTENT PILLARS ── */
-.pillars {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.pillars-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2px;
-  margin-top: 4rem;
-  background: rgba(200,134,10,0.18);
-}
-
-.pillar {
-  background: #0c0a08; background: #0c0a08;
-  padding: 2.5rem 2rem;
-  border-bottom: 2px solid transparent;
-  transition: border-color 0.25s, background 0.25s;
-}
-
-.pillar:hover {
-  background: #1a1714; background: #1a1714;
-  border-bottom-color: #c8860a; color: #c8860a;
-}
-
-.pillar-icon {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-  display: block;
-}
-
-.pillar-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #f0e8d8;
-  margin-bottom: 0.75rem;
-}
-
-.pillar-desc {
-  font-size: 0.9rem;
-  color: #7a6f60; color: #7a6f60;
-  font-weight: 300;
-  line-height: 1.6;
-}
-
-/* ── COLLAB ── */
-.collab {
-  background: #1a1714; background: #1a1714;
-  border-top: 1px solid rgba(200,134,10,0.18);
-}
-
-.collab-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6rem;
-  align-items: start;
-}
-
-.collab-types {
-  margin-top: 2.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  background: rgba(200,134,10,0.18);
-}
-
-.collab-type {
-  background: #0c0a08; background: #0c0a08;
-  padding: 1.2rem 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-size: 0.95rem;
-  color: #8a7d6d;
-  transition: background 0.2s, color 0.2s;
-}
-
-.collab-type:hover { background: #141210; background: #141210; color: #f0e8d8; }
-
-.collab-type-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #c8860a; background: #c8860a;
-  flex-shrink: 0;
-}
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-  margin-top: 2.5rem;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.2rem;
-}
-
-.form-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.form-field label {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.55rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #7a6f60; color: #7a6f60;
-}
-
-.form-field input,
-.form-field select,
-.form-field textarea {
-  background: #0c0a08; background: #0c0a08;
-  border: 1px solid rgba(200,134,10,0.18);
-  color: #f0e8d8;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1rem;
-  padding: 0.85rem 1rem;
-  outline: none;
-  transition: border-color 0.2s;
-  resize: none;
-  appearance: none;
-}
-
-.form-field input:focus,
-.form-field select:focus,
-.form-field textarea:focus {
-  border-color: #c8860a; color: #c8860a;
-}
-
-.form-field input::placeholder,
-.form-field textarea::placeholder {
-  color: #7a6f60; color: #7a6f60;
-  font-style: italic;
-}
-
-/* ── SOCIAL BAR ── */
-.social-bar {
-  background: #c8860a; background: #c8860a;
-  padding: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4rem;
-  flex-wrap: wrap;
-}
-
-.social-item {
-  text-align: center;
-  text-decoration: none;
-}
-
-.social-platform {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.55rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(12,10,8,0.6);
-  display: block;
-  margin-bottom: 0.3rem;
-}
-
-.social-handle {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #0c0a08;
-  display: block;
-  transition: opacity 0.2s;
-}
-
-.social-item:hover .social-handle { opacity: 0.7; }
-
-/* ── FOOTER ── */
-footer {
-  background: #0c0a08; background: #0c0a08;
-  border-top: 1px solid rgba(200,134,10,0.18);
-  padding: 2.5rem 3rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.footer-logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #c8860a; color: #c8860a;
-}
-
-.footer-disclaimer {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.55rem;
-  letter-spacing: 0.12em;
-  color: #7a6f60; color: #7a6f60;
-  max-width: 500px;
-  text-align: center;
-}
-
-.footer-copy {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.55rem;
-  color: #7a6f60; color: #7a6f60;
-}
-
-/* ── ANIMATIONS ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ── MOBILE ── */
-@media (max-width: 768px) {
-  nav { padding: 1.2rem 1.5rem; }
-  .nav-links { display: none; }
-  section { padding: 5rem 1.5rem; }
-  .hero { padding: 7rem 1.5rem 5rem; }
-  .about { grid-template-columns: 1fr; gap: 3rem; }
-  .about-accent-box { display: none; }
-  .featured-grid { grid-template-columns: 1fr; }
-  .pillars-grid { grid-template-columns: 1fr 1fr; }
-  .collab-inner { grid-template-columns: 1fr; gap: 3rem; }
-  .form-row { grid-template-columns: 1fr; }
-  .social-bar { gap: 2.5rem; padding: 2.5rem 1.5rem; }
-  footer { flex-direction: column; gap: 1rem; text-align: center; }
-  .featured-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-  .hero-divider { display: none; }
-}
-```
-
-  </style>
+    html { scroll-behavior: smooth; background: #050a07; }
+
+    body {
+      background: #050a07;
+      color: #f0e8d4;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 17px;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    body::before { display: none; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(5,10,7,0.92);
+      border-bottom: 1px solid rgba(201,135,74,0.15);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-logo {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1rem;
+      font-weight: 700;
+      font-optical-sizing: auto;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #f0e8d4;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 3rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #7a8c7c;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: #c9874a; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 0 0 0 3rem;
+      position: relative;
+      overflow: hidden;
+      background: #050a07;
+    }
+
+    .hero-bg { display: none; }
+    .hero-glow { display: none; }
+
+    .hero-left {
+      padding: 8rem 4rem 6rem 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-right {
+      height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-left: 1px solid rgba(201,135,74,0.12);
+    }
+
+    .hero-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #7a8c7c;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
+
+    .hero-stripe {
+      display: flex;
+      height: 3px;
+      width: 48px;
+      gap: 2px;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.3s;
+    }
+    .stripe-r { background: #c9874a; flex: 1; }
+    .stripe-w { background: rgba(240,232,212,0.2); flex: 1; }
+    .stripe-b { background: #3a5c42; flex: 1; }
+
+    .hero-title {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: clamp(3.8rem, 7vw, 7rem);
+      font-weight: 900;
+      font-optical-sizing: auto;
+      line-height: 0.92;
+      letter-spacing: -0.025em;
+      color: #f0e8d4;
+      max-width: 600px;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.4s;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: #c9874a;
+    }
+
+    .hero-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 300;
+      color: #7a8c7c;
+      max-width: 400px;
+      margin-top: 2rem;
+      line-height: 1.8;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.65s;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.85s;
+    }
+
+    /* Hero right panel — the copper circle motif */
+    .hero-circle-wrap {
+      position: relative;
+      width: 420px;
+      height: 420px;
+    }
+
+    .hero-circle-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Hero lot number ghost */
+    .hero-lot {
+      position: absolute;
+      bottom: 3rem;
+      left: 3rem;
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 8rem;
+      font-weight: 900;
+      color: rgba(201,135,74,0.06);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      user-select: none;
+      pointer-events: none;
+      opacity: 0;
+      animation: fadeUp 1.2s ease forwards 1s;
+    }
+
+    /* Hero stats */
+    .hero-divider {
+      position: absolute;
+      bottom: 3rem;
+      left: 3rem;
+      right: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 1.1s;
+    }
+
+    .hero-divider-line {
+      flex: 1;
+      height: 1px;
+      background: rgba(201,135,74,0.15);
+    }
+
+    .hero-stat { text-align: center; }
+
+    .hero-stat-num {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #c9874a;
+      display: block;
+    }
+
+    .hero-stat-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #7a8c7c;
+    }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #c9874a;
+      color: #050a07;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.9rem 2rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-primary:hover { background: #e09a58; transform: translateY(-2px); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(201,135,74,0.35);
+      color: #f0e8d4;
+      background: transparent;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.9rem 2rem;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+
+    .btn-ghost:hover { border-color: #c9874a; color: #c9874a; transform: translateY(-2px); }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 7rem 3rem; position: relative; }
+
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: #c9874a;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 1px;
+      background: #c9874a;
+    }
+
+    .section-title {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 800;
+      font-optical-sizing: auto;
+      line-height: 1.1;
+      color: #f0e8d4;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section-title em { font-style: italic; color: #c9874a; }
+
+    /* Section ghost number */
+    .section-num {
+      position: absolute;
+      top: 4rem;
+      right: 3rem;
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 9rem;
+      font-weight: 900;
+      color: rgba(201,135,74,0.05);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: #050a07; }
+
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .about-visual { position: relative; }
+
+    .about-img-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: #0d1a0f;
+      border: 1px solid rgba(201,135,74,0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      color: #7a8c7c;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-img-placeholder::before { display: none; }
+    .glass-icon { font-size: 4rem; line-height: 1; }
+
+    .about-img-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .about-accent-box {
+      position: absolute;
+      bottom: -1.5rem;
+      right: -1.5rem;
+      background: #c9874a;
+      color: #050a07;
+      padding: 1.2rem 1.5rem;
+      font-family: 'Fraunces', Georgia, serif;
+      font-style: italic;
+      font-size: 1rem;
+      max-width: 200px;
+      line-height: 1.4;
+    }
+
+    .about-text p {
+      color: #a0b0a2;
+      font-size: 1rem;
+      font-weight: 300;
+      margin-bottom: 1.2rem;
+      line-height: 1.8;
+    }
+
+    .about-text p strong { color: #f0e8d4; font-weight: 400; }
+
+    /* ── FEATURED BOTTLES ── */
+    .featured-section {
+      background: #0d1a0f;
+      border-top: 1px solid rgba(201,135,74,0.12);
+      border-bottom: 1px solid rgba(201,135,74,0.12);
+      position: relative;
+    }
+
+    .featured-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      max-width: 1200px;
+      margin: 0 auto 3.5rem;
+    }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: rgba(201,135,74,0.12);
+    }
+
+    .bottle-card {
+      background: #0d1a0f;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: background 0.25s;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .bottle-card:hover { background: #142016; }
+
+    .bottle-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: #c9874a;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+
+    .bottle-card:hover::after { transform: scaleX(1); }
+
+    /* Lot number on card */
+    .bottle-lot {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(201,135,74,0.5);
+      margin-bottom: 0.5rem;
+    }
+
+    .bottle-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #7a8c7c;
+      margin-bottom: 1rem;
+    }
+
+    .bottle-name {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      font-optical-sizing: auto;
+      color: #f0e8d4;
+      margin-bottom: 0.4rem;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .bottle-sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 400;
+      color: #7a8c7c;
+      letter-spacing: 0.12em;
+      margin-bottom: 1.5rem;
+    }
+
+    .bottle-notes {
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: #a0b0a2;
+      font-style: italic;
+      line-height: 1.7;
+    }
+
+    .bottle-emoji {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    /* Rarity bar */
+    .bottle-rarity {
+      margin-top: 1.5rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(201,135,74,0.12);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .bottle-rarity-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.55rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #7a8c7c;
+      flex-shrink: 0;
+    }
+
+    .bottle-rarity-bar {
+      flex: 1;
+      height: 2px;
+      background: rgba(201,135,74,0.15);
+      position: relative;
+    }
+
+    .bottle-rarity-fill {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      background: #c9874a;
+      transition: width 1s ease;
+    }
+
+    /* ── CONTENT PILLARS ── */
+    #content { background: #050a07; }
+
+    .pillars { max-width: 1200px; margin: 0 auto; }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      margin-top: 4rem;
+      background: rgba(201,135,74,0.12);
+    }
+
+    .pillar {
+      background: #050a07;
+      padding: 2.5rem 2rem;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.25s, background 0.25s;
+    }
+
+    .pillar:hover {
+      background: #0d1a0f;
+      border-bottom-color: #c9874a;
+    }
+
+    .pillar-icon { font-size: 1.8rem; margin-bottom: 1.5rem; display: block; }
+
+    .pillar-title {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      font-optical-sizing: auto;
+      color: #f0e8d4;
+      margin-bottom: 0.75rem;
+    }
+
+    .pillar-desc {
+      font-size: 0.88rem;
+      color: #7a8c7c;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* ── COLLAB ── */
+    .collab {
+      background: #0d1a0f;
+      border-top: 1px solid rgba(201,135,74,0.12);
+    }
+
+    .collab .section-label { color: #7a8c7c; }
+    .collab .section-label::before { background: #7a8c7c; }
+    .collab .section-title em { color: #c9874a; }
+
+    .collab-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .collab-types {
+      margin-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: rgba(201,135,74,0.12);
+    }
+
+    .collab-type {
+      background: #0d1a0f;
+      padding: 1.1rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.92rem;
+      font-family: 'DM Sans', sans-serif;
+      color: #7a8c7c;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .collab-type:hover { background: #142016; color: #f0e8d4; }
+
+    .collab-type-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #c9874a;
+      flex-shrink: 0;
+    }
+
+    .form-field label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #7a8c7c;
+    }
+
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      background: #050a07;
+      border: 1px solid rgba(201,135,74,0.2);
+      color: #f0e8d4;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      padding: 0.85rem 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+      appearance: none;
+      width: 100%;
+    }
+
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus { border-color: #c9874a; }
+
+    .form-field input::placeholder,
+    .form-field textarea::placeholder { color: #4a5c4d; font-style: italic; }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; margin-top: 2.5rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .form-field { display: flex; flex-direction: column; gap: 0.4rem; }
+
+    /* ── TICKER ── */
+    .ticker-wrap {
+      background: #0d1a0f;
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 0.8rem 0;
+      border-top: 1px solid rgba(201,135,74,0.12);
+      border-bottom: 1px solid rgba(201,135,74,0.12);
+    }
+
+    .ticker-track {
+      display: inline-flex;
+      animation: ticker 32s linear infinite;
+    }
+
+    .ticker-track:hover { animation-play-state: paused; }
+
+    .ticker-item {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #7a8c7c;
+      padding: 0 2.5rem;
+    }
+
+    .ticker-sep { color: rgba(201,135,74,0.4); padding: 0 0.5rem; }
+
+    @keyframes ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── SOCIAL BAR ── */
+    .social-bar {
+      background: #c9874a;
+      padding: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+    }
+
+    .social-item { text-align: center; text-decoration: none; }
+
+    .social-platform {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(5,10,7,0.6);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .social-handle {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #050a07;
+      display: block;
+      transition: opacity 0.2s;
+    }
+
+    .social-item:hover .social-handle { opacity: 0.7; }
+
+    .social-icon {
+      display: block;
+      margin: 0 auto 0.4rem;
+      width: 20px;
+      height: 20px;
+      fill: rgba(5,10,7,0.5);
+      opacity: 0.7;
+    }
+
+    .social-item:hover .social-icon { opacity: 1; fill: #050a07; }
+
+    /* ── MCM DIVIDERS (keep from before) ── */
+    .mcm-divider-wrap {
+      padding: 2rem 0;
+      background: #050a07;
+    }
+
+    .mcm-divider {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 0 3rem;
+      max-width: 1260px;
+      margin: 0 auto;
+    }
+
+    .mcm-divider-line {
+      flex: 1;
+      height: 1px;
+      background: rgba(201,135,74,0.15);
+    }
+
+    .mcm-starburst { flex-shrink: 0; color: #3a5c42; }
+
+    /* ── ORBIT RINGS ── */
+    .hero-orbit-wrap {
+      position: absolute;
+      right: -180px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 640px;
+      height: 640px;
+      pointer-events: none;
+      opacity: 0;
+      animation: fadeUp 1.5s ease forwards 1.2s;
+    }
+
+    .hero-orbit-svg { width: 100%; height: 100%; }
+
+    /* ── FLOATING FOLLOW ── */
+    .float-follow {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #c9874a;
+      color: #050a07;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.85rem 1.4rem;
+      text-decoration: none;
+      z-index: 999;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.4s ease, transform 0.4s ease, background 0.2s;
+      pointer-events: none;
+      box-shadow: 0 4px 20px rgba(201,135,74,0.25);
+    }
+
+    .float-follow.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .float-follow:hover { background: #e09a58; }
+
+    /* ── HAMBURGER ── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+      z-index: 200;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: #f0e8d4;
+      transition: all 0.3s ease;
+    }
+
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav-mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(5,10,7,0.97);
+      z-index: 150;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+
+    .nav-mobile-menu.open { display: flex; }
+
+    .nav-mobile-menu a {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #f0e8d4;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      transition: color 0.2s;
+    }
+
+    .nav-mobile-menu a:hover { color: #c9874a; }
+
+    @media (max-width: 768px) { .nav-hamburger { display: flex; } }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #050a07;
+      border-top: 1px solid rgba(201,135,74,0.12);
+      padding: 2.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #f0e8d4;
+    }
+
+    .footer-disclaimer {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: #4a5c4d;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    .footer-copy {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.6rem;
+      color: #4a5c4d;
+    }
+
+    /* ── REEL SECTION ── */
+    .reel-section {
+      background: #0d1a0f;
+      border-top: 1px solid rgba(201,135,74,0.12);
+      padding: 5rem 3rem;
+    }
+
+    .reel-inner { max-width: 1200px; margin: 0 auto; }
+
+    .reel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-top: 3rem;
+      background: rgba(201,135,74,0.12);
+    }
+
+    .reel-card {
+      background: #0d1a0f;
+      aspect-ratio: 9/16;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.25s;
+    }
+
+    .reel-card:hover { background: #142016; }
+
+    .reel-card-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #7a8c7c;
+      margin-top: 1rem;
+    }
+
+    .reel-card-title {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #f0e8d4;
+      margin-top: 0.4rem;
+      padding: 0 1rem;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .reel-play {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,135,74,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .reel-card:hover .reel-play { border-color: #c9874a; background: rgba(201,135,74,0.1); }
+    .reel-play svg { width: 18px; height: 18px; fill: #c9874a; margin-left: 3px; }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── FEATURED SPUTNIK BG ── */
+    .featured-sputnik {
+      position: absolute;
+      right: -60px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.04;
+      pointer-events: none;
+    }
+
+    /* ── MCM SECTION DIVIDER elements ── */
+    .section-label::before { background: #c9874a; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 7rem 1.5rem 5rem;
+        min-height: auto;
+      }
+      .hero-left { padding: 0; }
+      .hero-right { display: none; }
+      .hero-divider { display: none; }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 5rem 1.5rem; }
+      .about { grid-template-columns: 1fr; gap: 3rem; }
+      .about-accent-box { display: none; }
+      .featured-grid { grid-template-columns: 1fr; }
+      .pillars-grid { grid-template-columns: 1fr 1fr; }
+      .collab-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .social-bar { gap: 2.5rem; padding: 2.5rem 1.5rem; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+      .featured-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .reel-section { padding: 4rem 1.5rem; }
+      .reel-grid { grid-template-columns: 1fr; }
+      .float-follow { bottom: 1.2rem; right: 1.2rem; }
+      .section-num { display: none; }
+      .mcm-divider { padding: 0 1.5rem; }
+    }
+</style>
 </head>
 <body>
 
@@ -682,42 +1044,92 @@ footer {
   <!-- HERO -->
 
   <section class="hero">
-    <div class="hero-bg"></div>
-    <p class="hero-eyebrow">Chicago · Est. 2023</p>
-    <h1 class="hero-title">Unicorn<br/>Bourbons,<br/><em>One Pour</em><br/>at a Time.</h1>
-    <p class="hero-sub">ASMR-style pours, rare bottle hunts, and tasting notes from the hard-to-find bottles worth chasing.</p>
-    <div class="hero-ctas">
-      <a href="https://www.instagram.com/NeatSipper" target="_blank" class="btn-primary">↗ Instagram</a>
-      <a href="https://www.tiktok.com/@jst1nt" target="_blank" class="btn-ghost">↗ TikTok</a>
-      <a href="https://m.youtube.com/@neatsipper" target="_blank" class="btn-ghost">↗ YouTube</a>
-      <a href="#collab" class="btn-ghost" onclick="event.preventDefault();document.getElementById('collab').scrollIntoView({behavior:'smooth'})">Work Together</a>
+    <div class="hero-left">
+      <p class="hero-eyebrow">Chicago · Est. 2023</p>
+      <div class="hero-stripe"><div class="stripe-r"></div><div class="stripe-w"></div><div class="stripe-b"></div></div>
+      <h1 class="hero-title">Unicorn<br/>Bourbons,<br/><em>One Pour</em><br/>at a Time.</h1>
+      <p class="hero-sub">ASMR-style pours, rare bottle hunts, and tasting notes from the hard-to-find bottles worth chasing.</p>
+      <div class="hero-ctas">
+        <a href="https://www.instagram.com/NeatSipper" target="_blank" class="btn-primary">&#8599; Instagram</a>
+        <a href="https://www.tiktok.com/@jst1nt" target="_blank" class="btn-ghost">&#8599; TikTok</a>
+        <a href="https://m.youtube.com/@neatsipper" target="_blank" class="btn-ghost">&#8599; YouTube</a>
+        <a href="#collab" class="btn-ghost">Work Together</a>
+      </div>
     </div>
-    <div class="hero-divider">
-      <div class="hero-divider-line"></div>
-      <div class="hero-stat">
-        <span class="hero-stat-num">100+</span>
-        <span class="hero-stat-label">Bottles Reviewed</span>
-      </div>
-      <div class="hero-divider-line" style="max-width:40px"></div>
-      <div class="hero-stat">
-        <span class="hero-stat-num">Unicorn</span>
-        <span class="hero-stat-label">Focused Content</span>
-      </div>
-      <div class="hero-divider-line" style="max-width:40px"></div>
-      <div class="hero-stat">
-        <span class="hero-stat-num">ASMR</span>
-        <span class="hero-stat-label">Pour Style</span>
-      </div>
-      <div class="hero-divider-line"></div>
+    <div class="hero-right">
+      <!-- Copper circle motif -->
+      <svg width="420" height="420" viewBox="-210 -210 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer rings -->
+        <circle cx="0" cy="0" r="200" stroke="rgba(201,135,74,0.12)" stroke-width="1"/>
+        <circle cx="0" cy="0" r="160" stroke="rgba(201,135,74,0.10)" stroke-width="1"/>
+        <circle cx="0" cy="0" r="120" stroke="rgba(201,135,74,0.15)" stroke-width="1"/>
+        <circle cx="0" cy="0" r="80"  stroke="rgba(201,135,74,0.18)" stroke-width="1"/>
+        <circle cx="0" cy="0" r="40"  stroke="rgba(201,135,74,0.25)" stroke-width="1"/>
+        <!-- Cross lines -->
+        <line x1="0" y1="-200" x2="0" y2="200"   stroke="rgba(201,135,74,0.08)" stroke-width="1"/>
+        <line x1="-200" y1="0" x2="200" y2="0"   stroke="rgba(201,135,74,0.08)" stroke-width="1"/>
+        <!-- Diagonal -->
+        <line x1="-141" y1="-141" x2="141" y2="141" stroke="rgba(201,135,74,0.05)" stroke-width="1"/>
+        <line x1="141" y1="-141" x2="-141" y2="141" stroke="rgba(201,135,74,0.05)" stroke-width="1"/>
+        <!-- Sputnik spokes from center -->
+        <line x1="0" y1="-200" x2="0" y2="-40"   stroke="#c9874a" stroke-width="1.5" opacity="0.5"/>
+        <line x1="0" y1="200"  x2="0" y2="40"    stroke="#c9874a" stroke-width="1.5" opacity="0.5"/>
+        <line x1="-200" y1="0" x2="-40" y2="0"   stroke="#c9874a" stroke-width="1.5" opacity="0.5"/>
+        <line x1="200" y1="0"  x2="40" y2="0"    stroke="#c9874a" stroke-width="1.5" opacity="0.5"/>
+        <!-- Tip dots -->
+        <circle cx="0"    cy="-200" r="4" fill="#c9874a" opacity="0.7"/>
+        <circle cx="0"    cy="200"  r="4" fill="#c9874a" opacity="0.7"/>
+        <circle cx="-200" cy="0"    r="4" fill="#c9874a" opacity="0.7"/>
+        <circle cx="200"  cy="0"    r="4" fill="#c9874a" opacity="0.7"/>
+        <!-- Inner detail -->
+        <circle cx="0" cy="0" r="18" stroke="#c9874a" stroke-width="1" opacity="0.4" fill="none"/>
+        <circle cx="0" cy="0" r="8"  fill="#c9874a" opacity="0.6"/>
+        <circle cx="0" cy="0" r="4"  fill="#050a07"/>
+        <!-- Text arc label -->
+        <path id="arc1" d="M -100,0 A 100,100 0 0,1 100,0" fill="none"/>
+        <text font-family="'Barlow Condensed', sans-serif" font-size="9" font-weight="600" letter-spacing="5" fill="rgba(201,135,74,0.4)" text-anchor="middle">
+          <textPath href="#arc1" startOffset="50%">RARE · RESERVE · CHICAGO · EST 2023</textPath>
+        </text>
+      </svg>
+      <!-- Ghost lot number -->
+      <div style="position:absolute;bottom:3rem;left:3rem;font-family:'Fraunces',Georgia,serif;font-size:6rem;font-weight:900;color:rgba(201,135,74,0.06);line-height:1;letter-spacing:-0.04em;user-select:none;">001</div>
     </div>
   </section>
 
+  <!-- MCM DIVIDER -->
+  <div class="mcm-divider-wrap">
+    <div class="mcm-divider">
+      <div class="mcm-divider-line"></div>
+      <svg class="mcm-starburst" width="56" height="56" viewBox="-50 -50 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="-44" x2="0" y2="44"  stroke="currentColor" stroke-width="1"/>
+        <line x1="-44" y1="0" x2="44" y2="0"   stroke="currentColor" stroke-width="1"/>
+        <line x1="-31" y1="-31" x2="31" y2="31" stroke="currentColor" stroke-width="1"/>
+        <line x1="31" y1="-31" x2="-31" y2="31" stroke="currentColor" stroke-width="1"/>
+        <line x1="-10" y1="-26" x2="10" y2="26"  stroke="currentColor" stroke-width="1"/>
+        <line x1="10" y1="-26" x2="-10" y2="26"  stroke="currentColor" stroke-width="1"/>
+        <line x1="-26" y1="-10" x2="26" y2="10"  stroke="currentColor" stroke-width="1"/>
+        <line x1="-26" y1="10"  x2="26" y2="-10" stroke="currentColor" stroke-width="1"/>
+        <circle cx="0"   cy="-44" r="2.5" fill="#c41230"/>
+        <circle cx="0"   cy="44"  r="2.5" fill="#c41230"/>
+        <circle cx="-44" cy="0"   r="2.5" fill="#c41230"/>
+        <circle cx="44"  cy="0"   r="2.5" fill="#c41230"/>
+        <circle cx="-31" cy="-31" r="2"   fill="currentColor"/>
+        <circle cx="31"  cy="-31" r="2"   fill="currentColor"/>
+        <circle cx="31"  cy="31"  r="2"   fill="currentColor"/>
+        <circle cx="-31" cy="31"  r="2"   fill="currentColor"/>
+        <circle cx="0"   cy="0"   r="6"   fill="#c41230"/>
+        <circle cx="0"   cy="0"   r="3"   fill="#faf9f7"/>
+      </svg>
+      <div class="mcm-divider-line"></div>
+    </div>
+  </div>
   <!-- ABOUT -->
 
   <section id="about">
+    <span class="section-num">002</span>
     <div class="about">
       <div class="about-visual">
-        <div style="margin-bottom:1.5rem;border-radius:0;overflow:hidden;background:#0c0a08;">
+        <div style="margin-bottom:1.5rem;border-radius:0;overflow:hidden;background:#0d1a0f;">
           <iframe
             src="https://www.youtube.com/embed/A8pVarfx4XA"
             title="NeatSipper"
@@ -740,12 +1152,12 @@ footer {
         <p>This isn't a rating site. It's a love letter to <strong>wheated mash bills</strong>, impossible allocations, and the community of people who genuinely care about what's in the glass.</p>
         <div style="margin-top: 2.5rem; display: flex; gap: 3rem;">
           <div>
-            <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#e8a020;">Chicago</div>
-            <div style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:#7a6f60;">Home Base</div>
+            <div style="font-family:'Fraunces',Georgia,serif;font-size:1.4rem;color:#c9874a;">Chicago</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:#7a8c7c;">Home Base</div>
           </div>
           <div>
-            <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#e8a020;">Wheated</div>
-            <div style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:#7a6f60;">Mash Bill of Choice</div>
+            <div style="font-family:'Fraunces',Georgia,serif;font-size:1.4rem;color:#c9874a;">Wheated</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:#7a8c7c;">Mash Bill of Choice</div>
           </div>
         </div>
       </div>
@@ -755,6 +1167,7 @@ footer {
   <!-- FEATURED BOTTLES -->
 
   <section id="bottles" class="featured-section">
+    <span class="section-num">003</span>
     <div class="featured-header">
       <div>
         <p class="section-label">Featured Pours</p>
@@ -762,34 +1175,98 @@ footer {
       </div>
       <a href="https://www.instagram.com/NeatSipper" target="_blank" class="btn-ghost" style="white-space:nowrap;">View All on Instagram ↗</a>
     </div>
-    <div class="featured-grid">
+        <!-- Decorative background sputnik -->
+    <svg class="featured-sputnik" width="320" height="320" viewBox="-160 -160 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="-150" x2="0" y2="150"    stroke="#111" stroke-width="1.5"/>
+      <line x1="-150" y1="0" x2="150" y2="0"    stroke="#111" stroke-width="1.5"/>
+      <line x1="-106" y1="-106" x2="106" y2="106" stroke="#111" stroke-width="1.5"/>
+      <line x1="106" y1="-106" x2="-106" y2="106" stroke="#111" stroke-width="1.5"/>
+      <line x1="-38" y1="-144" x2="38" y2="144"  stroke="#111" stroke-width="1"/>
+      <line x1="38" y1="-144" x2="-38" y2="144"  stroke="#111" stroke-width="1"/>
+      <line x1="-144" y1="-38" x2="144" y2="38"  stroke="#111" stroke-width="1"/>
+      <line x1="-144" y1="38"  x2="144" y2="-38" stroke="#111" stroke-width="1"/>
+      <circle cx="0" cy="-150" r="6" fill="#c41230"/>
+      <circle cx="0" cy="150"  r="6" fill="#c41230"/>
+      <circle cx="-150" cy="0" r="6" fill="#c41230"/>
+      <circle cx="150" cy="0"  r="6" fill="#c41230"/>
+      <circle cx="-106" cy="-106" r="5" fill="#111"/>
+      <circle cx="106"  cy="-106" r="5" fill="#111"/>
+      <circle cx="106"  cy="106"  r="5" fill="#111"/>
+      <circle cx="-106" cy="106"  r="5" fill="#111"/>
+      <circle cx="0" cy="0" r="16" fill="#c41230"/>
+      <circle cx="0" cy="0" r="8"  fill="#faf9f7"/>
+    </svg>
+<div class="featured-grid">
       <div class="bottle-card">
+        <span class="bottle-lot">Lot No. 017</span>
         <span class="bottle-emoji">🦄</span>
         <p class="bottle-tag">Buffalo Trace Antique Collection</p>
         <h3 class="bottle-name">George T. Stagg</h3>
         <p class="bottle-sub">Wheated · Barrel Proof · Annual Release</p>
         <p class="bottle-notes">Dark chocolate, black cherry, and oak smoke with a finish that just doesn't quit. One of the all-timers for a reason.</p>
+        <div class="bottle-rarity">
+          <span class="bottle-rarity-label">Rarity</span>
+          <div class="bottle-rarity-bar"><div class="bottle-rarity-fill" style="width:98%"></div></div>
+        </div>
       </div>
       <div class="bottle-card">
+        <span class="bottle-lot">Lot No. 023</span>
         <span class="bottle-emoji">🥃</span>
         <p class="bottle-tag">Stitzel-Weller Legacy</p>
         <h3 class="bottle-name">Pappy Van Winkle 15yr</h3>
         <p class="bottle-sub">Wheated · 107 Proof · Family Reserve</p>
         <p class="bottle-notes">Caramel, vanilla cream, and dried fruit in perfect balance. The benchmark everyone chases and few ever taste.</p>
+        <div class="bottle-rarity">
+          <span class="bottle-rarity-label">Rarity</span>
+          <div class="bottle-rarity-bar"><div class="bottle-rarity-fill" style="width:95%"></div></div>
+        </div>
       </div>
       <div class="bottle-card">
+        <span class="bottle-lot">Lot No. 041</span>
         <span class="bottle-emoji">✨</span>
         <p class="bottle-tag">Daily Sipper Pick</p>
         <h3 class="bottle-name">Weller Antique 107</h3>
         <p class="bottle-sub">Wheated · 107 Proof · Non-Chill Filtered</p>
         <p class="bottle-notes">Full proof without the pretense. Honey, toasted grain, and a warmth that hits exactly right. The people's unicorn.</p>
+        <div class="bottle-rarity">
+          <span class="bottle-rarity-label">Rarity</span>
+          <div class="bottle-rarity-bar"><div class="bottle-rarity-fill" style="width:72%"></div></div>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- MCM DIVIDER -->
+  <div class="mcm-divider-wrap">
+    <div class="mcm-divider">
+      <div class="mcm-divider-line"></div>
+      <svg class="mcm-starburst" width="56" height="56" viewBox="-50 -50 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="-44" x2="0" y2="44"  stroke="currentColor" stroke-width="1"/>
+        <line x1="-44" y1="0" x2="44" y2="0"   stroke="currentColor" stroke-width="1"/>
+        <line x1="-31" y1="-31" x2="31" y2="31" stroke="currentColor" stroke-width="1"/>
+        <line x1="31" y1="-31" x2="-31" y2="31" stroke="currentColor" stroke-width="1"/>
+        <line x1="-10" y1="-26" x2="10" y2="26"  stroke="currentColor" stroke-width="1"/>
+        <line x1="10" y1="-26" x2="-10" y2="26"  stroke="currentColor" stroke-width="1"/>
+        <line x1="-26" y1="-10" x2="26" y2="10"  stroke="currentColor" stroke-width="1"/>
+        <line x1="-26" y1="10"  x2="26" y2="-10" stroke="currentColor" stroke-width="1"/>
+        <circle cx="0"   cy="-44" r="2.5" fill="#c41230"/>
+        <circle cx="0"   cy="44"  r="2.5" fill="#c41230"/>
+        <circle cx="-44" cy="0"   r="2.5" fill="#c41230"/>
+        <circle cx="44"  cy="0"   r="2.5" fill="#c41230"/>
+        <circle cx="-31" cy="-31" r="2"   fill="currentColor"/>
+        <circle cx="31"  cy="-31" r="2"   fill="currentColor"/>
+        <circle cx="31"  cy="31"  r="2"   fill="currentColor"/>
+        <circle cx="-31" cy="31"  r="2"   fill="currentColor"/>
+        <circle cx="0"   cy="0"   r="6"   fill="#c41230"/>
+        <circle cx="0"   cy="0"   r="3"   fill="#faf9f7"/>
+      </svg>
+      <div class="mcm-divider-line"></div>
+    </div>
+  </div>
   <!-- CONTENT PILLARS -->
 
   <section id="content">
+    <span class="section-num">004</span>
     <div class="pillars">
       <p class="section-label">Content</p>
       <h2 class="section-title">What You'll Find on<br/><em>NeatSipper</em></h2>
@@ -821,11 +1298,12 @@ footer {
   <!-- COLLAB / CONTACT -->
 
   <section id="collab" class="collab">
+    <span class="section-num">005</span>
     <div class="collab-inner">
       <div>
         <p class="section-label">Work Together</p>
         <h2 class="section-title">Let's Do<br/><em>Something</em><br/>Worth Pouring Over</h2>
-        <p style="color:#7a6f60;font-size:1.05rem;font-weight:300;margin-top:1rem;max-width:400px;">NeatSipper is open to partnerships with distilleries, retailers, events, and brands that fit the culture. Here's what that can look like:</p>
+        <p style="color:#7a8c7c;font-size:1.05rem;font-weight:300;margin-top:1rem;max-width:400px;">NeatSipper is open to partnerships with distilleries, retailers, events, and brands that fit the culture. Here's what that can look like:</p>
         <div class="collab-types">
           <div class="collab-type"><div class="collab-type-dot"></div>Distillery visits & barrel features</div>
           <div class="collab-type"><div class="collab-type-dot"></div>Sponsored tasting content (Instagram & TikTok)</div>
@@ -836,7 +1314,7 @@ footer {
       </div>
       <div>
         <p class="section-label" style="margin-top:0.5rem;">Get in Touch</p>
-        <p style="color:#7a6f60;font-size:1.05rem;font-weight:300;margin-bottom:2rem;max-width:380px;">Have a collab idea, want to send a bottle, or just want to talk bourbon? Drop me an email and I'll get back to you.</p>
+        <p style="color:#7a8c7c;font-size:1.05rem;font-weight:300;margin-bottom:2rem;max-width:380px;">Have a collab idea, want to send a bottle, or just want to talk bourbon? Drop me an email and I'll get back to you.</p>
         <a href="#" onclick="this.href='mai'+'lto:'+'Joseph'+'@'+'neatsipper'+'.com'+'?subject=NeatSipper%20Collab%20Inquiry'; return true;" class="btn-primary" style="display:inline-flex;">↗ Email Joseph<!-- -->@<!-- -->neatsipper.com</a>
       </div>
     </div>
@@ -863,3 +1341,10 @@ footer {
 
   <footer>
     <div class="fo
+oter-logo">Neat Sipper</div>
+    <p class="footer-disclaimer">Drink responsibly. Content is for entertainment and education. NeatSipper does not sell alcohol.</p>
+    <p class="footer-copy">© 2025 NeatSipper</p>
+  </footer>
+
+</body>
+</html>
