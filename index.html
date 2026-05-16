@@ -24,11 +24,11 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html { scroll-behavior: smooth; background: #050a07; }
+    html { scroll-behavior: smooth; background: #f5edd8; }
 
     body {
-      background: #050a07;
-      color: #f0e8d4;
+      background: #f5edd8;
+      color: #1a2654;
       font-family: 'DM Sans', sans-serif;
       font-size: 17px;
       line-height: 1.75;
@@ -46,8 +46,8 @@
       justify-content: space-between;
       align-items: center;
       padding: 1.2rem 3rem;
-      background: rgba(5,10,7,0.92);
-      border-bottom: 1px solid rgba(201,135,74,0.15);
+      background: rgba(245,237,216,0.95);
+      border-bottom: 1px solid rgba(26,38,84,0.12);
       backdrop-filter: blur(8px);
     }
 
@@ -55,18 +55,13 @@
       font-family: 'Fraunces', Georgia, serif;
       font-size: 1rem;
       font-weight: 700;
-      font-optical-sizing: auto;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #f0e8d4;
+      color: #1a2654;
       text-decoration: none;
     }
 
-    .nav-links {
-      display: flex;
-      gap: 3rem;
-      list-style: none;
-    }
+    .nav-links { display: flex; gap: 3rem; list-style: none; }
 
     .nav-links a {
       font-family: 'Barlow Condensed', sans-serif;
@@ -74,12 +69,12 @@
       font-weight: 600;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: #7a8c7c;
+      color: #7a6548;
       text-decoration: none;
       transition: color 0.2s;
     }
 
-    .nav-links a:hover { color: #c9874a; }
+    .nav-links a:hover { color: #8b1a2a; }
 
     /* ── HERO ── */
     .hero {
@@ -90,7 +85,7 @@
       padding: 0 0 0 3rem;
       position: relative;
       overflow: hidden;
-      background: #050a07;
+      background: #f5edd8;
     }
 
     .hero-bg { display: none; }
@@ -109,7 +104,7 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      border-left: 1px solid rgba(201,135,74,0.12);
+      border-left: 1px solid rgba(26,38,84,0.1);
     }
 
     .hero-eyebrow {
@@ -118,7 +113,7 @@
       font-weight: 600;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: #7a8c7c;
+      color: #7a6548;
       margin-bottom: 2rem;
       opacity: 0;
       animation: fadeUp 0.8s ease forwards 0.2s;
@@ -133,18 +128,17 @@
       opacity: 0;
       animation: fadeUp 0.8s ease forwards 0.3s;
     }
-    .stripe-r { background: #c9874a; flex: 1; }
-    .stripe-w { background: rgba(240,232,212,0.2); flex: 1; }
-    .stripe-b { background: #3a5c42; flex: 1; }
+    .stripe-r { background: #8b1a2a; flex: 1; }
+    .stripe-w { background: rgba(26,38,84,0.15); flex: 1; }
+    .stripe-b { background: #1a2654; flex: 1; }
 
     .hero-title {
       font-family: 'Fraunces', Georgia, serif;
       font-size: clamp(3.8rem, 7vw, 7rem);
       font-weight: 900;
-      font-optical-sizing: auto;
       line-height: 0.92;
       letter-spacing: -0.025em;
-      color: #f0e8d4;
+      color: #1a2654;
       max-width: 600px;
       position: relative;
       z-index: 1;
@@ -152,16 +146,13 @@
       animation: fadeUp 0.9s ease forwards 0.4s;
     }
 
-    .hero-title em {
-      font-style: italic;
-      color: #c9874a;
-    }
+    .hero-title em { font-style: italic; color: #8b1a2a; }
 
     .hero-sub {
       font-family: 'DM Sans', sans-serif;
       font-size: 1rem;
       font-weight: 300;
-      color: #7a8c7c;
+      color: #7a6548;
       max-width: 400px;
       margin-top: 2rem;
       line-height: 1.8;
@@ -178,36 +169,6 @@
       animation: fadeUp 0.9s ease forwards 0.85s;
     }
 
-    /* Hero right panel — the copper circle motif */
-    .hero-circle-wrap {
-      position: relative;
-      width: 420px;
-      height: 420px;
-    }
-
-    .hero-circle-svg {
-      width: 100%;
-      height: 100%;
-    }
-
-    /* Hero lot number ghost */
-    .hero-lot {
-      position: absolute;
-      bottom: 3rem;
-      left: 3rem;
-      font-family: 'Fraunces', Georgia, serif;
-      font-size: 8rem;
-      font-weight: 900;
-      color: rgba(201,135,74,0.06);
-      line-height: 1;
-      letter-spacing: -0.04em;
-      user-select: none;
-      pointer-events: none;
-      opacity: 0;
-      animation: fadeUp 1.2s ease forwards 1s;
-    }
-
-    /* Hero stats */
     .hero-divider {
       position: absolute;
       bottom: 3rem;
@@ -220,19 +181,14 @@
       animation: fadeUp 0.9s ease forwards 1.1s;
     }
 
-    .hero-divider-line {
-      flex: 1;
-      height: 1px;
-      background: rgba(201,135,74,0.15);
-    }
-
+    .hero-divider-line { flex: 1; height: 1px; background: rgba(26,38,84,0.12); }
     .hero-stat { text-align: center; }
 
     .hero-stat-num {
       font-family: 'Fraunces', Georgia, serif;
       font-size: 1.5rem;
       font-weight: 700;
-      color: #c9874a;
+      color: #8b1a2a;
       display: block;
     }
 
@@ -242,7 +198,7 @@
       font-weight: 600;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: #7a8c7c;
+      color: #7a6548;
     }
 
     /* ── BUTTONS ── */
@@ -250,8 +206,8 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: #c9874a;
-      color: #050a07;
+      background: #1a2654;
+      color: #f5edd8;
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 0.72rem;
       font-weight: 700;
@@ -262,14 +218,14 @@
       transition: background 0.2s, transform 0.2s;
     }
 
-    .btn-primary:hover { background: #e09a58; transform: translateY(-2px); }
+    .btn-primary:hover { background: #8b1a2a; transform: translateY(-2px); }
 
     .btn-ghost {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      border: 1px solid rgba(201,135,74,0.35);
-      color: #f0e8d4;
+      border: 1px solid rgba(26,38,84,0.3);
+      color: #1a2654;
       background: transparent;
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 0.72rem;
@@ -281,7 +237,7 @@
       transition: border-color 0.2s, color 0.2s, transform 0.2s;
     }
 
-    .btn-ghost:hover { border-color: #c9874a; color: #c9874a; transform: translateY(-2px); }
+    .btn-ghost:hover { border-color: #8b1a2a; color: #8b1a2a; transform: translateY(-2px); }
 
     /* ── SECTION COMMON ── */
     section { padding: 7rem 3rem; position: relative; }
@@ -292,7 +248,7 @@
       font-weight: 600;
       letter-spacing: 0.35em;
       text-transform: uppercase;
-      color: #c9874a;
+      color: #8b1a2a;
       margin-bottom: 1.2rem;
       display: flex;
       align-items: center;
@@ -304,23 +260,21 @@
       display: inline-block;
       width: 20px;
       height: 1px;
-      background: #c9874a;
+      background: #8b1a2a;
     }
 
     .section-title {
       font-family: 'Fraunces', Georgia, serif;
       font-size: clamp(2.2rem, 4vw, 3.5rem);
       font-weight: 800;
-      font-optical-sizing: auto;
       line-height: 1.1;
-      color: #f0e8d4;
+      color: #1a2654;
       margin-bottom: 1.5rem;
       letter-spacing: -0.02em;
     }
 
-    .section-title em { font-style: italic; color: #c9874a; }
+    .section-title em { font-style: italic; color: #8b1a2a; }
 
-    /* Section ghost number */
     .section-num {
       position: absolute;
       top: 4rem;
@@ -328,7 +282,7 @@
       font-family: 'Fraunces', Georgia, serif;
       font-size: 9rem;
       font-weight: 900;
-      color: rgba(201,135,74,0.05);
+      color: rgba(26,38,84,0.04);
       line-height: 1;
       letter-spacing: -0.04em;
       user-select: none;
@@ -336,7 +290,7 @@
     }
 
     /* ── ABOUT ── */
-    #about { background: #050a07; }
+    #about { background: #f5edd8; }
 
     .about {
       display: grid;
@@ -352,14 +306,14 @@
     .about-img-placeholder {
       width: 100%;
       aspect-ratio: 3/4;
-      background: #0d1a0f;
-      border: 1px solid rgba(201,135,74,0.15);
+      background: #ede5cc;
+      border: 1px solid rgba(26,38,84,0.12);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 1rem;
-      color: #7a8c7c;
+      color: #7a6548;
       position: relative;
       overflow: hidden;
     }
@@ -379,8 +333,8 @@
       position: absolute;
       bottom: -1.5rem;
       right: -1.5rem;
-      background: #c9874a;
-      color: #050a07;
+      background: #1a2654;
+      color: #f5edd8;
       padding: 1.2rem 1.5rem;
       font-family: 'Fraunces', Georgia, serif;
       font-style: italic;
@@ -390,20 +344,20 @@
     }
 
     .about-text p {
-      color: #a0b0a2;
+      color: #3d2b14;
       font-size: 1rem;
       font-weight: 300;
       margin-bottom: 1.2rem;
       line-height: 1.8;
     }
 
-    .about-text p strong { color: #f0e8d4; font-weight: 400; }
+    .about-text p strong { color: #1a2654; font-weight: 500; }
 
     /* ── FEATURED BOTTLES ── */
     .featured-section {
-      background: #0d1a0f;
-      border-top: 1px solid rgba(201,135,74,0.12);
-      border-bottom: 1px solid rgba(201,135,74,0.12);
+      background: #ede5cc;
+      border-top: 1px solid rgba(26,38,84,0.1);
+      border-bottom: 1px solid rgba(26,38,84,0.1);
       position: relative;
     }
 
@@ -421,11 +375,11 @@
       gap: 1px;
       max-width: 1200px;
       margin: 0 auto;
-      background: rgba(201,135,74,0.12);
+      background: rgba(26,38,84,0.1);
     }
 
     .bottle-card {
-      background: #0d1a0f;
+      background: #f5edd8;
       padding: 2.5rem;
       position: relative;
       overflow: hidden;
@@ -435,14 +389,14 @@
       will-change: transform;
     }
 
-    .bottle-card:hover { background: #142016; }
+    .bottle-card:hover { background: #ede5cc; }
 
     .bottle-card::after {
       content: '';
       position: absolute;
       bottom: 0; left: 0; right: 0;
       height: 2px;
-      background: #c9874a;
+      background: #8b1a2a;
       transform: scaleX(0);
       transform-origin: left;
       transition: transform 0.35s ease;
@@ -450,14 +404,13 @@
 
     .bottle-card:hover::after { transform: scaleX(1); }
 
-    /* Lot number on card */
     .bottle-lot {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 0.6rem;
       font-weight: 600;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: rgba(201,135,74,0.5);
+      color: rgba(139,26,42,0.45);
       margin-bottom: 0.5rem;
     }
 
@@ -467,7 +420,7 @@
       font-weight: 600;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: #7a8c7c;
+      color: #7a6548;
       margin-bottom: 1rem;
     }
 
@@ -475,8 +428,7 @@
       font-family: 'Fraunces', Georgia, serif;
       font-size: 1.5rem;
       font-weight: 800;
-      font-optical-sizing: auto;
-      color: #f0e8d4;
+      color: #1a2654;
       margin-bottom: 0.4rem;
       line-height: 1.15;
       letter-spacing: -0.02em;
@@ -486,7 +438,7 @@
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 0.62rem;
       font-weight: 400;
-      color: #7a8c7c;
+      color: #7a6548;
       letter-spacing: 0.12em;
       margin-bottom: 1.5rem;
     }
@@ -494,22 +446,17 @@
     .bottle-notes {
       font-size: 0.92rem;
       font-weight: 300;
-      color: #a0b0a2;
+      color: #3d2b14;
       font-style: italic;
       line-height: 1.7;
     }
 
-    .bottle-emoji {
-      font-size: 2.2rem;
-      margin-bottom: 1rem;
-      display: block;
-    }
+    .bottle-emoji { font-size: 2.2rem; margin-bottom: 1rem; display: block; }
 
-    /* Rarity bar */
     .bottle-rarity {
       margin-top: 1.5rem;
       padding-top: 1.2rem;
-      border-top: 1px solid rgba(201,135,74,0.12);
+      border-top: 1px solid rgba(26,38,84,0.08);
       display: flex;
       align-items: center;
       gap: 0.8rem;
@@ -521,27 +468,26 @@
       font-weight: 600;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: #7a8c7c;
+      color: #7a6548;
       flex-shrink: 0;
     }
 
     .bottle-rarity-bar {
       flex: 1;
       height: 2px;
-      background: rgba(201,135,74,0.15);
+      background: rgba(26,38,84,0.1);
       position: relative;
     }
 
     .bottle-rarity-fill {
       position: absolute;
       left: 0; top: 0; bottom: 0;
-      background: #c9874a;
+      background: #8b1a2a;
       transition: width 1s ease;
     }
 
     /* ── CONTENT PILLARS ── */
-    #content { background: #050a07; }
-
+    #content { background: #f5edd8; }
     .pillars { max-width: 1200px; margin: 0 auto; }
 
     .pillars-grid {
@@ -549,48 +495,36 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 1px;
       margin-top: 4rem;
-      background: rgba(201,135,74,0.12);
+      background: rgba(26,38,84,0.1);
     }
 
     .pillar {
-      background: #050a07;
+      background: #f5edd8;
       padding: 2.5rem 2rem;
       border-bottom: 2px solid transparent;
       transition: border-color 0.25s, background 0.25s;
     }
 
-    .pillar:hover {
-      background: #0d1a0f;
-      border-bottom-color: #c9874a;
-    }
-
+    .pillar:hover { background: #ede5cc; border-bottom-color: #8b1a2a; }
     .pillar-icon { font-size: 1.8rem; margin-bottom: 1.5rem; display: block; }
 
     .pillar-title {
       font-family: 'Fraunces', Georgia, serif;
       font-size: 1.1rem;
       font-weight: 700;
-      font-optical-sizing: auto;
-      color: #f0e8d4;
+      color: #1a2654;
       margin-bottom: 0.75rem;
     }
 
-    .pillar-desc {
-      font-size: 0.88rem;
-      color: #7a8c7c;
-      font-weight: 300;
-      line-height: 1.7;
-    }
+    .pillar-desc { font-size: 0.88rem; color: #7a6548; font-weight: 300; line-height: 1.7; }
 
     /* ── COLLAB ── */
-    .collab {
-      background: #0d1a0f;
-      border-top: 1px solid rgba(201,135,74,0.12);
-    }
-
-    .collab .section-label { color: #7a8c7c; }
-    .collab .section-label::before { background: #7a8c7c; }
-    .collab .section-title em { color: #c9874a; }
+    .collab { background: #1a2654; border-top: 1px solid rgba(26,38,84,0.3); }
+    .collab .section-label { color: rgba(245,237,216,0.6); }
+    .collab .section-label::before { background: rgba(245,237,216,0.4); }
+    .collab .section-title { color: #f5edd8; }
+    .collab .section-title em { color: #e8a87c; }
+    .collab .section-num { color: rgba(245,237,216,0.04); }
 
     .collab-inner {
       max-width: 1200px;
@@ -606,30 +540,22 @@
       display: flex;
       flex-direction: column;
       gap: 1px;
-      background: rgba(201,135,74,0.12);
+      background: rgba(245,237,216,0.1);
     }
 
     .collab-type {
-      background: #0d1a0f;
+      background: #1a2654;
       padding: 1.1rem 1.4rem;
       display: flex;
       align-items: center;
       gap: 1rem;
       font-size: 0.92rem;
-      font-family: 'DM Sans', sans-serif;
-      color: #7a8c7c;
+      color: rgba(245,237,216,0.6);
       transition: background 0.2s, color 0.2s;
     }
 
-    .collab-type:hover { background: #142016; color: #f0e8d4; }
-
-    .collab-type-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: #c9874a;
-      flex-shrink: 0;
-    }
+    .collab-type:hover { background: #22305e; color: #f5edd8; }
+    .collab-type-dot { width: 5px; height: 5px; border-radius: 50%; background: #e8a87c; flex-shrink: 0; }
 
     .form-field label {
       font-family: 'Barlow Condensed', sans-serif;
@@ -637,15 +563,15 @@
       font-weight: 600;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: #7a8c7c;
+      color: rgba(245,237,216,0.5);
     }
 
     .form-field input,
     .form-field select,
     .form-field textarea {
-      background: #050a07;
-      border: 1px solid rgba(201,135,74,0.2);
-      color: #f0e8d4;
+      background: rgba(245,237,216,0.06);
+      border: 1px solid rgba(245,237,216,0.15);
+      color: #f5edd8;
       font-family: 'DM Sans', sans-serif;
       font-size: 0.95rem;
       padding: 0.85rem 1rem;
@@ -658,10 +584,10 @@
 
     .form-field input:focus,
     .form-field select:focus,
-    .form-field textarea:focus { border-color: #c9874a; }
+    .form-field textarea:focus { border-color: #e8a87c; }
 
     .form-field input::placeholder,
-    .form-field textarea::placeholder { color: #4a5c4d; font-style: italic; }
+    .form-field textarea::placeholder { color: rgba(245,237,216,0.3); font-style: italic; }
 
     .contact-form { display: flex; flex-direction: column; gap: 1.2rem; margin-top: 2.5rem; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
@@ -669,19 +595,15 @@
 
     /* ── TICKER ── */
     .ticker-wrap {
-      background: #0d1a0f;
+      background: #1a2654;
       overflow: hidden;
       white-space: nowrap;
       padding: 0.8rem 0;
-      border-top: 1px solid rgba(201,135,74,0.12);
-      border-bottom: 1px solid rgba(201,135,74,0.12);
+      border-top: 1px solid rgba(245,237,216,0.08);
+      border-bottom: 1px solid rgba(245,237,216,0.08);
     }
 
-    .ticker-track {
-      display: inline-flex;
-      animation: ticker 32s linear infinite;
-    }
-
+    .ticker-track { display: inline-flex; animation: ticker 32s linear infinite; }
     .ticker-track:hover { animation-play-state: paused; }
 
     .ticker-item {
@@ -690,11 +612,11 @@
       font-weight: 600;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: #7a8c7c;
+      color: rgba(245,237,216,0.45);
       padding: 0 2.5rem;
     }
 
-    .ticker-sep { color: rgba(201,135,74,0.4); padding: 0 0.5rem; }
+    .ticker-sep { color: rgba(232,168,124,0.4); padding: 0 0.5rem; }
 
     @keyframes ticker {
       0%   { transform: translateX(0); }
@@ -703,13 +625,14 @@
 
     /* ── SOCIAL BAR ── */
     .social-bar {
-      background: #c9874a;
+      background: #1a2654;
       padding: 3rem;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 4rem;
       flex-wrap: wrap;
+      border-top: 1px solid rgba(245,237,216,0.08);
     }
 
     .social-item { text-align: center; text-decoration: none; }
@@ -720,7 +643,7 @@
       font-weight: 600;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: rgba(5,10,7,0.6);
+      color: rgba(245,237,216,0.45);
       display: block;
       margin-bottom: 0.3rem;
     }
@@ -729,30 +652,25 @@
       font-family: 'Fraunces', Georgia, serif;
       font-size: 1.3rem;
       font-weight: 700;
-      color: #050a07;
+      color: #f5edd8;
       display: block;
-      transition: opacity 0.2s;
+      transition: color 0.2s;
     }
 
-    .social-item:hover .social-handle { opacity: 0.7; }
+    .social-item:hover .social-handle { color: #e8a87c; }
 
     .social-icon {
       display: block;
       margin: 0 auto 0.4rem;
       width: 20px;
       height: 20px;
-      fill: rgba(5,10,7,0.5);
-      opacity: 0.7;
+      fill: rgba(245,237,216,0.45);
     }
 
-    .social-item:hover .social-icon { opacity: 1; fill: #050a07; }
+    .social-item:hover .social-icon { fill: #e8a87c; }
 
-    /* ── MCM DIVIDERS (keep from before) ── */
-    .mcm-divider-wrap {
-      padding: 2rem 0;
-      background: #050a07;
-    }
-
+    /* ── MCM DIVIDER ── */
+    .mcm-divider-wrap { padding: 2rem 0; background: #f5edd8; }
     .mcm-divider {
       display: flex;
       align-items: center;
@@ -761,14 +679,8 @@
       max-width: 1260px;
       margin: 0 auto;
     }
-
-    .mcm-divider-line {
-      flex: 1;
-      height: 1px;
-      background: rgba(201,135,74,0.15);
-    }
-
-    .mcm-starburst { flex-shrink: 0; color: #3a5c42; }
+    .mcm-divider-line { flex: 1; height: 1px; background: rgba(26,38,84,0.12); }
+    .mcm-starburst { flex-shrink: 0; color: rgba(26,38,84,0.2); }
 
     /* ── ORBIT RINGS ── */
     .hero-orbit-wrap {
@@ -790,8 +702,8 @@
       position: fixed;
       bottom: 2rem;
       right: 2rem;
-      background: #c9874a;
-      color: #050a07;
+      background: #1a2654;
+      color: #f5edd8;
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 0.68rem;
       font-weight: 700;
@@ -804,11 +716,11 @@
       transform: translateY(16px);
       transition: opacity 0.4s ease, transform 0.4s ease, background 0.2s;
       pointer-events: none;
-      box-shadow: 0 4px 20px rgba(201,135,74,0.25);
+      box-shadow: 0 4px 20px rgba(26,38,84,0.2);
     }
 
     .float-follow.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
-    .float-follow:hover { background: #e09a58; }
+    .float-follow:hover { background: #8b1a2a; }
 
     /* ── HAMBURGER ── */
     .nav-hamburger {
@@ -826,7 +738,7 @@
       display: block;
       width: 24px;
       height: 1.5px;
-      background: #f0e8d4;
+      background: #1a2654;
       transition: all 0.3s ease;
     }
 
@@ -838,7 +750,7 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(5,10,7,0.97);
+      background: rgba(245,237,216,0.97);
       z-index: 150;
       flex-direction: column;
       align-items: center;
@@ -852,20 +764,19 @@
       font-family: 'Fraunces', Georgia, serif;
       font-size: 2.5rem;
       font-weight: 700;
-      color: #f0e8d4;
+      color: #1a2654;
       text-decoration: none;
-      letter-spacing: -0.01em;
       transition: color 0.2s;
     }
 
-    .nav-mobile-menu a:hover { color: #c9874a; }
+    .nav-mobile-menu a:hover { color: #8b1a2a; }
 
     @media (max-width: 768px) { .nav-hamburger { display: flex; } }
 
     /* ── FOOTER ── */
     footer {
-      background: #050a07;
-      border-top: 1px solid rgba(201,135,74,0.12);
+      background: #1a2654;
+      border-top: 1px solid rgba(245,237,216,0.08);
       padding: 2.5rem 3rem;
       display: flex;
       justify-content: space-between;
@@ -877,7 +788,7 @@
       font-size: 1rem;
       font-weight: 700;
       letter-spacing: 0.04em;
-      color: #f0e8d4;
+      color: #f5edd8;
     }
 
     .footer-disclaimer {
@@ -885,7 +796,7 @@
       font-size: 0.6rem;
       font-weight: 400;
       letter-spacing: 0.1em;
-      color: #4a5c4d;
+      color: rgba(245,237,216,0.35);
       max-width: 500px;
       text-align: center;
     }
@@ -893,13 +804,13 @@
     .footer-copy {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 0.6rem;
-      color: #4a5c4d;
+      color: rgba(245,237,216,0.35);
     }
 
     /* ── REEL SECTION ── */
     .reel-section {
-      background: #0d1a0f;
-      border-top: 1px solid rgba(201,135,74,0.12);
+      background: #ede5cc;
+      border-top: 1px solid rgba(26,38,84,0.1);
       padding: 5rem 3rem;
     }
 
@@ -910,11 +821,11 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 1px;
       margin-top: 3rem;
-      background: rgba(201,135,74,0.12);
+      background: rgba(26,38,84,0.1);
     }
 
     .reel-card {
-      background: #0d1a0f;
+      background: #f5edd8;
       aspect-ratio: 9/16;
       display: flex;
       flex-direction: column;
@@ -927,7 +838,7 @@
       transition: background 0.25s;
     }
 
-    .reel-card:hover { background: #142016; }
+    .reel-card:hover { background: #ede5cc; }
 
     .reel-card-label {
       font-family: 'Barlow Condensed', sans-serif;
@@ -935,7 +846,7 @@
       font-weight: 600;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: #7a8c7c;
+      color: #7a6548;
       margin-top: 1rem;
     }
 
@@ -943,7 +854,7 @@
       font-family: 'Fraunces', Georgia, serif;
       font-size: 1.05rem;
       font-weight: 700;
-      color: #f0e8d4;
+      color: #1a2654;
       margin-top: 0.4rem;
       padding: 0 1rem;
       text-align: center;
@@ -954,15 +865,16 @@
       width: 52px;
       height: 52px;
       border-radius: 50%;
-      border: 1px solid rgba(201,135,74,0.35);
+      border: 1px solid rgba(26,38,84,0.25);
       display: flex;
       align-items: center;
       justify-content: center;
       transition: border-color 0.2s, background 0.2s;
     }
 
-    .reel-card:hover .reel-play { border-color: #c9874a; background: rgba(201,135,74,0.1); }
-    .reel-play svg { width: 18px; height: 18px; fill: #c9874a; margin-left: 3px; }
+    .reel-card:hover .reel-play { border-color: #8b1a2a; background: rgba(139,26,42,0.05); }
+    .reel-play svg { width: 18px; height: 18px; fill: #1a2654; margin-left: 3px; }
+    .reel-card:hover .reel-play svg { fill: #8b1a2a; }
 
     /* ── SCROLL REVEAL ── */
     .reveal {
@@ -981,26 +893,19 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── FEATURED SPUTNIK BG ── */
+    /* ── FEATURED SPUTNIK ── */
     .featured-sputnik {
       position: absolute;
       right: -60px;
       top: 50%;
       transform: translateY(-50%);
-      opacity: 0.04;
+      opacity: 0.05;
       pointer-events: none;
     }
 
-    /* ── MCM SECTION DIVIDER elements ── */
-    .section-label::before { background: #c9874a; }
-
     /* ── MOBILE ── */
     @media (max-width: 900px) {
-      .hero {
-        grid-template-columns: 1fr;
-        padding: 7rem 1.5rem 5rem;
-        min-height: auto;
-      }
+      .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 5rem; min-height: auto; }
       .hero-left { padding: 0; }
       .hero-right { display: none; }
       .hero-divider { display: none; }
@@ -1025,6 +930,7 @@
       .section-num { display: none; }
       .mcm-divider { padding: 0 1.5rem; }
     }
+
 </style>
 </head>
 <body>
@@ -1060,39 +966,39 @@
       <!-- Copper circle motif -->
       <svg width="420" height="420" viewBox="-210 -210 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
         <!-- Outer rings -->
-        <circle cx="0" cy="0" r="200" stroke="rgba(201,135,74,0.12)" stroke-width="1"/>
-        <circle cx="0" cy="0" r="160" stroke="rgba(201,135,74,0.10)" stroke-width="1"/>
-        <circle cx="0" cy="0" r="120" stroke="rgba(201,135,74,0.15)" stroke-width="1"/>
-        <circle cx="0" cy="0" r="80"  stroke="rgba(201,135,74,0.18)" stroke-width="1"/>
-        <circle cx="0" cy="0" r="40"  stroke="rgba(201,135,74,0.25)" stroke-width="1"/>
+        <circle cx="0" cy="0" r="200" stroke="rgba(26,38,84,0.1)" stroke-width="1"/>
+        <circle cx="0" cy="0" r="160" stroke="rgba(26,38,84,0.08)" stroke-width="1"/>
+        <circle cx="0" cy="0" r="120" stroke="rgba(26,38,84,0.12)" stroke-width="1"/>
+        <circle cx="0" cy="0" r="80"  stroke="rgba(26,38,84,0.15)" stroke-width="1"/>
+        <circle cx="0" cy="0" r="40"  stroke="rgba(26,38,84,0.2)" stroke-width="1"/>
         <!-- Cross lines -->
-        <line x1="0" y1="-200" x2="0" y2="200"   stroke="rgba(201,135,74,0.08)" stroke-width="1"/>
-        <line x1="-200" y1="0" x2="200" y2="0"   stroke="rgba(201,135,74,0.08)" stroke-width="1"/>
+        <line x1="0" y1="-200" x2="0" y2="200"   stroke="rgba(26,38,84,0.06)" stroke-width="1"/>
+        <line x1="-200" y1="0" x2="200" y2="0"   stroke="rgba(26,38,84,0.06)" stroke-width="1"/>
         <!-- Diagonal -->
-        <line x1="-141" y1="-141" x2="141" y2="141" stroke="rgba(201,135,74,0.05)" stroke-width="1"/>
-        <line x1="141" y1="-141" x2="-141" y2="141" stroke="rgba(201,135,74,0.05)" stroke-width="1"/>
+        <line x1="-141" y1="-141" x2="141" y2="141" stroke="rgba(26,38,84,0.04)" stroke-width="1"/>
+        <line x1="141" y1="-141" x2="-141" y2="141" stroke="rgba(26,38,84,0.04)" stroke-width="1"/>
         <!-- Sputnik spokes from center -->
-        <line x1="0" y1="-200" x2="0" y2="-40"   stroke="#c9874a" stroke-width="1.5" opacity="0.5"/>
-        <line x1="0" y1="200"  x2="0" y2="40"    stroke="#c9874a" stroke-width="1.5" opacity="0.5"/>
-        <line x1="-200" y1="0" x2="-40" y2="0"   stroke="#c9874a" stroke-width="1.5" opacity="0.5"/>
-        <line x1="200" y1="0"  x2="40" y2="0"    stroke="#c9874a" stroke-width="1.5" opacity="0.5"/>
+        <line x1="0" y1="-200" x2="0" y2="-40"   stroke="#8b1a2a" stroke-width="1.5" opacity="0.5"/>
+        <line x1="0" y1="200"  x2="0" y2="40"    stroke="#8b1a2a" stroke-width="1.5" opacity="0.5"/>
+        <line x1="-200" y1="0" x2="-40" y2="0"   stroke="#8b1a2a" stroke-width="1.5" opacity="0.5"/>
+        <line x1="200" y1="0"  x2="40" y2="0"    stroke="#8b1a2a" stroke-width="1.5" opacity="0.5"/>
         <!-- Tip dots -->
-        <circle cx="0"    cy="-200" r="4" fill="#c9874a" opacity="0.7"/>
-        <circle cx="0"    cy="200"  r="4" fill="#c9874a" opacity="0.7"/>
-        <circle cx="-200" cy="0"    r="4" fill="#c9874a" opacity="0.7"/>
-        <circle cx="200"  cy="0"    r="4" fill="#c9874a" opacity="0.7"/>
+        <circle cx="0"    cy="-200" r="4" fill="#8b1a2a" opacity="0.7"/>
+        <circle cx="0"    cy="200"  r="4" fill="#8b1a2a" opacity="0.7"/>
+        <circle cx="-200" cy="0"    r="4" fill="#8b1a2a" opacity="0.7"/>
+        <circle cx="200"  cy="0"    r="4" fill="#8b1a2a" opacity="0.7"/>
         <!-- Inner detail -->
-        <circle cx="0" cy="0" r="18" stroke="#c9874a" stroke-width="1" opacity="0.4" fill="none"/>
-        <circle cx="0" cy="0" r="8"  fill="#c9874a" opacity="0.6"/>
-        <circle cx="0" cy="0" r="4"  fill="#050a07"/>
+        <circle cx="0" cy="0" r="18" stroke="#8b1a2a" stroke-width="1" opacity="0.4" fill="none"/>
+        <circle cx="0" cy="0" r="8"  fill="#8b1a2a" opacity="0.6"/>
+        <circle cx="0" cy="0" r="4"  fill="#f5edd8"/>
         <!-- Text arc label -->
         <path id="arc1" d="M -100,0 A 100,100 0 0,1 100,0" fill="none"/>
-        <text font-family="'Barlow Condensed', sans-serif" font-size="9" font-weight="600" letter-spacing="5" fill="rgba(201,135,74,0.4)" text-anchor="middle">
+        <text font-family="'Barlow Condensed', sans-serif" font-size="9" font-weight="600" letter-spacing="5" fill="rgba(26,38,84,0.35)" text-anchor="middle">
           <textPath href="#arc1" startOffset="50%">RARE · RESERVE · CHICAGO · EST 2023</textPath>
         </text>
       </svg>
       <!-- Ghost lot number -->
-      <div style="position:absolute;bottom:3rem;left:3rem;font-family:'Fraunces',Georgia,serif;font-size:6rem;font-weight:900;color:rgba(201,135,74,0.06);line-height:1;letter-spacing:-0.04em;user-select:none;">001</div>
+      <div style="position:absolute;bottom:3rem;left:3rem;font-family:'Fraunces',Georgia,serif;font-size:6rem;font-weight:900;color:rgba(26,38,84,0.06);line-height:1;letter-spacing:-0.04em;user-select:none;">001</div>
     </div>
   </section>
 
@@ -1129,7 +1035,7 @@
     <span class="section-num">002</span>
     <div class="about">
       <div class="about-visual">
-        <div style="margin-bottom:1.5rem;border-radius:0;overflow:hidden;background:#0d1a0f;">
+        <div style="margin-bottom:1.5rem;border-radius:0;overflow:hidden;background:#ede5cc;">
           <iframe
             src="https://www.youtube.com/embed/A8pVarfx4XA"
             title="NeatSipper"
@@ -1152,12 +1058,12 @@
         <p>This isn't a rating site. It's a love letter to <strong>wheated mash bills</strong>, impossible allocations, and the community of people who genuinely care about what's in the glass.</p>
         <div style="margin-top: 2.5rem; display: flex; gap: 3rem;">
           <div>
-            <div style="font-family:'Fraunces',Georgia,serif;font-size:1.4rem;color:#c9874a;">Chicago</div>
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:#7a8c7c;">Home Base</div>
+            <div style="font-family:'Fraunces',Georgia,serif;font-size:1.4rem;color:#8b1a2a;">Chicago</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:#7a6548;">Home Base</div>
           </div>
           <div>
-            <div style="font-family:'Fraunces',Georgia,serif;font-size:1.4rem;color:#c9874a;">Wheated</div>
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:#7a8c7c;">Mash Bill of Choice</div>
+            <div style="font-family:'Fraunces',Georgia,serif;font-size:1.4rem;color:#8b1a2a;">Wheated</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:#7a6548;">Mash Bill of Choice</div>
           </div>
         </div>
       </div>
@@ -1303,7 +1209,7 @@
       <div>
         <p class="section-label">Work Together</p>
         <h2 class="section-title">Let's Do<br/><em>Something</em><br/>Worth Pouring Over</h2>
-        <p style="color:#7a8c7c;font-size:1.05rem;font-weight:300;margin-top:1rem;max-width:400px;">NeatSipper is open to partnerships with distilleries, retailers, events, and brands that fit the culture. Here's what that can look like:</p>
+        <p style="color:#7a6548;font-size:1.05rem;font-weight:300;margin-top:1rem;max-width:400px;">NeatSipper is open to partnerships with distilleries, retailers, events, and brands that fit the culture. Here's what that can look like:</p>
         <div class="collab-types">
           <div class="collab-type"><div class="collab-type-dot"></div>Distillery visits & barrel features</div>
           <div class="collab-type"><div class="collab-type-dot"></div>Sponsored tasting content (Instagram & TikTok)</div>
@@ -1314,7 +1220,7 @@
       </div>
       <div>
         <p class="section-label" style="margin-top:0.5rem;">Get in Touch</p>
-        <p style="color:#7a8c7c;font-size:1.05rem;font-weight:300;margin-bottom:2rem;max-width:380px;">Have a collab idea, want to send a bottle, or just want to talk bourbon? Drop me an email and I'll get back to you.</p>
+        <p style="color:#7a6548;font-size:1.05rem;font-weight:300;margin-bottom:2rem;max-width:380px;">Have a collab idea, want to send a bottle, or just want to talk bourbon? Drop me an email and I'll get back to you.</p>
         <a href="#" onclick="this.href='mai'+'lto:'+'Joseph'+'@'+'neatsipper'+'.com'+'?subject=NeatSipper%20Collab%20Inquiry'; return true;" class="btn-primary" style="display:inline-flex;">↗ Email Joseph<!-- -->@<!-- -->neatsipper.com</a>
       </div>
     </div>
