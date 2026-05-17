@@ -962,96 +962,84 @@
         <a href="#collab" class="btn-ghost">Work Together</a>
       </div>
     </div>
-    <div class="hero-right" style="background:#05080f;">
-      <!--
-        Cinematic silhouette: man on MCM sofa, back to viewer,
-        holding bourbon (no ice). Inspired by Mad Men title card.
-      -->
+    <div class="hero-right" style="background:#050504;">
       <svg width="100%" height="100%" viewBox="0 0 500 560"
            preserveAspectRatio="xMidYMid meet" fill="none"
-           xmlns="http://www.w3.org/2000/svg" style="max-width:100%;display:block;">
+           xmlns="http://www.w3.org/2000/svg" style="display:block;">
 
         <defs>
-          <!-- Subtle atmospheric glow behind figure, like the reference -->
-          <radialGradient id="atm" cx="54%" cy="36%" r="62%"
-                          gradientUnits="userSpaceOnUse">
-            <stop offset="0%"   stop-color="#1c2a44"/>
-            <stop offset="50%"  stop-color="#0d1422"/>
-            <stop offset="100%" stop-color="#04060c"/>
+          <!-- Warm amber-charcoal glow centered at figure's head -->
+          <radialGradient id="atm" cx="50%" cy="17%" r="60%">
+            <stop offset="0%"   stop-color="#3e3a33"/>
+            <stop offset="25%"  stop-color="#262420"/>
+            <stop offset="60%"  stop-color="#111009"/>
+            <stop offset="100%" stop-color="#050504"/>
           </radialGradient>
         </defs>
 
-        <!-- Background -->
+        <!-- Atmospheric dark background with warm glow -->
         <rect width="500" height="560" fill="url(#atm)"/>
 
-        <!-- ── MCM SOFA ─────────────────────────────────────────── -->
-        <!-- Low-profile, wide — the classic mid-century modern silhouette -->
+        <!-- ── SOFA (MCM wide couch) ── -->
+        <!-- Left arm — thick block, extends above back panel -->
+        <rect x="10"  y="235" width="54" height="325" rx="5" fill="#141412"/>
+        <!-- Right arm -->
+        <rect x="436" y="235" width="54" height="325" rx="5" fill="#141412"/>
+        <!-- Back panel (between arms, lower than arm tops) -->
+        <rect x="10"  y="276" width="480" height="46"  fill="#0f0f0d"/>
+        <!-- Seat cushion -->
+        <rect x="10"  y="318" width="480" height="242" fill="#0c0c0a"/>
+        <!-- Cushion seam line -->
+        <line x1="10" y1="388" x2="490" y2="388"
+              stroke="#090908" stroke-width="3"/>
 
-        <!-- Sofa back panel -->
-        <rect x="34"  y="314" width="434" height="30" rx="2" fill="#0d1322"/>
-        <!-- Sofa seat body -->
-        <rect x="34"  y="340" width="434" height="165" fill="#090c18"/>
-        <!-- Seat cushion seam -->
-        <line x1="34" y1="402" x2="468" y2="402"
-              stroke="#060912" stroke-width="3"/>
-        <!-- Sofa arms (slightly raised above back) -->
-        <rect x="28"  y="302" width="28" height="203" rx="4" fill="#0b1020"/>
-        <rect x="446" y="302" width="28" height="203" rx="4" fill="#0b1020"/>
-        <!-- Sofa feet -->
-        <rect x="62"  y="498" width="14" height="24" rx="2" fill="#060810"/>
-        <rect x="426" y="498" width="14" height="24" rx="2" fill="#060810"/>
+        <!-- ── FIGURE ── drawn front-to-back: jacket first, then neck/head on top ── -->
 
-        <!-- ── FIGURE ──────────────────────────────────────────── -->
-
-        <!-- HEAD — clean back-of-head oval, floating above sofa back.
-             Bottom of head at y≈255, sofa back top at y≈314.
-             Neck/collar fills the gap. -->
-        <ellipse cx="310" cy="206" rx="42" ry="46" fill="#090c18"/>
-
-        <!-- NECK (thin column connecting head to shoulders) -->
-        <rect x="296" y="250" width="28" height="28" rx="2" fill="#090c18"/>
-
-        <!-- WHITE COLLAR — the signature white shirt flash at the back of the neck -->
-        <path d="M 300,252 Q 310,243 322,252 Q 320,268 310,270 Q 300,268 300,252 Z"
-              fill="#e6dcc4" opacity="0.88"/>
-
-        <!-- SHOULDERS + UPPER BACK — one smooth wide arch.
-             Very broad (matching the reference), narrows sharply at neck,
-             base sits at the sofa back level (y=314). -->
+        <!-- JACKET BACK + SHOULDERS — very wide arch, 76% of canvas width
+             Peaks at y=172 (just below neck), sweeps down to sofa level y=302.
+             Left shoulder: x≈60, right shoulder: x≈440 -->
         <path d="
-          M 158,314
-          C 172,294 208,274 256,260
-          C 274,253 291,249 300,248
-          L 322,248
-          C 332,249 348,253 366,260
-          C 412,274 444,296 444,314
-          Z" fill="#090c18"/>
+          M  60,302
+          C  68,282  96,250 140,222
+          C 186,194 222,172 250,170
+          C 278,172 314,194 360,222
+          C 404,250 432,282 440,302
+          Z" fill="#151513"/>
 
-        <!-- RIGHT ARM — rests along the top of the sofa back,
-             extends from shoulder to sofa right arm.
-             Same level as sofa back top (y≈314). -->
+        <!-- RIGHT ARM — rests along sofa back top, extends to right sofa arm -->
         <path d="
-          M 442,306
-          C 450,302 460,300 468,304
-          L 470,316
-          C 462,316 452,318 444,320
-          Z" fill="#090c18"/>
+          M 438,278
+          C 450,270 460,263 472,259
+          L 476,259
+          C 478,267 478,281 476,283
+          C 461,285 449,281 438,280
+          Z" fill="#151513"/>
 
-        <!-- BOURBON GLASS (no ice) — held in right hand hanging off sofa arm.
-             Cream stroke on dark background, like the cigarette in reference. -->
-        <g transform="translate(469,288)">
-          <!-- Rocks glass: classic tapered sides, open top -->
-          <path d="M -5,28 L -6,0 L 6,0 L 5,28 Z"
-                stroke="#d2c8a4" stroke-width="1.6" fill="none" opacity="0.92"/>
+        <!-- HEAD — clean back-of-head oval, proportionally round -->
+        <ellipse cx="250" cy="90" rx="44" ry="50" fill="#151513"/>
+
+        <!-- NECK — column connecting head to jacket collar -->
+        <rect x="237" y="138" width="26" height="30" rx="1" fill="#151513"/>
+
+        <!-- WHITE SHIRT COLLAR — cream band visible at back of neck,
+             drawn LAST so it sits on top of jacket and neck -->
+        <rect x="228" y="161" width="44" height="13" rx="3"
+              fill="#ddd0b0" opacity="0.88"/>
+
+        <!-- ── BOURBON GLASS ── hanging from right hand over sofa arm ── -->
+        <g transform="translate(474,238)">
+          <!-- Rocks glass — classic straight-sided tumbler, tapers slightly -->
+          <path d="M -8,40 L -9,0 L 9,0 L 8,40 Z"
+                stroke="#c9b87a" stroke-width="2" fill="none" opacity="0.93"/>
           <!-- Base -->
-          <line x1="-5" y1="28" x2="5" y2="28"
-                stroke="#d2c8a4" stroke-width="1.6" opacity="0.92"/>
-          <!-- Bourbon level line (~55% full) -->
-          <line x1="-5" y1="13" x2="5" y2="13"
-                stroke="#d2c8a4" stroke-width="1" opacity="0.72"/>
-          <!-- Slight meniscus curve on liquid surface -->
-          <path d="M -5,13 Q 0,11 5,13"
-                stroke="#d2c8a4" stroke-width="0.9" fill="none" opacity="0.65"/>
+          <line x1="-8" y1="40" x2="8" y2="40"
+                stroke="#c9b87a" stroke-width="2" opacity="0.93"/>
+          <!-- Bourbon level (~55% full) -->
+          <line x1="-8" y1="20" x2="8" y2="20"
+                stroke="#c9b87a" stroke-width="1.2" opacity="0.70"/>
+          <!-- Meniscus curve -->
+          <path d="M -8,20 Q 0,17.5 8,20"
+                stroke="#c9b87a" stroke-width="1" fill="none" opacity="0.60"/>
         </g>
 
       </svg>
