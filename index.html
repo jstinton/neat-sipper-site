@@ -962,47 +962,191 @@
         <a href="#collab" class="btn-ghost">Work Together</a>
       </div>
     </div>
-    <div class="hero-right">
-      <!-- Copper circle motif -->
-      <svg width="420" height="420" viewBox="-210 -210 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Outer rings -->
-        <circle cx="0" cy="0" r="200" stroke="rgba(26,38,84,0.1)" stroke-width="1"/>
-        <circle cx="0" cy="0" r="160" stroke="rgba(26,38,84,0.08)" stroke-width="1"/>
-        <circle cx="0" cy="0" r="120" stroke="rgba(26,38,84,0.12)" stroke-width="1"/>
-        <circle cx="0" cy="0" r="80"  stroke="rgba(26,38,84,0.15)" stroke-width="1"/>
-        <circle cx="0" cy="0" r="40"  stroke="rgba(26,38,84,0.2)" stroke-width="1"/>
-        <!-- Cross lines -->
-        <line x1="0" y1="-200" x2="0" y2="200"   stroke="rgba(26,38,84,0.06)" stroke-width="1"/>
-        <line x1="-200" y1="0" x2="200" y2="0"   stroke="rgba(26,38,84,0.06)" stroke-width="1"/>
-        <!-- Diagonal -->
-        <line x1="-141" y1="-141" x2="141" y2="141" stroke="rgba(26,38,84,0.04)" stroke-width="1"/>
-        <line x1="141" y1="-141" x2="-141" y2="141" stroke="rgba(26,38,84,0.04)" stroke-width="1"/>
-        <!-- Sputnik spokes from center -->
-        <line x1="0" y1="-200" x2="0" y2="-40"   stroke="#8b1a2a" stroke-width="1.5" opacity="0.5"/>
-        <line x1="0" y1="200"  x2="0" y2="40"    stroke="#8b1a2a" stroke-width="1.5" opacity="0.5"/>
-        <line x1="-200" y1="0" x2="-40" y2="0"   stroke="#8b1a2a" stroke-width="1.5" opacity="0.5"/>
-        <line x1="200" y1="0"  x2="40" y2="0"    stroke="#8b1a2a" stroke-width="1.5" opacity="0.5"/>
-        <!-- Tip dots -->
-        <circle cx="0"    cy="-200" r="4" fill="#8b1a2a" opacity="0.7"/>
-        <circle cx="0"    cy="200"  r="4" fill="#8b1a2a" opacity="0.7"/>
-        <circle cx="-200" cy="0"    r="4" fill="#8b1a2a" opacity="0.7"/>
-        <circle cx="200"  cy="0"    r="4" fill="#8b1a2a" opacity="0.7"/>
-        <!-- Inner detail -->
-        <circle cx="0" cy="0" r="18" stroke="#8b1a2a" stroke-width="1" opacity="0.4" fill="none"/>
-        <circle cx="0" cy="0" r="8"  fill="#8b1a2a" opacity="0.6"/>
-        <circle cx="0" cy="0" r="4"  fill="#f5edd8"/>
-        <!-- Text arc label -->
-        <path id="arc1" d="M -100,0 A 100,100 0 0,1 100,0" fill="none"/>
-        <text font-family="'Barlow Condensed', sans-serif" font-size="9" font-weight="600" letter-spacing="5" fill="rgba(26,38,84,0.35)" text-anchor="middle">
-          <textPath href="#arc1" startOffset="50%">RARE · RESERVE · CHICAGO · EST 2023</textPath>
-        </text>
+    <div class="hero-right" style="background:#1a2654;">
+      <!-- Saul Bass MCM illustration: suited man, fedora, bourbon bottle, MCM house -->
+      <svg width="100%" height="100%" viewBox="0 0 520 580" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- BACKGROUND -->
+        <rect x="0" y="0" width="520" height="580" fill="#1a2654"/>
+
+        <!-- ===== MCM HOUSE (cream linework on navy) ===== -->
+
+        <!-- Chimney -->
+        <rect x="444" y="98" width="30" height="80" fill="#f5edd8" opacity="0.86"/>
+        <rect x="438" y="90" width="42" height="12" fill="#f5edd8" opacity="0.86"/>
+
+        <!-- Burgundy fascia stripe -->
+        <rect x="118" y="175" width="402" height="9" fill="#8b1a2a" opacity="0.82"/>
+
+        <!-- Flat roof line -->
+        <rect x="118" y="184" width="402" height="6" fill="#f5edd8" opacity="0.9"/>
+
+        <!-- Structural posts (3px wide, very thin) -->
+        <rect x="152" y="190" width="3" height="390" fill="#f5edd8" opacity="0.5"/>
+        <rect x="322" y="190" width="3" height="390" fill="#f5edd8" opacity="0.5"/>
+        <rect x="492" y="190" width="3" height="390" fill="#f5edd8" opacity="0.5"/>
+
+        <!-- Left glass bay — subtle fill -->
+        <rect x="155" y="190" width="164" height="390" fill="#f5edd8" opacity="0.04"/>
+
+        <!-- Large picture window, left bay -->
+        <rect x="166" y="200" width="142" height="160" fill="none" stroke="#f5edd8" stroke-width="1.8" opacity="0.26"/>
+        <line x1="237" y1="200" x2="237" y2="360" stroke="#f5edd8" stroke-width="1" opacity="0.2"/>
+        <line x1="166" y1="280" x2="308" y2="280" stroke="#f5edd8" stroke-width="1" opacity="0.2"/>
+
+        <!-- Right glass bay -->
+        <rect x="325" y="190" width="164" height="390" fill="#f5edd8" opacity="0.04"/>
+
+        <!-- Right bay clerestory strip -->
+        <rect x="336" y="200" width="144" height="40" fill="none" stroke="#f5edd8" stroke-width="1.5" opacity="0.24"/>
+        <line x1="408" y1="200" x2="408" y2="240" stroke="#f5edd8" stroke-width="1" opacity="0.18"/>
+
+        <!-- Entry door, right bay -->
+        <rect x="336" y="268" width="56" height="312" fill="none" stroke="#f5edd8" stroke-width="1.5" opacity="0.24"/>
+        <line x1="364" y1="268" x2="364" y2="580" stroke="#f5edd8" stroke-width="1" opacity="0.16"/>
+        <!-- door handle -->
+        <rect x="352" y="408" width="6" height="18" rx="3" fill="#f5edd8" opacity="0.38"/>
+
+        <!-- Right flanking window -->
+        <rect x="403" y="258" width="78" height="88" fill="none" stroke="#f5edd8" stroke-width="1.5" opacity="0.24"/>
+
+        <!-- Foundation band -->
+        <rect x="118" y="568" width="402" height="9" fill="#f5edd8" opacity="0.48"/>
+
+        <!-- Ground line -->
+        <rect x="0" y="576" width="520" height="4" fill="#f5edd8" opacity="0.32"/>
+
+        <!-- Carport overhang bridging toward man -->
+        <rect x="90" y="292" width="74" height="5" fill="#f5edd8" opacity="0.48"/>
+        <rect x="90" y="297" width="4" height="281" fill="#f5edd8" opacity="0.48"/>
+
+        <!-- ===== MAN SILHOUETTE — Saul Bass style ===== -->
+        <!-- Cream figure, center ~x=78, ground y=572 -->
+        <!-- Total height ~370px: hat top y=202, ground y=572 -->
+
+        <!-- FEDORA HAT — crown + wide brim -->
+        <path d="M 46,206 Q 44,180 50,166 Q 58,150 78,148 Q 98,150 106,166 Q 112,180 110,206 Z" fill="#f5edd8"/>
+        <!-- Crown indent at top -->
+        <path d="M 68,150 Q 78,143 88,150" stroke="#1a2654" stroke-width="3" fill="none" opacity="0.32"/>
+        <!-- Hat band -->
+        <rect x="46" y="204" width="64" height="3" fill="#1a2654" opacity="0.28"/>
+        <!-- Brim (wide flat ellipse) -->
+        <path d="M 18,208 Q 20,198 78,196 Q 136,198 138,208 Q 136,218 78,220 Q 20,218 18,208 Z" fill="#f5edd8"/>
+
+        <!-- HEAD (small, stylized oval) -->
+        <ellipse cx="80" cy="238" rx="18" ry="22" fill="#f5edd8"/>
+
+        <!-- NECK (slim column) -->
+        <rect x="72" y="258" width="14" height="22" fill="#f5edd8"/>
+
+        <!-- Collar V (dark negative) -->
+        <polygon points="72,260 86,260 82,272 76,272" fill="#1a2654" opacity="0.75"/>
+
+        <!-- TIE (burgundy, elongated) -->
+        <polygon points="76,268 84,268 87,368 73,368" fill="#8b1a2a"/>
+        <polygon points="73,260 87,260 85,272 75,272" fill="#8b1a2a"/>
+
+        <!-- JACKET BODY — slim tapered silhouette using smooth bezier path -->
+        <path d="
+          M 46,280
+          Q 55,273 73,273
+          L 87,273
+          Q 105,273 114,280
+          Q 121,288 119,310
+          L 114,390
+          Q 112,406 100,408
+          L 58,408
+          Q 44,406 41,390
+          L 37,310
+          Q 34,288 46,280
+          Z" fill="#f5edd8"/>
+
+        <!-- Lapel shadow (gives depth to V neckline) -->
+        <polygon points="73,273 44,292 51,334 73,320" fill="#1a2654" opacity="0.16"/>
+        <polygon points="87,273 114,290 108,332 87,320" fill="#1a2654" opacity="0.16"/>
+
+        <!-- LEFT ARM hanging at side -->
+        <path d="
+          M 35,282
+          Q 26,286 21,300
+          L 13,394
+          Q 11,408 19,412
+          L 33,413
+          Q 41,411 43,397
+          L 49,306
+          Z" fill="#f5edd8"/>
+        <!-- Left hand -->
+        <ellipse cx="21" cy="415" rx="12" ry="10" fill="#f5edd8"/>
+
+        <!-- RIGHT ARM extended forward — presenting the bottle -->
+        <path d="
+          M 114,280
+          Q 125,275 140,283
+          L 218,370
+          Q 224,378 220,390
+          L 208,400
+          Q 199,404 192,396
+          L 112,311
+          Q 105,302 110,290
+          Z" fill="#f5edd8"/>
+        <!-- Right hand/cuff -->
+        <ellipse cx="210" cy="396" rx="14" ry="10" fill="#f5edd8" transform="rotate(-28 210 396)"/>
+
+        <!-- LEFT TROUSER LEG -->
+        <path d="M 46,406 L 76,406 L 72,568 L 40,568 Z" fill="#f5edd8"/>
+
+        <!-- RIGHT TROUSER LEG (slightly forward stride) -->
+        <path d="M 80,406 L 110,406 L 118,568 L 84,568 Z" fill="#f5edd8"/>
+
+        <!-- SHOES — pointed and elongated (very MCM) -->
+        <path d="M 40,566 Q 18,574 4,571 Q -4,568 -2,563 Q 6,558 26,560 L 44,563 Z" fill="#f5edd8"/>
+        <path d="M 84,566 Q 70,576 52,574 Q 42,571 44,566 Q 52,560 70,562 L 88,563 Z" fill="#f5edd8"/>
+
+        <!-- ===== BOURBON BOTTLE (horizontal — being slid/offered) ===== -->
+        <g transform="translate(222, 394) rotate(-82)">
+          <!-- Proper bourbon bottle silhouette: wide body, clear shoulder, slim neck -->
+          <!-- Long axis now nearly horizontal after rotation -->
+          <path d="
+            M 0,46
+            Q -12,46 -14,36
+            L -14,-10
+            Q -14,-26 -8,-36
+            L -8,-64
+            Q -8,-76 0,-78
+            Q 8,-76 8,-64
+            L 8,-36
+            Q 14,-26 14,-10
+            L 14,36
+            Q 12,46 0,46
+            Z" fill="#f5edd8" opacity="0.9"/>
+          <!-- Wax capsule on top (now pointing right after rotation) -->
+          <rect x="-5" y="-92" width="10" height="18" rx="3" fill="#8b1a2a"/>
+          <rect x="-3" y="-97" width="6" height="7" rx="1.5" fill="#8b1a2a"/>
+          <!-- Label -->
+          <rect x="-10" y="-6" width="20" height="32" rx="2" fill="#1a2654" opacity="0.24"/>
+        </g>
+
+        <!-- ===== MCM STARBURST ACCENT ===== -->
+        <g transform="translate(130, 128)" opacity="0.28">
+          <line x1="0" y1="-20" x2="0" y2="20"   stroke="#f5edd8" stroke-width="1.3"/>
+          <line x1="-20" y1="0" x2="20" y2="0"   stroke="#f5edd8" stroke-width="1.3"/>
+          <line x1="-14" y1="-14" x2="14" y2="14" stroke="#f5edd8" stroke-width="1.1"/>
+          <line x1="14" y1="-14" x2="-14" y2="14" stroke="#f5edd8" stroke-width="1.1"/>
+          <circle cx="0" cy="-20" r="3" fill="#8b1a2a"/>
+          <circle cx="0" cy="20"  r="3" fill="#8b1a2a"/>
+          <circle cx="-20" cy="0" r="3" fill="#8b1a2a"/>
+          <circle cx="20" cy="0"  r="3" fill="#8b1a2a"/>
+          <circle cx="0" cy="0"   r="6" fill="#8b1a2a"/>
+        </g>
+
+        <!-- Ghost "001" watermark -->
+        <text x="24" y="562" font-family="'Fraunces',Georgia,serif" font-size="96" font-weight="900"
+              fill="rgba(245,237,216,0.04)" letter-spacing="-5">001</text>
+
       </svg>
-      <!-- Ghost lot number -->
-      <div style="position:absolute;bottom:3rem;left:3rem;font-family:'Fraunces',Georgia,serif;font-size:6rem;font-weight:900;color:rgba(26,38,84,0.06);line-height:1;letter-spacing:-0.04em;user-select:none;">001</div>
     </div>
   </section>
 
-  <!-- MCM DIVIDER -->
   <div class="mcm-divider-wrap">
     <div class="mcm-divider">
       <div class="mcm-divider-line"></div>
