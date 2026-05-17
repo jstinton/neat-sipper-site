@@ -1115,47 +1115,64 @@
           <circle cx="20"  cy="0" r="2.5" fill="#1a2654"/>
         </g>
 
-        <!-- ── SEATED FIGURE (Mad Men — back-of-chair view) ── -->
-        <!-- Dark silhouette: head + right arm + bourbon glass visible;
-             body hidden behind the Eames back shell.
-             Chair back peaks at ~(455,233); head appears just above. -->
+        <!-- ── SEATED FIGURE — clean silhouette, back to viewer ── -->
+        <!-- Drawn BEFORE chair overlay so chair lines sit on top naturally -->
 
-        <!-- Head: back of head, dark mass, centered above chair peak -->
-        <ellipse cx="446" cy="214" rx="22" ry="20" fill="#1a2654"/>
-        <!-- Hair grain (subtle light lines on dark mass) -->
-        <path d="M 426,208 Q 436,200 446,198 Q 456,200 466,208"
-              stroke="#f5edd8" stroke-width="1.2" fill="none" opacity="0.22"/>
-        <!-- Ear (right/near side, small) -->
-        <path d="M 466,220 Q 472,215 471,226 Q 470,231 465,228 Z" fill="#1a2654"/>
+        <!-- HEAD: smooth back-of-head oval, just above chair back peak (~y=233) -->
+        <ellipse cx="447" cy="207" rx="23" ry="22" fill="#1a2654"/>
 
-        <!-- Neck (short column bridging head to collar) -->
-        <rect x="439" y="232" width="15" height="12" fill="#1a2654"/>
+        <!-- WHITE COLLAR strip at back of neck -->
+        <rect x="439" y="226" width="16" height="7" rx="3" fill="#f5edd8"/>
 
-        <!-- Right shoulder visible to the right of the chair back shell -->
-        <path d="M 456,242 Q 472,238 482,250 Q 488,262 484,278
-                 Q 479,292 468,295 L 461,278 Q 470,268 468,255
-                 Q 464,246 456,248 Z" fill="#1a2654"/>
+        <!-- NECK -->
+        <rect x="441" y="229" width="14" height="13" fill="#1a2654"/>
 
-        <!-- Upper arm travels down alongside the chair right edge -->
-        <path d="M 466,292 Q 470,316 467,344 Q 464,366 460,380
-                 L 450,380 Q 455,364 458,342 Q 461,314 460,290 Z" fill="#1a2654"/>
+        <!-- JACKET BACK — broad shoulders, visible above the chair back shell -->
+        <!-- Shoulder line at y≈242; body tapers down and is hidden by chair -->
+        <path d="M 418,242 Q 424,233 447,231 Q 470,233 477,242
+                 Q 490,260 485,282 Q 479,298 461,300 L 433,300
+                 Q 415,298 409,282 Q 404,260 418,242 Z"
+              fill="#1a2654"/>
 
-        <!-- Forearm horizontal, resting on arm pad -->
-        <path d="M 460,378 L 388,380 Q 380,380 378,386
-                 Q 380,393 388,392 L 460,388 Q 464,386 462,380 Z" fill="#1a2654"/>
+        <!-- RIGHT UPPER ARM — runs down just outside the chair back right edge -->
+        <path d="M 473,292 Q 480,312 477,338 Q 474,360 466,380 Q 463,388 458,388
+                 L 447,388 Q 453,374 457,356 Q 461,330 462,306 Q 463,288 462,282 Z"
+              fill="#1a2654"/>
 
-        <!-- Shirt cuff (white band at wrist) -->
-        <rect x="377" y="380" width="16" height="7" rx="2"
-              fill="#f5edd8" stroke="#1a2654" stroke-width="0.8"/>
+        <!-- RIGHT FOREARM — horizontal, laid across the arm pad -->
+        <path d="M 462,382 L 378,384 Q 368,384 366,391 Q 368,399 378,398
+                 L 462,394 Q 467,392 465,384 Z"
+              fill="#1a2654"/>
 
-        <!-- BOURBON GLASS (no ice) in right hand -->
-        <g transform="translate(376,370)">
-          <path d="M -6,10 L -7,-12 L 7,-12 L 6,10 Z"
-                stroke="#1a2654" stroke-width="1.5" fill="none"/>
-          <line x1="-6" y1="10" x2="6" y2="10" stroke="#1a2654" stroke-width="1.5"/>
-          <line x1="-6" y1="-1" x2="6" y2="-1" stroke="#1a2654" stroke-width="1"/>
-          <path d="M -6,-1 Q 0,-3 6,-1" stroke="#1a2654" stroke-width="0.8" fill="none"/>
+        <!-- WHITE SHIRT CUFF at wrist -->
+        <rect x="365" y="382" width="16" height="10" rx="2.5"
+              fill="#f5edd8" stroke="#1a2654" stroke-width="0.9"/>
+
+        <!-- BOURBON GLASS (no ice) — held in right hand -->
+        <g transform="translate(360, 365)">
+          <!-- Classic rocks glass: straight sides, slight taper, open top -->
+          <path d="M -7,16 L -8,-15 L 8,-15 L 7,16 Z"
+                stroke="#1a2654" stroke-width="1.6" fill="none"/>
+          <!-- Base line -->
+          <line x1="-7" y1="16" x2="7" y2="16" stroke="#1a2654" stroke-width="1.6"/>
+          <!-- Bourbon level (~60% full) -->
+          <line x1="-7" y1="1" x2="7" y2="1" stroke="#1a2654" stroke-width="1.1"/>
+          <!-- Meniscus curve (liquid surface) -->
+          <path d="M -7,1 Q 0,-1 7,1" stroke="#1a2654" stroke-width="0.9" fill="none"/>
         </g>
+
+        <!-- CHAIR BACK SHELL redrawn on top of figure for correct layering -->
+        <path d="M 393,382 Q 405,360 422,324 Q 434,296 441,268 Q 447,248 450,240
+                 Q 455,233 462,236 Q 468,241 462,256 Q 450,278 437,310
+                 Q 421,346 408,374 Q 399,390 390,394 Q 380,398 378,382 Z"
+              stroke="#1a2654" stroke-width="1.8" fill="none"/>
+
+        <!-- CUSHION FOLD LINE redrawn on top -->
+        <path d="M 421,320 Q 432,296 441,272" stroke="#1a2654" stroke-width="0.9" fill="none"/>
+
+        <!-- ARM PAD redrawn on top of figure forearm -->
+        <path d="M 368,388 Q 378,378 396,381 Q 406,385 403,394 Q 399,400 390,396 Z"
+              stroke="#1a2654" stroke-width="1.2" fill="none"/>
 
       </svg>
     </div>
