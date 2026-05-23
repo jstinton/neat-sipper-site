@@ -17,15 +17,16 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* ── DESIGN TOKENS: Catch Me If You Can × Bourbon Universe ── */
+    /* ── DESIGN TOKENS: Mood Board — Deep Teal × Bourbon Universe ── */
     :root {
       --cream:   #f0e9d6;
       --mid:     #e6dcc6;
       --ink:     #1a1a18;
-      --cyan:    #4ab8c0;
-      --amber:   #c49a3c;
+      --teal:    #1b5278;
+      --amber:   #c47820;
       --tan:     #7a6840;
       --panel:   #0f0e0c;
+      --smoke:   #888080;
     }
 
     html { scroll-behavior: smooth; background: var(--cream); }
@@ -62,7 +63,7 @@
       color: var(--tan); text-decoration: none;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--cyan); }
+    .nav-links a:hover { color: var(--teal); }
     .nav-hamburger {
       display: none; flex-direction: column; gap: 5px;
       background: none; border: none; cursor: pointer; padding: 4px;
@@ -73,7 +74,7 @@
     .hero {
       min-height: 100vh;
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr 1fr;
       align-items: stretch;
       position: relative;
       background: var(--cream);
@@ -103,7 +104,7 @@
       margin-bottom: 2.2rem;
       opacity: 0; animation: fadeUp 0.8s ease forwards 0.3s;
     }
-    .stripe-c { background: var(--cyan); flex: 1; }
+    .stripe-c { background: var(--teal); flex: 1; }
     .stripe-w { background: rgba(26,26,24,0.12); flex: 1; }
     .stripe-a { background: var(--amber); flex: 1; }
     .hero-title {
@@ -143,7 +144,7 @@
     .hero-stat-num {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 2.2rem; font-weight: 900;
-      color: var(--cyan); line-height: 1; display: block;
+      color: var(--teal); line-height: 1; display: block;
       letter-spacing: -0.02em;
     }
     .hero-stat-label {
@@ -163,7 +164,7 @@
       padding: 0.9rem 2rem;
       text-decoration: none; transition: background 0.2s, transform 0.15s;
     }
-    .btn-primary:hover { background: var(--cyan); transform: translateY(-2px); }
+    .btn-primary:hover { background: var(--teal); transform: translateY(-2px); }
     .btn-ghost {
       display: inline-flex; align-items: center; gap: 0.5rem;
       border: 1px solid rgba(26,26,24,0.28);
@@ -174,7 +175,7 @@
       padding: 0.9rem 2rem;
       text-decoration: none; transition: border-color 0.2s, color 0.2s, transform 0.15s;
     }
-    .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-2px); }
+    .btn-ghost:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-2px); }
 
     /* ── SECTION COMMON ── */
     section { padding: 7rem 3rem; position: relative; }
@@ -182,12 +183,12 @@
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 0.65rem; font-weight: 700;
       letter-spacing: 0.38em; text-transform: uppercase;
-      color: var(--cyan); margin-bottom: 1rem;
+      color: var(--teal); margin-bottom: 1rem;
       display: flex; align-items: center; gap: 0.8rem;
     }
     .section-label::before {
       content: ''; display: inline-block;
-      width: 22px; height: 1px; background: var(--cyan);
+      width: 22px; height: 1px; background: var(--teal);
     }
     .section-title {
       font-family: 'Barlow Condensed', sans-serif;
@@ -241,7 +242,7 @@
       font-style: italic; font-size: 0.95rem;
       max-width: 190px; line-height: 1.45;
     }
-    .about-accent-card span { color: var(--cyan); }
+    .about-accent-card span { color: var(--teal); }
     .about-text p {
       color: #4a3a24; font-size: 1rem; font-weight: 300;
       margin-bottom: 1.2rem; line-height: 1.85;
@@ -254,7 +255,7 @@
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 0.62rem; font-weight: 700;
       letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--cyan); border: 1px solid var(--cyan);
+      color: var(--teal); border: 1px solid var(--teal);
       padding: 0.35rem 0.8rem;
     }
 
@@ -275,7 +276,7 @@
       color: rgba(240,233,214,0.5); padding: 0 2.5rem;
       flex-shrink: 0;
     }
-    .ticker-item.accent { color: var(--cyan); }
+    .ticker-item.accent { color: var(--teal); }
     .ticker-sep {
       color: var(--amber); opacity: 0.5;
       font-family: 'Barlow Condensed', sans-serif;
@@ -305,7 +306,7 @@
     .bottle-card:hover { background: var(--mid); }
     .bottle-card::after {
       content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-      height: 2px; background: var(--cyan);
+      height: 2px; background: var(--teal);
       transform: scaleX(0); transform-origin: left;
       transition: transform 0.35s ease;
     }
@@ -366,7 +367,7 @@
       border-bottom: 2px solid transparent;
       transition: border-color 0.25s, background 0.25s;
     }
-    .pillar:hover { background: var(--mid); border-bottom-color: var(--cyan); }
+    .pillar:hover { background: var(--mid); border-bottom-color: var(--teal); }
     .pillar-icon {
       width: 36px; height: 36px; margin-bottom: 1.4rem;
       color: var(--amber);
@@ -405,9 +406,9 @@
       display: flex; align-items: center; justify-content: center;
       transition: border-color 0.2s, background 0.2s;
     }
-    .reel-card:hover .reel-play { border-color: var(--cyan); background: rgba(74,184,192,0.06); }
+    .reel-card:hover .reel-play { border-color: var(--teal); background: rgba(27,82,120,0.10); }
     .reel-play svg { width: 18px; height: 18px; fill: var(--ink); margin-left: 3px; }
-    .reel-card:hover .reel-play svg { fill: var(--cyan); }
+    .reel-card:hover .reel-play svg { fill: var(--teal); }
     .reel-card-label {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 0.58rem; font-weight: 700;
@@ -455,7 +456,7 @@
     .collab-email-btn {
       display: inline-flex; align-items: center; gap: 0.6rem;
       margin-top: 2.5rem;
-      background: var(--cyan); color: var(--ink);
+      background: var(--teal); color: var(--ink);
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 0.72rem; font-weight: 700;
       letter-spacing: 0.22em; text-transform: uppercase;
@@ -466,7 +467,7 @@
 
     /* ── SOCIAL BAR ── */
     .social-bar {
-      background: var(--panel); border-top: 1px solid rgba(74,184,192,0.1);
+      background: var(--panel); border-top: 1px solid rgba(27,82,120,0.18);
       display: flex; justify-content: center; gap: 0;
     }
     .social-item {
@@ -487,7 +488,7 @@
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 1rem; font-weight: 700;
       letter-spacing: 0.06em; text-transform: uppercase;
-      color: var(--cyan);
+      color: var(--teal);
     }
 
     /* ── FOOTER ── */
@@ -525,7 +526,7 @@
       text-transform: uppercase; letter-spacing: 0.06em;
       color: var(--ink); text-decoration: none; transition: color 0.2s;
     }
-    .nav-mobile-menu a:hover { color: var(--cyan); }
+    .nav-mobile-menu a:hover { color: var(--teal); }
     .nav-mobile-close {
       position: absolute; top: 1.5rem; right: 2rem;
       background: none; border: none; cursor: pointer;
@@ -621,115 +622,132 @@
       </div>
     </div>
 
-    <!-- HERO RIGHT: removed illustration -->
-    <div class="hero-right" style="background:#0f0e0c; display:none;">
-      <svg width="100%" height="100%" viewBox="0 0 500 560"
+    <!-- HERO RIGHT: Mood board illustration -->
+    <div class="hero-right" style="background:#1b5278;">
+      <svg width="100%" height="100%" viewBox="0 0 500 580"
            preserveAspectRatio="xMidYMid meet" fill="none"
            xmlns="http://www.w3.org/2000/svg" style="display:block;">
-        <defs>
-          <!-- Amber halo centred on figure's upper body -->
-          <radialGradient id="halo" cx="50%" cy="30%" r="60%">
-            <stop offset="0%"   stop-color="#4a2e08"/>
-            <stop offset="48%"  stop-color="#1a1208"/>
-            <stop offset="100%" stop-color="#080706"/>
-          </radialGradient>
-        </defs>
 
-        <!-- Background -->
-        <rect width="500" height="560" fill="url(#halo)"/>
+        <!-- Deep teal background — straight from mood board palette -->
+        <rect width="500" height="580" fill="#1b5278"/>
 
-        <!-- Concentric circles — barrel cross-section / spotlight motif -->
-        <circle cx="250" cy="295" r="218" fill="none" stroke="#4ab8c0" stroke-width="0.8" opacity="0.11"/>
-        <circle cx="250" cy="295" r="170" fill="none" stroke="#4ab8c0" stroke-width="0.6" opacity="0.07"/>
-        <circle cx="250" cy="295" r="122" fill="none" stroke="#4ab8c0" stroke-width="0.5" opacity="0.05"/>
+        <!-- Floor plane — slightly darker teal -->
+        <rect x="0" y="430" width="500" height="150" fill="#142f44"/>
 
-        <!-- ══ MCM SOFA — amber-tan, clearly visible furniture ══ -->
-        <!-- Sofa back cushion -->
-        <rect x="30"  y="252" width="440" height="60"  rx="3" fill="#7a6840"/>
-        <!-- Sofa back top highlight edge -->
-        <rect x="30"  y="252" width="440" height="5"   rx="3" fill="#9a8858" opacity="0.7"/>
-        <!-- Left arm bolster -->
-        <rect x="30"  y="252" width="44"  height="102" rx="3" fill="#6a5830"/>
-        <!-- Right arm bolster -->
-        <rect x="426" y="252" width="44"  height="102" rx="3" fill="#6a5830"/>
-        <!-- Sofa seat -->
-        <rect x="48"  y="308" width="404" height="48"  rx="2" fill="#5c4a22"/>
-        <!-- Cushion centre seam -->
-        <line x1="250" y1="312" x2="250" y2="354" stroke="#080706" stroke-width="1.5" opacity="0.4"/>
-        <!-- MCM legs — gold, tapered outward -->
-        <path d="M  88,356 L  72,418" stroke="#c49a3c" stroke-width="4"   stroke-linecap="round"/>
-        <path d="M 412,356 L 428,418" stroke="#c49a3c" stroke-width="4"   stroke-linecap="round"/>
-        <path d="M 118,356 L 112,405" stroke="#c49a3c" stroke-width="2.5" stroke-linecap="round" opacity="0.45"/>
-        <path d="M 382,356 L 388,405" stroke="#c49a3c" stroke-width="2.5" stroke-linecap="round" opacity="0.45"/>
+        <!-- ══ PENDANT LIGHT ══ -->
+        <!-- Cord -->
+        <line x1="185" y1="0" x2="185" y2="98" stroke="#0d2e42" stroke-width="2"/>
+        <!-- Dome shade (inverted bowl) -->
+        <path d="M 155,112 L 165,92 L 205,92 L 215,112 C 202,128 168,128 155,112 Z" fill="#0d2e42"/>
+        <!-- Subtle light cone -->
+        <path d="M 159,112 L 88,185 L 284,185 L 213,112 Z" fill="#f0e9d6" opacity="0.04"/>
 
-        <!-- ══ FIGURE — man from behind, seated in suit ══ -->
-
-        <!-- Head — clean oval, cream -->
-        <ellipse cx="250" cy="98" rx="28" ry="33" fill="#cec2a0"/>
-
-        <!-- Neck -->
-        <path d="M 239,129 L 241,157 L 259,157 L 261,129 Z" fill="#cec2a0"/>
-
-        <!-- Shirt collar — CYAN accent (CMIYC signature) -->
-        <rect x="237" y="153" width="26" height="9" rx="1.5" fill="#4ab8c0" opacity="0.92"/>
-
-        <!-- Jacket back body — natural shoulder width, no rubber-stamp bloat -->
-        <!-- Shoulder span: x=166 to x=334 (168px / 33% of viewBox) -->
-        <path d="
-          M 241,161
-          C 230,167 212,176 194,189
-          C 174,203 166,220 164,242
-          L 160,295
-          L 340,295
-          L 336,242
-          C 334,220 326,203 306,189
-          C 288,176 270,167 259,161
-          Z" fill="#cec2a0"/>
-
-        <!-- Jacket shoulder depth — subtle darker tone -->
-        <path d="
-          M 241,161
-          C 230,167 212,176 194,189
-          C 177,201 169,215 166,234
-          C 178,217 192,207 212,197
-          C 230,188 245,181 250,178
-          C 255,181 270,188 288,197
-          C 308,207 322,217 334,234
-          C 331,215 323,201 306,189
-          C 288,176 270,167 259,161
-          Z" fill="#b5aa8a" opacity="0.32"/>
-
-        <!-- RIGHT ARM — resting along sofa back, holding glass -->
-        <!-- Main sleeve (cream) -->
-        <path d="M 326,250 C 352,258 380,264 410,263 C 424,262 434,259 442,254"
-              stroke="#cec2a0" stroke-width="22" stroke-linecap="round" fill="none"/>
-        <!-- Sleeve shadow for depth -->
-        <path d="M 326,256 C 352,264 380,270 410,269 C 424,268 434,265 442,260"
-              stroke="#b0a588" stroke-width="11" stroke-linecap="round" fill="none" opacity="0.38"/>
-
-        <!-- ══ GLENCAIRN GLASS — right-side up, fully in frame ══ -->
-        <!-- translate so base sits at ~y=255 (hand level) -->
-        <g transform="translate(442,196)">
-          <!-- Bowl: wide at top, pinches to waist, small foot -->
-          <path d="M -9,0 C -14,8 -16,20 -15,30 C -14,40 -9,46 -5,48
-                   L -5,52 C -10,52 -13,54 -13,58 L 13,58
-                   C 13,54 10,52 5,52 L 5,48
-                   C 9,46 14,40 15,30 C 16,20 14,8 9,0 Z"
-                stroke="#c49a3c" stroke-width="2.1" stroke-linejoin="round" fill="none"/>
-          <!-- Amber liquid fill (¾ full) -->
-          <path d="M -8,4 C -12,12 -13,22 -12,30 C -11,39 -7,44 -4,46
-                   L -4,52 L 4,52 L 4,46 C 7,44 11,39 12,30
-                   C 13,22 12,12 8,4 Z"
-                fill="#c49a3c" opacity="0.28"/>
-          <!-- Liquid meniscus line -->
-          <path d="M -11,24 C -5,21 5,21 11,24"
-                stroke="#c49a3c" stroke-width="1.2" fill="none" opacity="0.55"/>
+        <!-- ══ AIRPLANE (upper right, tiny) ══ -->
+        <g transform="translate(408,62) rotate(-7)">
+          <ellipse cx="0" cy="0" rx="24" ry="4" fill="#0d2e42"/>
+          <path d="M 2,-4 L -16,-20 L -8,-4 Z" fill="#0d2e42"/>
+          <path d="M 2,4 L -16,20 L -8,4 Z" fill="#0d2e42"/>
+          <path d="M 18,-4 L 26,-12 L 26,-4 Z" fill="#0d2e42"/>
         </g>
 
-        <!-- Saul Bass bottom accent -->
-        <line x1="40" y1="544" x2="460" y2="544" stroke="#4ab8c0" stroke-width="0.7" opacity="0.18"/>
-        <circle cx="40"  cy="544" r="3" fill="#4ab8c0" opacity="0.22"/>
-        <circle cx="460" cy="544" r="3" fill="#4ab8c0" opacity="0.22"/>
+        <!-- ══ MCM LOUNGE CHAIR + SEATED FIGURE — unified silhouette ══ -->
+        <!-- All elements in near-black #0d1e2a (very dark teal-black, reads as solid
+             black against teal background, same as mood board treatment) -->
+
+        <!-- Chair pedestal base -->
+        <path d="M 205,368 L 198,408 L 215,408 L 220,368 Z" fill="#0d1e2a"/>
+        <path d="M 268,368 L 274,408 L 258,408 L 254,368 Z" fill="#0d1e2a"/>
+        <!-- Base cross-bar -->
+        <rect x="196" y="404" width="82" height="9" rx="3" fill="#0d1e2a"/>
+        <!-- Splayed feet -->
+        <path d="M 196,410 L 155,432 L 165,432 L 204,414 Z" fill="#0d1e2a"/>
+        <path d="M 276,410 L 316,432 L 306,432 L 268,414 Z" fill="#0d1e2a"/>
+
+        <!-- Seat cushion -->
+        <rect x="142" y="322" width="192" height="48" rx="4" fill="#0d1e2a"/>
+
+        <!-- Chair back — tall, slightly rounded at top -->
+        <path d="M 142,325 L 142,168
+                 C 142,150 154,140 175,140
+                 L 302,140
+                 C 322,140 334,152 332,172
+                 L 328,325 Z" fill="#0d1e2a"/>
+
+        <!-- Right armrest (extends out from chair back) -->
+        <rect x="326" y="298" width="25" height="74" rx="5" fill="#0d1e2a"/>
+
+        <!-- ══ FIGURE overlapping chair (same dark silhouette colour) ══ -->
+
+        <!-- Crossed legs — right leg over left, protruding in front of seat -->
+        <path d="M 155,322 L 155,308
+                 C 155,296 164,288 180,288
+                 L 332,292
+                 C 348,294 358,306 354,322 Z" fill="#0d1e2a"/>
+        <!-- Hanging lower right leg (crossed) -->
+        <path d="M 308,318 L 348,322 L 355,375 L 312,370 Z" fill="#0d1e2a"/>
+        <!-- Right shoe (pointing right, elegant) -->
+        <path d="M 342,368 L 378,356 L 388,370 L 350,382 Z" fill="#0d1e2a"/>
+        <!-- Left lower leg (grounded) -->
+        <path d="M 162,322 L 186,322 L 190,398 L 160,398 Z" fill="#0d1e2a"/>
+        <!-- Left shoe -->
+        <path d="M 148,392 L 194,392 L 194,410 L 146,410 Z" fill="#0d1e2a"/>
+
+        <!-- Torso (leaning back in chair) -->
+        <path d="M 175,248 C 172,228 177,208 196,198
+                 L 252,196 C 270,197 280,212 278,232
+                 L 274,322 L 175,322 Z" fill="#0d1e2a"/>
+
+        <!-- Right arm — raised, holding glass up to face level -->
+        <!-- Upper arm -->
+        <path d="M 262,225 C 268,205 280,188 298,180
+                 L 318,178 C 336,180 344,196 338,215
+                 L 328,248 C 318,264 298,268 282,258
+                 L 262,240 Z" fill="#0d1e2a"/>
+        <!-- Forearm / hand reaching up to glass -->
+        <path d="M 320,186 C 326,166 338,150 354,143
+                 L 368,142 C 380,146 384,162 376,178
+                 L 362,205 C 352,220 334,224 320,215 Z" fill="#0d1e2a"/>
+
+        <!-- Neck -->
+        <path d="M 203,200 L 208,180 L 226,180 L 230,200 Z" fill="#0d1e2a"/>
+
+        <!-- HEAD + FEDORA (the defining silhouette element) -->
+        <!-- Head oval -->
+        <ellipse cx="220" cy="168" rx="22" ry="26" fill="#0d1e2a"/>
+        <!-- Fedora crown (characteristic tall, slightly indented shape) -->
+        <path d="M 196,162
+                 C 196,136 206,122 220,122
+                 C 234,122 248,136 248,162 Z" fill="#0d1e2a"/>
+        <!-- Fedora brim (wide, flat, slightly angled) -->
+        <rect x="184" y="160" width="70" height="11" rx="4" fill="#0d1e2a"/>
+
+        <!-- ══ GLENCAIRN GLASS (held in raised hand, amber liquid visible) ══ -->
+        <!-- Positioned at the raised hand — right-side up -->
+        <g transform="translate(374,108)">
+          <!-- Glass body (Glencairn profile: wide top, pinched waist, flared base) -->
+          <path d="M -9,0 C -15,8 -17,22 -16,33
+                   C -14,42 -9,48 -4,50
+                   L -4,55 C -10,55 -13,57 -13,62
+                   L 13,62 C 13,57 10,55 4,55
+                   L 4,50 C 9,48 14,42 16,33
+                   C 17,22 15,8 9,0 Z"
+                stroke="#f0e9d6" stroke-width="1.8" fill="none" opacity="0.9"/>
+          <!-- Amber liquid (bourbon) -->
+          <path d="M -8,3 C -13,11 -14,23 -13,32
+                   C -11,40 -7,46 -3,48
+                   L -3,55 L 3,55 L 3,48
+                   C 7,46 11,40 13,32
+                   C 14,23 13,11 8,3 Z"
+                fill="#c47820" opacity="0.88"/>
+          <!-- Liquid surface highlight -->
+          <path d="M -12,26 C -5,22 5,22 12,26"
+                stroke="#f0e9d6" stroke-width="1.2" fill="none" opacity="0.55"/>
+        </g>
+
+        <!-- Bottom accent (cream, subtle) -->
+        <line x1="40" y1="562" x2="460" y2="562" stroke="#f0e9d6" stroke-width="0.6" opacity="0.14"/>
+        <circle cx="40"  cy="562" r="3" fill="#f0e9d6" opacity="0.18"/>
+        <circle cx="460" cy="562" r="3" fill="#f0e9d6" opacity="0.18"/>
       </svg>
     </div>
   </section>
