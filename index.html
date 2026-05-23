@@ -627,89 +627,109 @@
            preserveAspectRatio="xMidYMid meet" fill="none"
            xmlns="http://www.w3.org/2000/svg" style="display:block;">
         <defs>
-          <!-- Warm amber halo -->
-          <radialGradient id="halo" cx="50%" cy="28%" r="55%">
-            <stop offset="0%"   stop-color="#5a3c10"/>
-            <stop offset="40%"  stop-color="#2a1e08"/>
-            <stop offset="100%" stop-color="#0f0e0c"/>
+          <!-- Amber halo centred on figure's upper body -->
+          <radialGradient id="halo" cx="50%" cy="30%" r="60%">
+            <stop offset="0%"   stop-color="#4a2e08"/>
+            <stop offset="48%"  stop-color="#1a1208"/>
+            <stop offset="100%" stop-color="#080706"/>
           </radialGradient>
-          <!-- Subtle diagonal amber band -->
-          <linearGradient id="band" x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%"   stop-color="#c49a3c" stop-opacity="0"/>
-            <stop offset="45%"  stop-color="#c49a3c" stop-opacity="0.06"/>
-            <stop offset="55%"  stop-color="#c49a3c" stop-opacity="0.06"/>
-            <stop offset="100%" stop-color="#c49a3c" stop-opacity="0"/>
-          </linearGradient>
         </defs>
 
-        <!-- Background + warm glow -->
+        <!-- Background -->
         <rect width="500" height="560" fill="url(#halo)"/>
-        <!-- Diagonal amber band (Catch Me If You Can title sequence stripe) -->
-        <rect width="500" height="560" fill="url(#band)"/>
 
-        <!-- Saul Bass concentric circles — barrel cross-section / spotlight -->
-        <circle cx="250" cy="300" r="210" fill="none" stroke="#4ab8c0" stroke-width="0.7" opacity="0.12"/>
-        <circle cx="250" cy="300" r="168" fill="none" stroke="#4ab8c0" stroke-width="0.7" opacity="0.09"/>
-        <circle cx="250" cy="300" r="125" fill="none" stroke="#4ab8c0" stroke-width="0.5" opacity="0.07"/>
+        <!-- Concentric circles — barrel cross-section / spotlight motif -->
+        <circle cx="250" cy="295" r="218" fill="none" stroke="#4ab8c0" stroke-width="0.8" opacity="0.11"/>
+        <circle cx="250" cy="295" r="170" fill="none" stroke="#4ab8c0" stroke-width="0.6" opacity="0.07"/>
+        <circle cx="250" cy="295" r="122" fill="none" stroke="#4ab8c0" stroke-width="0.5" opacity="0.05"/>
 
-        <!-- SOFA: dark warm — MCM wide couch -->
-        <rect x="12"  y="230" width="48" height="330" rx="4" fill="#1e1a12"/>
-        <rect x="440" y="230" width="48" height="330" rx="4" fill="#1e1a12"/>
-        <rect x="12"  y="270" width="476" height="44"  fill="#181410"/>
-        <rect x="12"  y="310" width="476" height="250" fill="#141009"/>
-        <line x1="12" y1="378" x2="488" y2="378" stroke="#100d08" stroke-width="2.5"/>
+        <!-- ══ MCM SOFA — amber-tan, clearly visible furniture ══ -->
+        <!-- Sofa back cushion -->
+        <rect x="30"  y="252" width="440" height="60"  rx="3" fill="#7a6840"/>
+        <!-- Sofa back top highlight edge -->
+        <rect x="30"  y="252" width="440" height="5"   rx="3" fill="#9a8858" opacity="0.7"/>
+        <!-- Left arm bolster -->
+        <rect x="30"  y="252" width="44"  height="102" rx="3" fill="#6a5830"/>
+        <!-- Right arm bolster -->
+        <rect x="426" y="252" width="44"  height="102" rx="3" fill="#6a5830"/>
+        <!-- Sofa seat -->
+        <rect x="48"  y="308" width="404" height="48"  rx="2" fill="#5c4a22"/>
+        <!-- Cushion centre seam -->
+        <line x1="250" y1="312" x2="250" y2="354" stroke="#080706" stroke-width="1.5" opacity="0.4"/>
+        <!-- MCM legs — gold, tapered outward -->
+        <path d="M  88,356 L  72,418" stroke="#c49a3c" stroke-width="4"   stroke-linecap="round"/>
+        <path d="M 412,356 L 428,418" stroke="#c49a3c" stroke-width="4"   stroke-linecap="round"/>
+        <path d="M 118,356 L 112,405" stroke="#c49a3c" stroke-width="2.5" stroke-linecap="round" opacity="0.45"/>
+        <path d="M 382,356 L 388,405" stroke="#c49a3c" stroke-width="2.5" stroke-linecap="round" opacity="0.45"/>
 
-        <!-- FIGURE: CREAM silhouette (Saul Bass bold graphic style)
-             Single path: back of head + neck + jacket, clockwise from lower-left. -->
+        <!-- ══ FIGURE — man from behind, seated in suit ══ -->
+
+        <!-- Head — clean oval, cream -->
+        <ellipse cx="250" cy="98" rx="28" ry="33" fill="#cec2a0"/>
+
+        <!-- Neck -->
+        <path d="M 239,129 L 241,157 L 259,157 L 261,129 Z" fill="#cec2a0"/>
+
+        <!-- Shirt collar — CYAN accent (CMIYC signature) -->
+        <rect x="237" y="153" width="26" height="9" rx="1.5" fill="#4ab8c0" opacity="0.92"/>
+
+        <!-- Jacket back body — natural shoulder width, no rubber-stamp bloat -->
+        <!-- Shoulder span: x=166 to x=334 (168px / 33% of viewBox) -->
         <path d="
-          M 54,302
-          L 52,268
-          C 48,250 38,232 38,218
-          C 38,206 44,197 58,191
-          C 96,175 150,160 198,150
-          C 218,145 229,141 232,139
-          L 232,128
-          C 228,112 218,95 210,82
-          C 204,68 202,46 250,35
-          C 298,46 296,68 290,82
-          C 282,95 272,112 268,128
-          L 268,139
-          C 271,141 282,145 302,150
-          C 350,160 404,175 442,191
-          C 456,197 462,206 462,218
-          C 462,232 452,250 448,268
-          L 446,302
+          M 241,161
+          C 230,167 212,176 194,189
+          C 174,203 166,220 164,242
+          L 160,295
+          L 340,295
+          L 336,242
+          C 334,220 326,203 306,189
+          C 288,176 270,167 259,161
           Z" fill="#cec2a0"/>
 
-        <!-- RIGHT ARM: cream, along sofa back -->
+        <!-- Jacket shoulder depth — subtle darker tone -->
         <path d="
-          M 445,264
-          C 456,256 466,249 476,245
-          L 482,245
-          C 484,253 484,268 482,270
-          C 469,272 456,268 445,266
-          Z" fill="#cec2a0"/>
+          M 241,161
+          C 230,167 212,176 194,189
+          C 177,201 169,215 166,234
+          C 178,217 192,207 212,197
+          C 230,188 245,181 250,178
+          C 255,181 270,188 288,197
+          C 308,207 322,217 334,234
+          C 331,215 323,201 306,189
+          C 288,176 270,167 259,161
+          Z" fill="#b5aa8a" opacity="0.32"/>
 
-        <!-- SHIRT COLLAR: CYAN — the Catch Me If You Can accent! -->
-        <rect x="226" y="143" width="48" height="11" rx="2"
-              fill="#4ab8c0" opacity="0.95"/>
+        <!-- RIGHT ARM — resting along sofa back, holding glass -->
+        <!-- Main sleeve (cream) -->
+        <path d="M 326,250 C 352,258 380,264 410,263 C 424,262 434,259 442,254"
+              stroke="#cec2a0" stroke-width="22" stroke-linecap="round" fill="none"/>
+        <!-- Sleeve shadow for depth -->
+        <path d="M 326,256 C 352,264 380,270 410,269 C 424,268 434,265 442,260"
+              stroke="#b0a588" stroke-width="11" stroke-linecap="round" fill="none" opacity="0.38"/>
 
-        <!-- BOURBON GLASS: gold rocks glass -->
-        <g transform="translate(482,242)">
-          <path d="M -10,46 L -11,0 L 11,0 L 10,46 Z"
-                stroke="#c49a3c" stroke-width="2.3" fill="none" opacity="0.97"/>
-          <line x1="-10" y1="46" x2="10" y2="46"
-                stroke="#c49a3c" stroke-width="2.3" opacity="0.97"/>
-          <line x1="-10" y1="22" x2="10" y2="22"
-                stroke="#c49a3c" stroke-width="1.3" opacity="0.75"/>
-          <path d="M -10,22 Q 0,19 10,22"
-                stroke="#c49a3c" stroke-width="1.1" fill="none" opacity="0.65"/>
+        <!-- ══ GLENCAIRN GLASS — right-side up, fully in frame ══ -->
+        <!-- translate so base sits at ~y=255 (hand level) -->
+        <g transform="translate(442,196)">
+          <!-- Bowl: wide at top, pinches to waist, small foot -->
+          <path d="M -9,0 C -14,8 -16,20 -15,30 C -14,40 -9,46 -5,48
+                   L -5,52 C -10,52 -13,54 -13,58 L 13,58
+                   C 13,54 10,52 5,52 L 5,48
+                   C 9,46 14,40 15,30 C 16,20 14,8 9,0 Z"
+                stroke="#c49a3c" stroke-width="2.1" stroke-linejoin="round" fill="none"/>
+          <!-- Amber liquid fill (¾ full) -->
+          <path d="M -8,4 C -12,12 -13,22 -12,30 C -11,39 -7,44 -4,46
+                   L -4,52 L 4,52 L 4,46 C 7,44 11,39 12,30
+                   C 13,22 12,12 8,4 Z"
+                fill="#c49a3c" opacity="0.28"/>
+          <!-- Liquid meniscus line -->
+          <path d="M -11,24 C -5,21 5,21 11,24"
+                stroke="#c49a3c" stroke-width="1.2" fill="none" opacity="0.55"/>
         </g>
 
-        <!-- Decorative dot — Saul Bass geometric accent -->
-        <circle cx="38" cy="540" r="4" fill="#4ab8c0" opacity="0.3"/>
-        <circle cx="462" cy="540" r="4" fill="#4ab8c0" opacity="0.3"/>
-        <line x1="50" y1="540" x2="454" y2="540" stroke="#4ab8c0" stroke-width="0.6" opacity="0.2"/>
+        <!-- Saul Bass bottom accent -->
+        <line x1="40" y1="544" x2="460" y2="544" stroke="#4ab8c0" stroke-width="0.7" opacity="0.18"/>
+        <circle cx="40"  cy="544" r="3" fill="#4ab8c0" opacity="0.22"/>
+        <circle cx="460" cy="544" r="3" fill="#4ab8c0" opacity="0.22"/>
       </svg>
     </div>
   </section>
