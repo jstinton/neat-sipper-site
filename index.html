@@ -655,7 +655,7 @@
 
   <!-- SPLASH SCREEN -->
   <div id="splash">
-    <video id="splash-video" autoplay muted playsinline>
+    <video id="splash-video" autoplay muted playsinline webkit-playsinline preload="auto">
       <source src="splash.mp4" type="video/mp4">
     </video>
   </div>
@@ -1171,13 +1171,29 @@
     (function() {
       const splash = document.getElementById('splash');
       const video = document.getElementById('splash-video');
+      let dismissed = false;
       function dismissSplash() {
+        if (dismissed) return;
+        dismissed = true;
         splash.classList.add('fade-out');
         splash.addEventListener('transitionend', () => splash.remove(), { once: true });
       }
       video.addEventListener('ended', dismissSplash);
-      // Fallback: if video fails to load or play, dismiss after 8s
       video.addEventListener('error', dismissSplash);
+
+      // iOS requires muted set as a property (not just the attribute) for autoplay.
+      video.muted = true;
+      video.setAttribute('muted', '');
+
+      // Explicitly attempt playback; if the browser blocks autoplay
+      // (e.g. iOS Low Power Mode), dismiss immediately so the user
+      // isn't stuck staring at a frozen first frame.
+      const attempt = video.play();
+      if (attempt && typeof attempt.then === 'function') {
+        attempt.catch(dismissSplash);
+      }
+
+      // Safety net: never let the splash block the site for too long.
       setTimeout(dismissSplash, 8000);
     })();
   </script>
