@@ -30,6 +30,10 @@
       height: 100%;
       overflow: hidden;
       background: #1c0d04;
+      touch-action: none;        /* finger drags stir the liquid instead of scrolling */
+      overscroll-behavior: none; /* no rubber-band on iOS */
+      -webkit-user-select: none;
+      user-select: none;
     }
 
     body {
@@ -585,9 +589,38 @@
       updatePointer(e.clientX, e.clientY);
     }, { passive: true });
 
-    window.addEventListener('touchmove', function (e) {
-      if (e.touches.length > 0) updatePointer(e.touches[0].clientX, e.touches[0].clientY);
+    // On touch, anchor the pointer at the finger-down point so the first
+    // move doesn't splat a huge jump from wherever the pointer last was.
+    window.addEventListener('pointerdown', function (e) {
+      updatePointer(e.clientX, e.clientY);
+      pointer.px = pointer.x;
+      pointer.py = pointer.y;
+      pointer.moved = false;
     }, { passive: true });
+
+    // Belt and braces for older mobile browsers: drive the sim from touch
+    // events directly and stop the browser from turning the drag into a
+    // scroll. Skipped where Pointer Events already handle touch.
+    if (!window.PointerEvent) {
+      window.addEventListener('touchstart', function (e) {
+        if (e.touches.length > 0) {
+          updatePointer(e.touches[0].clientX, e.touches[0].clientY);
+          pointer.px = pointer.x;
+          pointer.py = pointer.y;
+          pointer.moved = false;
+        }
+      }, { passive: true });
+
+      window.addEventListener('touchmove', function (e) {
+        if (e.touches.length > 0) updatePointer(e.touches[0].clientX, e.touches[0].clientY);
+      }, { passive: true });
+    }
+
+    // iOS Safari can still rubber-band the document; block it everywhere
+    // except over the links and email button so taps keep working.
+    document.addEventListener('touchmove', function (e) {
+      if (!e.target.closest('a')) e.preventDefault();
+    }, { passive: false });
 
     // ---------- ambient stirring while idle ----------
     var lastAmbient = 0;
