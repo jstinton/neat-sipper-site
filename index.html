@@ -188,8 +188,39 @@
       text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
     }
 
+    /* hidden easter egg — pixelated rocks glass of neat bourbon.
+       Click it to fall through to the 1997 GeoCities page. */
+    .easter-glass {
+      position: fixed;
+      right: 1.1rem;
+      bottom: 0.9rem;
+      width: 36px;
+      z-index: 20;
+      opacity: 0.26;
+      cursor: pointer;
+      pointer-events: auto;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
+      transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .easter-glass svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      image-rendering: pixelated;
+      shape-rendering: crispEdges;
+    }
+    .easter-glass:hover,
+    .easter-glass:focus-visible {
+      opacity: 1;
+      transform: translateY(-3px) scale(1.14);
+      filter: drop-shadow(0 0 10px rgba(240, 184, 94, 0.7));
+      outline: none;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .email-btn { transition: none; }
+      .easter-glass { transition: opacity 0.3s ease; }
     }
   </style>
 </head>
@@ -223,6 +254,21 @@
 
     <a class="email-btn" href="mailto:Joseph@neatsipper.com">Email Me</a>
   </main>
+
+  <!-- secret: pours you back to 1997 -->
+  <a class="easter-glass" href="/geocities/" aria-label="A neat pour" title="pour one out for &rsquo;97">
+    <svg viewBox="0 0 11 12" xmlns="http://www.w3.org/2000/svg">
+      <g fill="#e8eef2">
+        <rect x="1" y="0" width="9" height="1" />
+        <rect x="1" y="1" width="1" height="9" />
+        <rect x="9" y="1" width="1" height="9" />
+        <rect x="1" y="10" width="9" height="1" />
+      </g>
+      <rect x="2" y="5" width="7" height="1" fill="#f0b85e" />
+      <rect x="2" y="6" width="7" height="4" fill="#c97b25" />
+      <rect x="2" y="11" width="7" height="1" fill="#3a1d08" />
+    </svg>
+  </a>
 
   <footer>The Hunt &middot; The Pour &middot; The Notes</footer>
 

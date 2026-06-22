@@ -650,16 +650,23 @@ document.addEventListener("mousemove", function(e) {
   requestAnimationFrame(bounce);
 })();
 
-/* tiny live counter tick for fun (starts at the famous 00042) */
+/* ===================================================================
+   REAL hit counter — a persistent, globally-shared visit count via
+   Abacus (abacus.jasoncameron.dev). Increments once per page load.
+   Seeded at 41 so the first real hunter is #00042. If the service is
+   ever unreachable, the 00042 already in the HTML stays put.
+   =================================================================== */
 (function(){
   var c = document.getElementById("counter");
-  var n = 42;
-  setInterval(function(){
-    if (Math.random() < 0.25) {
-      n++;
-      c.textContent = String(n).padStart(5, "0");
-    }
-  }, 4000);
+  if (!c) return;
+  fetch("https://abacus.jasoncameron.dev/hit/neatsipper-com/geocities-hunters")
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (d && typeof d.value === "number") {
+        c.textContent = String(d.value).padStart(5, "0");
+      }
+    })
+    .catch(function(){ /* keep the classic 00042 fallback */ });
 })();
 </script>
 
