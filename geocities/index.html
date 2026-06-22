@@ -433,7 +433,9 @@
   <br>
   <button id="themeBtn" onclick="toggleTheme()">🔊 Click to play my theme song</button>
   <div id="themeStatus" style="color:#39ff14; font-size:12px; margin-top:6px;">[ stopped ]</div>
-  <div style="color:#888; font-size:10px;">(warning: this jam is a TOTAL banger)</div>
+  <div style="color:#888; font-size:10px;">(warning: this jam is a TOTAL banger ~ 56k users beware!!!)</div>
+  <!-- the REAL theme song. preload=none so it only downloads on click. loops 4ever. -->
+  <audio id="themeAudio" src="theme.m4a" loop preload="none"></audio>
 </td></tr></table>
 
 <hr class="glitterhr">
@@ -623,62 +625,32 @@
 
 <script>
 /* ===================================================================
-   THEME SONG — short looping "MIDI-style" tune via Web Audio API.
-   USER-TRIGGERED ONLY. No autoplay (browsers block it anyway).
+   THEME SONG — plays NeatSipper's actual theme track (theme.m4a) on a
+   loop. USER-TRIGGERED ONLY: nothing downloads or plays until the
+   button is clicked (preload="none" + click handler = no autoplay).
    =================================================================== */
-var audioCtx = null;
-var themePlaying = false;
-var loopTimer = null;
-var scheduled = [];
-
-// a cheesy little square-wave bourbon jingle (note, beats)
-var melody = [
-  [392, 1], [392, 1], [440, 1], [523, 2],   // G G A C
-  [440, 1], [392, 1], [330, 2],             // A G E
-  [349, 1], [392, 1], [440, 2], [392, 2]    // F G A G
-];
-var beat = 0.22; // seconds per beat
-
-function playLoop() {
-  if (!themePlaying) return;
-  var t = audioCtx.currentTime + 0.05;
-  var total = 0;
-  melody.forEach(function(n) {
-    var osc = audioCtx.createOscillator();
-    var gain = audioCtx.createGain();
-    osc.type = "square";
-    osc.frequency.value = n[0];
-    var dur = n[1] * beat;
-    gain.gain.setValueAtTime(0.0001, t + total);
-    gain.gain.linearRampToValueAtTime(0.12, t + total + 0.01);
-    gain.gain.exponentialRampToValueAtTime(0.0001, t + total + dur * 0.9);
-    osc.connect(gain).connect(audioCtx.destination);
-    osc.start(t + total);
-    osc.stop(t + total + dur);
-    scheduled.push(osc);
-    total += dur;
-  });
-  // schedule next loop
-  loopTimer = setTimeout(playLoop, total * 1000);
-}
-
 function toggleTheme() {
-  if (!themePlaying) {
-    if (!audioCtx) {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  var audio = document.getElementById("themeAudio");
+  var statusEl = document.getElementById("themeStatus");
+  var btn = document.getElementById("themeBtn");
+  if (audio.paused) {
+    statusEl.textContent = "[ buffering... 56k users hang tight ]";
+    var p = audio.play();
+    if (p && p.then) {
+      p.then(function(){
+        statusEl.textContent = "[ ♫ now playing: NeatSipper theme ♫ ]";
+        btn.textContent = "🔇 STOP the jam";
+      }).catch(function(){
+        statusEl.textContent = "[ couldnt play :( tap again ]";
+      });
+    } else {
+      statusEl.textContent = "[ ♫ now playing: NeatSipper theme ♫ ]";
+      btn.textContent = "🔇 STOP the jam";
     }
-    if (audioCtx.state === "suspended") audioCtx.resume();
-    themePlaying = true;
-    document.getElementById("themeStatus").textContent = "[ ♫ now playing: bourbon.mid ♫ ]";
-    document.getElementById("themeBtn").textContent = "🔇 STOP the jam";
-    playLoop();
   } else {
-    themePlaying = false;
-    clearTimeout(loopTimer);
-    scheduled.forEach(function(o){ try { o.stop(); } catch(e){} });
-    scheduled = [];
-    document.getElementById("themeStatus").textContent = "[ stopped ]";
-    document.getElementById("themeBtn").textContent = "🔊 Click to play my theme song";
+    audio.pause();
+    statusEl.textContent = "[ stopped ]";
+    btn.textContent = "🔊 Click to play my theme song";
   }
 }
 
