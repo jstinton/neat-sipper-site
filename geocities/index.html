@@ -285,9 +285,24 @@
     border-radius: 50%;
     z-index: 9999;
   }
+
+  /* ---- BOUNCING BOTTLE (DVD-logo style) ---- */
+  #bouncer {
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 9998;
+    font-size: 46px;
+    pointer-events: none;
+    user-select: none;
+    text-shadow: 0 0 8px #ff8c00, 0 0 14px #ffd700;
+    will-change: transform;
+  }
 </style>
 </head>
 <body>
+
+<!-- ============ BOUNCING BOTTLE (DVD-logo style) ============ -->
+<div id="bouncer" title="wheeee!!!">🥃</div>
 
 <!-- ============ WELCOME MARQUEE BANNER ============ -->
 <marquee scrollamount="9" behavior="scroll" direction="left">
@@ -482,7 +497,7 @@
 <!-- ============ EMAIL + WEBRING + FOOTER ============ -->
 <div>
   <span class="atspin">@</span>
-  <a href="mailto:neatsipper@hotmail.com">Email me!</a>
+  <a href="mailto:joseph@neatsipper.com">Email me!</a>
   <span class="atspin">@</span>
 </div>
 <br>
@@ -601,6 +616,39 @@ document.addEventListener("mousemove", function(e) {
     if (op <= 0) { clearInterval(iv); s.remove(); }
   }, 30);
 });
+
+/* ===================================================================
+   BOUNCING BOTTLE — slides across and bounces off the screen edges,
+   DVD-logo style. Changes the bottle (& glow color) on every bounce.
+   =================================================================== */
+(function(){
+  var b = document.getElementById("bouncer");
+  if (!b) return;
+  var bottles = ["🥃", "🍾", "🍶", "🥃", "🍾"];
+  var glows = ["#ff8c00", "#ff00ff", "#00ffff", "#39ff14", "#ffff00"];
+  var x = 60, y = 120;
+  var dx = 2.6, dy = 2.1;   // pixels per frame
+  var idx = 0;
+
+  function bounce() {
+    var w = window.innerWidth, h = window.innerHeight;
+    var size = b.offsetWidth || 50;
+    x += dx; y += dy;
+    var hit = false;
+    if (x <= 0)            { x = 0;          dx = Math.abs(dx);  hit = true; }
+    if (x >= w - size)     { x = w - size;   dx = -Math.abs(dx); hit = true; }
+    if (y <= 0)            { y = 0;          dy = Math.abs(dy);  hit = true; }
+    if (y >= h - size)     { y = h - size;   dy = -Math.abs(dy); hit = true; }
+    if (hit) {
+      idx = (idx + 1) % bottles.length;
+      b.textContent = bottles[idx];
+      b.style.textShadow = "0 0 8px " + glows[idx] + ", 0 0 16px " + glows[idx];
+    }
+    b.style.transform = "translate(" + x + "px," + y + "px)";
+    requestAnimationFrame(bounce);
+  }
+  requestAnimationFrame(bounce);
+})();
 
 /* tiny live counter tick for fun (starts at the famous 00042) */
 (function(){
