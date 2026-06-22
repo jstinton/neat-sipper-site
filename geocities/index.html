@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>~*~ NeatSipper's BOURBON Homepage ~*~ [[ Welcome!!! ]]</title>
+<meta name="description" content="My personal bourbon homepage. Pappy hunter. Weller fan. Sign my guestbook!!!">
+<style>
+  /* ===================================================================
+     NeatSipper's Bourbon Homepage (c) 1997
+     Made with Notepad. Best viewed in Netscape Navigator 3.0 @ 800x600
+     =================================================================== */
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    /* TILED GREEN FELT (poker table vibes) via layered gradients */
+    background-color: #0a3d1c;
+    background-image:
+      radial-gradient(circle at 50% 50%, rgba(255,255,255,0.035) 0%, rgba(0,0,0,0) 60%),
+      repeating-linear-gradient(45deg, rgba(0,0,0,0.10) 0px, rgba(0,0,0,0.10) 2px, rgba(255,255,255,0.025) 2px, rgba(255,255,255,0.025) 4px),
+      repeating-linear-gradient(-45deg, rgba(0,0,0,0.10) 0px, rgba(0,0,0,0.10) 2px, rgba(255,255,255,0.025) 2px, rgba(255,255,255,0.025) 4px);
+    background-size: 100% 100%, 8px 8px, 8px 8px;
+    color: #c9c9c9; /* low-contrast text for ~authenticity~ */
+    font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
+    text-align: center;
+    cursor: crosshair;
+  }
+
+  /* clashing rainbow link colors */
+  a { color: #00ffff; font-weight: bold; }
+  a:visited { color: #ff00ff; }
+  a:hover { color: #ffff00; background: #ff00ff; }
+
+  .times { font-family: "Times New Roman", Times, serif; }
+
+  /* ---- BLINK (recreated, the <blink> tag is dead) ---- */
+  .blink { animation: blinker 0.9s steps(1, end) infinite; }
+  @keyframes blinker { 50% { opacity: 0; } }
+
+  .blink-fast { animation: blinker 0.4s steps(1, end) infinite; }
+
+  /* ---- NEW!!! tag ---- */
+  .newtag {
+    display: inline-block;
+    background: #ff0000;
+    color: #ffff00;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 1px 5px;
+    border: 1px outset #ffff00;
+    transform: rotate(-6deg);
+    animation: blinker 0.6s steps(1,end) infinite;
+  }
+
+  /* ---- FLAMING / GLITTER HR DIVIDER ---- */
+  .flamehr {
+    height: 14px;
+    border: 0;
+    margin: 14px auto;
+    width: 88%;
+    background: linear-gradient(90deg,
+      #ff0000, #ff8c00, #ffff00, #ff8c00, #ff0000, #ffff00, #ff8c00, #ff0000);
+    background-size: 400% 100%;
+    box-shadow: 0 0 8px #ff8c00, 0 0 14px #ff0000;
+    border-radius: 7px;
+    animation: flameSlide 0.8s linear infinite;
+  }
+  @keyframes flameSlide { from { background-position: 0 0; } to { background-position: 400% 0; } }
+
+  .glitterhr {
+    height: 8px;
+    border: 0;
+    margin: 14px auto;
+    width: 80%;
+    background: repeating-linear-gradient(90deg,
+      #ff00ff 0 6px, #00ffff 6px 12px, #ffff00 12px 18px, #00ff00 18px 24px);
+    background-size: 48px 100%;
+    animation: flameSlide 1.2s linear infinite;
+    box-shadow: 0 0 6px #fff;
+  }
+
+  /* ---- WELLER 107 flaming banner ---- */
+  .wellerbanner {
+    font-family: "Times New Roman", serif;
+    font-size: 34px;
+    font-weight: bold;
+    color: #ffd700;
+    text-shadow:
+      0 0 4px #ff0,
+      0 -2px 6px #ff8c00,
+      0 -4px 12px #ff4500,
+      0 -6px 18px #ff0000;
+    animation: flamePulse 0.5s ease-in-out infinite alternate;
+    letter-spacing: 2px;
+  }
+  @keyframes flamePulse {
+    from { text-shadow: 0 0 4px #ff0, 0 -2px 6px #ff8c00, 0 -4px 12px #ff4500, 0 -6px 18px #ff0000; }
+    to   { text-shadow: 0 0 6px #ff0, 0 -3px 10px #ffae00, 0 -7px 18px #ff6a00, 0 -10px 28px #ff0000; }
+  }
+
+  /* ---- LCD HIT COUNTER ---- */
+  .counter {
+    display: inline-block;
+    background: #000;
+    color: #39ff14;
+    font-family: "Courier New", monospace;
+    font-weight: bold;
+    font-size: 26px;
+    letter-spacing: 6px;
+    padding: 6px 12px;
+    border: 4px ridge #555;
+    text-shadow: 0 0 6px #39ff14;
+  }
+
+  /* ---- MARQUEE fallback styling ---- */
+  .welcome {
+    color: #ffff00;
+    font-size: 30px;
+    font-weight: bold;
+    text-shadow: 2px 2px 0 #ff00ff, -2px -2px 0 #00ffff;
+  }
+
+  /* ---- section table boxes ---- */
+  table.box {
+    margin: 0 auto;
+    border: 4px ridge #ff00ff;
+    background: rgba(20, 0, 40, 0.78);
+    padding: 0;
+  }
+  table.box td { padding: 12px 18px; }
+
+  h2.section {
+    color: #00ff00;
+    font-size: 26px;
+    text-shadow: 2px 2px 0 #000, 0 0 6px #00ff00;
+    margin: 6px 0;
+  }
+
+  /* tasting notes tacky table */
+  table.tasting {
+    margin: 8px auto;
+    border-collapse: separate;
+    border: 5px outset #ffff00;
+    background: #2a004a;
+  }
+  table.tasting th {
+    background: #ff00ff;
+    color: #ffff00;
+    border: 2px inset #00ffff;
+    padding: 5px 10px;
+    font-family: "Times New Roman", serif;
+  }
+  table.tasting td {
+    border: 2px dotted #00ffff;
+    padding: 5px 10px;
+    color: #00ffff;
+    background: #1a0033;
+  }
+
+  /* photo coming soon placeholders */
+  .photobox {
+    display: inline-block;
+    width: 150px;
+    height: 100px;
+    background:
+      repeating-linear-gradient(45deg, #555 0 8px, #333 8px 16px);
+    border: 3px inset #999;
+    color: #fff;
+    font-size: 12px;
+    line-height: 1.2;
+    vertical-align: middle;
+    margin: 6px;
+    position: relative;
+  }
+  .photobox span {
+    position: absolute; top: 50%; left: 0; right: 0;
+    transform: translateY(-50%);
+    text-shadow: 1px 1px 2px #000;
+  }
+
+  /* under construction */
+  .construction {
+    background: repeating-linear-gradient(45deg, #ffcc00 0 18px, #000 18px 36px);
+    color: #000;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 8px;
+    border: 4px dashed #ff0000;
+    margin: 10px auto;
+    width: 80%;
+    text-shadow: 1px 1px 0 #fff;
+  }
+  .construction .label {
+    background: #000; color: #ffcc00; padding: 2px 8px; display: inline-block;
+  }
+
+  /* guestbook */
+  .gbentry {
+    text-align: left;
+    background: #100020;
+    border: 2px groove #00ffff;
+    margin: 6px auto;
+    padding: 6px 10px;
+    max-width: 460px;
+    color: #e0e0e0;
+    font-size: 14px;
+  }
+  .gbentry .user { color: #ff00ff; font-weight: bold; }
+  .gbentry .date { color: #888; font-size: 11px; }
+
+  /* badges */
+  .badge {
+    display: inline-block;
+    border: 2px outset #aaa;
+    padding: 4px 6px;
+    margin: 4px;
+    font-size: 11px;
+    font-family: "Times New Roman", serif;
+    vertical-align: middle;
+    background: #000080;
+    color: #fff;
+  }
+  .badge.netscape { background: #000; color: #00ff00; }
+  .badge.notepad { background: #c0c0c0; color: #000; border-style: inset; }
+  .badge.award { background: #800080; color: #ffff00; font-weight: bold; }
+  .badge.viewed { background: #222; color: #ffae00; }
+
+  /* spinning @ email */
+  .atspin {
+    display: inline-block;
+    font-size: 22px;
+    color: #ffff00;
+    animation: spin 1.5s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* whiskey bottle ascii */
+  pre.ascii {
+    color: #ffae00;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    line-height: 1.05;
+    text-shadow: 0 0 4px #ff8c00;
+    display: inline-block;
+    text-align: left;
+    margin: 0 auto;
+  }
+
+  /* theme song button */
+  #themeBtn {
+    font-family: "Comic Sans MS", cursive;
+    font-size: 16px;
+    font-weight: bold;
+    background: linear-gradient(#fff, #c0c0c0);
+    border: 3px outset #fff;
+    color: #000;
+    padding: 8px 14px;
+    cursor: pointer;
+  }
+  #themeBtn:active { border-style: inset; }
+
+  .webring {
+    background: #000;
+    border: 3px double #ffae00;
+    padding: 10px;
+    margin: 12px auto;
+    width: 70%;
+    color: #ffae00;
+    font-family: "Times New Roman", serif;
+  }
+
+  .disclaimer {
+    color: #444;
+    font-size: 9px;
+    margin: 18px auto 30px;
+    max-width: 600px;
+  }
+
+  /* glitter cursor trail dots */
+  .glitter {
+    position: fixed;
+    width: 6px; height: 6px;
+    pointer-events: none;
+    border-radius: 50%;
+    z-index: 9999;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ WELCOME MARQUEE BANNER ============ -->
+<marquee scrollamount="9" behavior="scroll" direction="left">
+  <span class="welcome">🥃🔥 WELCOME TO NEATSIPPER'S BOURBON HOMEPAGE!!! 🔥🥃 &nbsp;&nbsp; ~*~ U R visitor # 42 ~*~ &nbsp;&nbsp; sign my guestbook!!! &nbsp;&nbsp; 🥃🔥</span>
+</marquee>
+
+<hr class="flamehr">
+
+<!-- ============ HEADER ============ -->
+<font size="7" color="#ff00ff" face="Comic Sans MS">
+  <b>~*~ NeatSipper's BOURBON Homepage ~*~</b>
+</font>
+<br>
+<span class="newtag">NEW!!!</span>
+<br>
+<i class="times" style="color:#00ffff; font-size:18px;">
+  "ASMR pours, rare bottle huntin, and 100% honest taztin notes since 1997"
+</i>
+<br><br>
+
+<!-- the brand logo, 1997 edition -->
+<pre class="ascii" style="color:#ffd700; font-size:16px;">
+  _   _            _   _____ _
+ | \ | | ___  __ _| |_/ ___|(_)_ __  _ __   ___ _ __
+ |  \| |/ _ \/ _` | __\___ \| | '_ \| '_ \ / _ \ '__|
+ | |\  |  __/ (_| | |_ ___) | | |_) | |_) |  __/ |
+ |_| \_|\___|\__,_|\__|____/|_| .__/| .__/ \___|_|
+                              |_|   |_|   est. 1997
+</pre>
+
+<hr class="flamehr">
+
+<!-- ============ HIT COUNTER ============ -->
+<div class="times" style="font-size:18px; color:#fff;">You are bourbon hunter #</div>
+<div class="counter" id="counter">00042</div>
+<br>
+<div style="font-size:12px; color:#39ff14;">(this counter is 100% real and not made up)</div>
+
+<hr class="glitterhr">
+
+<!-- ============ WELLER 107 FLAMING BANNER ============ -->
+<div class="wellerbanner">🔥🔥 WELLER 107 NCF 4 LYFE 🔥🔥</div>
+<div class="times" style="color:#ffd700; font-size:15px;">~ my #1 favorite wheated bourbon of ALL TIME ~</div>
+
+<hr class="flamehr">
+
+<!-- ============ THEME SONG ============ -->
+<table class="box"><tr><td>
+  <h2 class="section">🎵 MY THEME SONG 🎵</h2>
+  <div style="color:#fff; font-size:13px;">turn ur speakers UP!!! 🔊🔊🔊</div>
+  <br>
+  <button id="themeBtn" onclick="toggleTheme()">🔊 Click to play my theme song</button>
+  <div id="themeStatus" style="color:#39ff14; font-size:12px; margin-top:6px;">[ stopped ]</div>
+  <div style="color:#888; font-size:10px;">(warning: this jam is a TOTAL banger)</div>
+</td></tr></table>
+
+<hr class="glitterhr">
+
+<!-- ============ MY BOTTLE COLLECTION ============ -->
+<h2 class="section">🏆 MY BOTTLE COLLECTION 🏆</h2>
+<div class="times" style="color:#00ffff; font-size:15px;">check out my UNICORNS... yes they r all allocated... no u cant have any 😎</div>
+<br>
+<table class="box"><tr><td>
+
+  <div style="color:#ffff00; font-size:18px;"><b>👑 Pappy Van Winkle 23 Year 👑</b></div>
+  <div class="photobox"><span>[ photo<br>coming<br>soon!!! ]</span></div>
+  <div style="color:#fff; font-size:12px;">got it at retail (i wish lol) ~ NOT for sale do not email me</div>
+  <hr class="glitterhr">
+
+  <div style="color:#ffff00; font-size:18px;"><b>💪 George T. Stagg (Barrel Proof BABY) 💪</b></div>
+  <div class="photobox"><span>[ photo<br>coming<br>soon!!! ]</span></div>
+  <div style="color:#fff; font-size:12px;">144.7 proof... will put hair on UR chest 🦍</div>
+  <hr class="glitterhr">
+
+  <div style="color:#ffff00; font-size:18px;"><b>🌟 Weller Antique 107 (NCF) 🌟</b></div>
+  <div class="photobox"><span>[ photo<br>coming<br>soon!!! ]</span></div>
+  <div style="color:#fff; font-size:12px;">the people's pappy ~ found it on a bottom shelf in 1996 ~ the GOAT</div>
+
+</td></tr></table>
+
+<hr class="flamehr">
+
+<!-- ============ TASTING NOTES ============ -->
+<h2 class="section">👃 TASTING NOTEZ 👅</h2>
+<table class="tasting">
+  <tr><th>BOTTLE</th><th>NOSE</th><th>PALATE</th><th>FINISH</th><th>SCORE</th></tr>
+  <tr>
+    <td>Weller 107</td>
+    <td>caramel, wheat bread, grampas barn</td>
+    <td>BUTTERSCOTCH EXPLOSION 🤯</td>
+    <td>long &amp; warm like a hug</td>
+    <td>11/10 🔥</td>
+  </tr>
+  <tr>
+    <td>Pappy 23</td>
+    <td>idk it smells expensive</td>
+    <td>tastes like winning</td>
+    <td>my wallet crying</td>
+    <td>10/10</td>
+  </tr>
+  <tr>
+    <td>Geo. T. Stagg</td>
+    <td>FUMES (in a good way)</td>
+    <td>dark cherry + a punch</td>
+    <td>still goin honestly</td>
+    <td>9.5/10 🥊</td>
+  </tr>
+</table>
+
+<hr class="glitterhr">
+
+<!-- ============ UNDER CONSTRUCTION ============ -->
+<div class="construction">
+  <span class="label">🚧👷 UNDER CONSTRUCTION 👷🚧</span><br>
+  <span class="blink" style="color:#000;">COMING SOON!!!</span><br>
+  <span style="font-size:14px;">~ pls excuse my dust ~ my webmaster (me) is workin on it ~</span>
+</div>
+<div class="times" style="color:#00ffff;">
+  🚧 Mash Bill Database — COMING SOON!!!<br>
+  🚧 Barrel Pick Photos — COMING SOON!!!<br>
+  🚧 ASMR Pour .WAV Downloads (56k warning!) — COMING SOON!!!<br>
+  🚧 My Glencairn Collection — COMING SOON!!!
+</div>
+
+<hr class="flamehr">
+
+<!-- ============ MY FAVORITE LINKS ============ -->
+<h2 class="section">🔗 MY FAVORITE LINKS 🔗</h2>
+<table class="box"><tr><td style="text-align:left; color:#fff;">
+  ► <a href="#">AOL Keyword: BOURBON</a> <span class="newtag">NEW!!!</span><br>
+  ► <a href="#">Bob's Kentucky Distillery Webcam</a><br>
+  ► <a href="#">The Barrel Proof Webring HQ</a><br>
+  ► <a href="#">Tater Trader 9000 (BBS)</a><br>
+  ► <a href="#">how 2 read a bottle code (SECRETS)</a><br>
+  ► <a href="#">my friend Dave's beanie baby page</a>
+</td></tr></table>
+
+<hr class="glitterhr">
+
+<!-- ============ GUESTBOOK ============ -->
+<h2 class="section">📖 SIGN MY GUESTBOOK!!! 📖</h2>
+<div class="times" style="color:#00ffff;">100+ entries (ok maybe 4) ~ leave some luv 💕</div>
+<br>
+<div class="gbentry">
+  <span class="user">xXBourbonHunter97Xx</span> <span class="date">— 06/19/1997 3:14 AM</span><br>
+  yo SICK collection bro 🔥 how u get the pappy?? email me back i have $$$ and 3 buffalo trace 4 trade
+</div>
+<div class="gbentry">
+  <span class="user">TaterKing_Chi</span> <span class="date">— 06/20/1997 11:52 PM</span><br>
+  weller 107 is overrated... jk jk it slaps 😤 added u to my webring. visit my page its under construction tho
+</div>
+<div class="gbentry">
+  <span class="user">aunt_carol_KY</span> <span class="date">— 06/20/1997 8:09 PM</span><br>
+  honey this is a very nice website but please drink some water. love aunt carol. how do i close this
+</div>
+<div class="gbentry">
+  <span class="user">56k_Steve</span> <span class="date">— 06/21/1997 1:30 AM</span><br>
+  page took 9 mins 2 load on my modem but WORTH IT ⭐⭐⭐⭐⭐ the flaming bar is so cool how did u do that
+</div>
+
+<hr class="flamehr">
+
+<!-- ============ BADGES ROW ============ -->
+<div>
+  <span class="badge viewed">Best viewed in<br><b>NETSCAPE NAVIGATOR 3.0</b><br>@ 800x600</span>
+  <span class="badge notepad">⌨️ Made with<br><b>NOTEPAD</b></span>
+  <span class="badge netscape"><b>Netscape Now!</b><br>🅽</span>
+  <span class="badge award">🏆 WINNER 🏆<br>Cool Bourbon<br>Site of the Day!</span>
+</div>
+
+<hr class="glitterhr">
+
+<!-- ============ WHISKEY BOTTLE ASCII ============ -->
+<h2 class="section">~ behold my bottle ~</h2>
+<pre class="ascii">
+       ___
+      |   |
+      |   |
+      | W |
+     /|   |\
+    | | 1 | |
+    | | 0 | |
+    | | 7 | |
+    | |NCF| |
+    | |___| |
+    |_______|
+   THE GOAT 🐐
+</pre>
+
+<hr class="flamehr">
+
+<!-- ============ EMAIL + WEBRING + FOOTER ============ -->
+<div>
+  <span class="atspin">@</span>
+  <a href="mailto:neatsipper@hotmail.com">Email me!</a>
+  <span class="atspin">@</span>
+</div>
+<br>
+
+<div class="webring">
+  🥃 <b>The BourbonRing</b> 🥃<br>
+  [ <a href="#">&lt;&lt; Prev</a> | <a href="#">Random</a> | <a href="#">Next &gt;&gt;</a> ]
+</div>
+
+<div class="times" style="color:#ffff00; font-size:14px;">
+  📅 Last updated: <b>June 21st, 1997</b> (12:04 AM)
+</div>
+<br>
+
+<div style="font-size:15px;">
+  <a href="https://neatsipper.com/">← Return to the REAL NeatSipper</a>
+</div>
+<br>
+
+<div class="times blink" style="color:#39ff14; font-size:14px;">
+  🥃 Best viewed with a glass of Weller Antique 107 NCF in hand. 🥃
+</div>
+
+<!-- ============ TINY BLINKING DISCLAIMER ============ -->
+<div class="disclaimer blink-fast times">
+  Please sip responsibly. You must be of legal drinking age. NeatSipper does not endorse
+  trading, selling, or hunting bourbon irresponsibly. Drink water. Never drink and drive.
+  This page is a parody and is not actually from 1997.
+</div>
+
+<script>
+/* ===================================================================
+   THEME SONG — short looping "MIDI-style" tune via Web Audio API.
+   USER-TRIGGERED ONLY. No autoplay (browsers block it anyway).
+   =================================================================== */
+var audioCtx = null;
+var themePlaying = false;
+var loopTimer = null;
+var scheduled = [];
+
+// a cheesy little square-wave bourbon jingle (note, beats)
+var melody = [
+  [392, 1], [392, 1], [440, 1], [523, 2],   // G G A C
+  [440, 1], [392, 1], [330, 2],             // A G E
+  [349, 1], [392, 1], [440, 2], [392, 2]    // F G A G
+];
+var beat = 0.22; // seconds per beat
+
+function playLoop() {
+  if (!themePlaying) return;
+  var t = audioCtx.currentTime + 0.05;
+  var total = 0;
+  melody.forEach(function(n) {
+    var osc = audioCtx.createOscillator();
+    var gain = audioCtx.createGain();
+    osc.type = "square";
+    osc.frequency.value = n[0];
+    var dur = n[1] * beat;
+    gain.gain.setValueAtTime(0.0001, t + total);
+    gain.gain.linearRampToValueAtTime(0.12, t + total + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + total + dur * 0.9);
+    osc.connect(gain).connect(audioCtx.destination);
+    osc.start(t + total);
+    osc.stop(t + total + dur);
+    scheduled.push(osc);
+    total += dur;
+  });
+  // schedule next loop
+  loopTimer = setTimeout(playLoop, total * 1000);
+}
+
+function toggleTheme() {
+  if (!themePlaying) {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === "suspended") audioCtx.resume();
+    themePlaying = true;
+    document.getElementById("themeStatus").textContent = "[ ♫ now playing: bourbon.mid ♫ ]";
+    document.getElementById("themeBtn").textContent = "🔇 STOP the jam";
+    playLoop();
+  } else {
+    themePlaying = false;
+    clearTimeout(loopTimer);
+    scheduled.forEach(function(o){ try { o.stop(); } catch(e){} });
+    scheduled = [];
+    document.getElementById("themeStatus").textContent = "[ stopped ]";
+    document.getElementById("themeBtn").textContent = "🔊 Click to play my theme song";
+  }
+}
+
+/* ===================================================================
+   GLITTER / STAR CURSOR TRAIL
+   =================================================================== */
+var glitterColors = ["#ff00ff", "#00ffff", "#ffff00", "#00ff00", "#ff6600", "#ffffff"];
+var glitterChars = ["✦", "✧", "★", "✫", "❉", "✺"];
+var lastSpawn = 0;
+document.addEventListener("mousemove", function(e) {
+  var now = Date.now();
+  if (now - lastSpawn < 40) return; // throttle
+  lastSpawn = now;
+  var s = document.createElement("div");
+  s.className = "glitter";
+  s.textContent = glitterChars[Math.floor(Math.random()*glitterChars.length)];
+  s.style.color = glitterColors[Math.floor(Math.random()*glitterColors.length)];
+  s.style.left = (e.clientX) + "px";
+  s.style.top = (e.clientY) + "px";
+  s.style.fontSize = (8 + Math.random()*10) + "px";
+  document.body.appendChild(s);
+  var op = 1;
+  var fall = 0;
+  var iv = setInterval(function() {
+    op -= 0.06; fall += 1.2;
+    s.style.opacity = op;
+    s.style.transform = "translateY(" + fall + "px)";
+    if (op <= 0) { clearInterval(iv); s.remove(); }
+  }, 30);
+});
+
+/* tiny live counter tick for fun (starts at the famous 00042) */
+(function(){
+  var c = document.getElementById("counter");
+  var n = 42;
+  setInterval(function(){
+    if (Math.random() < 0.25) {
+      n++;
+      c.textContent = String(n).padStart(5, "0");
+    }
+  }, 4000);
+})();
+</script>
+
+</body>
+</html>
