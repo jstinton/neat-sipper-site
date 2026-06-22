@@ -209,6 +209,48 @@
   .gbentry .user { color: #ff00ff; font-weight: bold; }
   .gbentry .date { color: #888; font-size: 11px; }
 
+  /* guestbook sign-in form */
+  .gbform {
+    position: relative;
+    background: #100020;
+    border: 3px ridge #00ff00;
+    margin: 8px auto 14px;
+    padding: 12px 14px;
+    max-width: 460px;
+    color: #fff;
+  }
+  .gbform label { display: block; text-align: left; color: #ffff00; font-size: 13px; margin: 6px 0 2px; }
+  .gbform input[type=text], .gbform textarea {
+    width: 100%;
+    box-sizing: border-box;
+    background: #000;
+    color: #39ff14;
+    border: 2px inset #00ffff;
+    font-family: "Courier New", monospace;
+    font-size: 13px;
+    padding: 4px 6px;
+  }
+  .gbform textarea { height: 58px; resize: vertical; }
+  .gbform button {
+    margin-top: 10px;
+    font-family: "Comic Sans MS", cursive;
+    font-weight: bold;
+    font-size: 15px;
+    background: linear-gradient(#ffff00, #ffae00);
+    border: 3px outset #fff;
+    color: #800080;
+    padding: 6px 18px;
+    cursor: pointer;
+  }
+  .gbform button:active { border-style: inset; }
+  /* honeypot — hidden from humans, catnip for bots */
+  .gbform .hp { position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  #gbStatus { font-size: 12px; color: #39ff14; margin-top: 8px; min-height: 14px; }
+  #gbList:empty::after {
+    content: "~ no modern entries yet... be the FIRST!!! ~";
+    display: block; color: #888; font-size: 13px; margin: 8px 0;
+  }
+
   /* badges */
   .badge {
     display: inline-block;
@@ -296,6 +338,41 @@
     user-select: none;
     text-shadow: 0 0 8px #ff8c00, 0 0 14px #ffd700;
     will-change: transform;
+  }
+
+  /* ===================================================================
+     MOBILE — keep it gloriously tacky but stop it overflowing the screen.
+     Shrink the oversized type; let the wide ASCII art and the tasting
+     table scroll inside their own box instead of stretching the page.
+     =================================================================== */
+  @media (max-width: 600px) {
+    html, body { overflow-x: hidden; }
+    font[size="7"] { font-size: 30px; }
+    .welcome { font-size: 18px; text-shadow: 1px 1px 0 #ff00ff, -1px -1px 0 #00ffff; }
+    .wellerbanner { font-size: 22px; letter-spacing: 1px; }
+    h2.section { font-size: 20px; }
+    .counter { font-size: 20px; letter-spacing: 3px; padding: 5px 8px; }
+
+    pre.ascii {
+      font-size: 10px !important;   /* beats the inline 16px on the logo */
+      max-width: 100%;
+      overflow-x: auto;
+    }
+
+    table.tasting {
+      display: block;
+      width: max-content;
+      max-width: 100%;
+      overflow-x: auto;             /* scrolls inside itself, page stays put */
+      font-size: 11px;
+    }
+    table.tasting th, table.tasting td { padding: 4px 6px; }
+
+    table.box { max-width: 94%; }
+    .construction { width: 92%; font-size: 16px; }
+    .webring { width: 92%; }
+    .gbform, .gbentry { max-width: 92%; }
+    #bouncer { font-size: 34px; }
   }
 </style>
 </head>
@@ -444,8 +521,24 @@
 
 <!-- ============ GUESTBOOK ============ -->
 <h2 class="section">📖 SIGN MY GUESTBOOK!!! 📖</h2>
-<div class="times" style="color:#00ffff;">100+ entries (ok maybe 4) ~ leave some luv 💕</div>
+<div class="times" style="color:#00ffff;">leave some luv 💕 ~ these messages r 100% REAL now!!!</div>
 <br>
+
+<form class="gbform" id="gbForm" autocomplete="off">
+  <label for="gbName">Ur Name / Handle:</label>
+  <input type="text" id="gbName" maxlength="40" placeholder="xXyourNameXx" required>
+  <label for="gbMsg">Ur Message:</label>
+  <textarea id="gbMsg" maxlength="280" placeholder="say somethin nice about bourbon..." required></textarea>
+  <!-- honeypot: bots fill this in, humans never see it -->
+  <div class="hp" aria-hidden="true"><label>Leave this blank<input type="text" id="gbWebsite" tabindex="-1" autocomplete="off"></label></div>
+  <button type="submit">✍️ Sign it!!!</button>
+  <div id="gbStatus"></div>
+</form>
+
+<!-- real entries render here, newest first -->
+<div id="gbList"></div>
+
+<div class="times" style="color:#ff00ff; font-size:14px; margin:14px 0 4px;">★ ~ VINTAGE ENTRIES FROM 1997 ~ ★</div>
 <div class="gbentry">
   <span class="user">xXBourbonHunter97Xx</span> <span class="date">— 06/19/1997 3:14 AM</span><br>
   yo SICK collection bro 🔥 how u get the pappy?? email me back i have $$$ and 3 buffalo trace 4 trade
@@ -667,6 +760,100 @@ document.addEventListener("mousemove", function(e) {
       }
     })
     .catch(function(){ /* keep the classic 00042 fallback */ });
+})();
+
+/* ===================================================================
+   REAL GUESTBOOK — open, no-login. Entries are stored in a Firebase
+   Realtime Database via its plain REST API (no SDK/extra script).
+   Rendered newest-first. All user text is inserted with textContent
+   only (never innerHTML) so a visitor can't inject markup/script.
+   A honeypot field silently drops obvious bots.
+   =================================================================== */
+(function(){
+  // Firebase Realtime Database (public read, create-only writes via DB rules)
+  var GUESTBOOK_DB = "https://neatsipper-guestbook-default-rtdb.firebaseio.com";
+
+  var form = document.getElementById("gbForm");
+  var list = document.getElementById("gbList");
+  var statusEl = document.getElementById("gbStatus");
+  if (!form || !list) return;
+
+  var configured = GUESTBOOK_DB.indexOf("YOUR-PROJECT") === -1;
+  if (!configured) {
+    // backend not wired up yet — hide the dead form, show a tasteful 1997 notice
+    form.style.display = "none";
+    list.innerHTML = "";
+    var note = document.createElement("div");
+    note.className = "times";
+    note.style.cssText = "color:#ffae00; font-size:14px; margin:8px 0;";
+    note.textContent = "🚧 guestbook signing is UNDER CONSTRUCTION — check back soon!!! 🚧";
+    list.appendChild(note);
+    return;
+  }
+
+  function pad(x){ return String(x).padStart(2, "0"); }
+  function fmtDate(ts){
+    var d = new Date(ts);
+    if (isNaN(d.getTime())) return "";
+    return pad(d.getMonth()+1) + "/" + pad(d.getDate()) + "/" + d.getFullYear() +
+           " " + pad(d.getHours()) + ":" + pad(d.getMinutes());
+  }
+
+  function render(obj){
+    list.innerHTML = "";
+    if (!obj) return;
+    var arr = Object.keys(obj).map(function(k){ return obj[k]; })
+      .filter(function(e){ return e && e.name && e.message; })
+      .sort(function(a, b){ return (b.ts || 0) - (a.ts || 0); })
+      .slice(0, 50);
+    arr.forEach(function(e){
+      var div = document.createElement("div");
+      div.className = "gbentry";
+      var u = document.createElement("span");
+      u.className = "user";
+      u.textContent = e.name;                       // textContent = safe
+      var dt = document.createElement("span");
+      dt.className = "date";
+      dt.textContent = " — " + fmtDate(e.ts);
+      div.appendChild(u);
+      div.appendChild(dt);
+      div.appendChild(document.createElement("br"));
+      div.appendChild(document.createTextNode(e.message)); // safe
+      list.appendChild(div);
+    });
+  }
+
+  function load(){
+    if (!configured) return;
+    fetch(GUESTBOOK_DB + "/guestbook.json")
+      .then(function(r){ return r.json(); })
+      .then(render)
+      .catch(function(){ if (statusEl) statusEl.textContent = "couldnt load guestbook :( try again l8r"; });
+  }
+
+  form.addEventListener("submit", function(ev){
+    ev.preventDefault();
+    if (!configured){ statusEl.textContent = "guestbook isnt hooked up yet!!!"; return; }
+    if (document.getElementById("gbWebsite").value){ form.reset(); return; } // bot caught
+    var name = document.getElementById("gbName").value.trim().slice(0, 40);
+    var message = document.getElementById("gbMsg").value.trim().slice(0, 280);
+    if (!name || !message){ statusEl.textContent = "fill in BOTH fields!!!"; return; }
+    statusEl.textContent = "signing...";
+    fetch(GUESTBOOK_DB + "/guestbook.json", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: name, message: message, ts: Date.now() })
+    })
+    .then(function(r){ if (!r.ok) throw new Error("bad status"); return r.json(); })
+    .then(function(){
+      statusEl.textContent = "✅ thx 4 signing my guestbook!!! 🥃";
+      form.reset();
+      load();
+    })
+    .catch(function(){ statusEl.textContent = "❌ somethin broke, try again l8r"; });
+  });
+
+  load();
 })();
 </script>
 
