@@ -347,6 +347,16 @@
      =================================================================== */
   @media (max-width: 600px) {
     html, body { overflow-x: hidden; }
+
+    /* READABILITY: the tiled felt is busy, so lift text off it. A dark
+       halo cascades to any text that doesn't set its own shadow (the
+       cyan/gray bits), and we brighten the default body color + bump
+       the base size. Bright neon headings keep their own glow. */
+    body { color: #ededed; font-size: 16px; line-height: 1.5; text-shadow: 0 1px 2px #000, 0 0 5px #000; }
+    .times { font-style: normal; }            /* upright reads better small */
+    i.times { font-style: italic; }           /* keep the subtitle's slant, now with halo */
+    .gbentry, .construction, table.tasting td, table.tasting th { text-shadow: none; }
+
     font[size="7"] { font-size: 30px; }
     .welcome { font-size: 18px; text-shadow: 1px 1px 0 #ff00ff, -1px -1px 0 #00ffff; }
     .wellerbanner { font-size: 22px; letter-spacing: 1px; }
@@ -626,32 +636,72 @@
 <script>
 /* ===================================================================
    THEME SONG — plays NeatSipper's actual theme track (theme.m4a) on a
-   loop. USER-TRIGGERED ONLY: nothing downloads or plays until the
-   button is clicked (preload="none" + click handler = no autoplay).
+   loop. USER-TRIGGERED ONLY (no autoplay).
+
+   Mobile note: an <audio> element is muted by the iOS ring/silent
+   switch, which is why phone audio often "doesn't work". The Web Audio
+   API ignores that switch, so we decode + play the file through it,
+   resuming the AudioContext inside the click (the gesture that unlocks
+   iOS audio). Falls back to the plain <audio> element if Web Audio or
+   AAC decoding isn't available.
    =================================================================== */
-function toggleTheme() {
-  var audio = document.getElementById("themeAudio");
-  var statusEl = document.getElementById("themeStatus");
-  var btn = document.getElementById("themeBtn");
-  if (audio.paused) {
-    statusEl.textContent = "[ buffering... 56k users hang tight ]";
-    var p = audio.play();
-    if (p && p.then) {
-      p.then(function(){
-        statusEl.textContent = "[ ♫ now playing: NeatSipper theme ♫ ]";
-        btn.textContent = "🔇 STOP the jam";
-      }).catch(function(){
-        statusEl.textContent = "[ couldnt play :( tap again ]";
-      });
-    } else {
-      statusEl.textContent = "[ ♫ now playing: NeatSipper theme ♫ ]";
-      btn.textContent = "🔇 STOP the jam";
-    }
+var tCtx = null, tBuf = null, tSrc = null, tPlaying = false, tLoading = false;
+
+function themeUI(state) {
+  var s = document.getElementById("themeStatus");
+  var b = document.getElementById("themeBtn");
+  if (state === "play")        { s.textContent = "[ ♫ now playing: NeatSipper theme ♫ ]"; b.textContent = "🔇 STOP the jam"; }
+  else if (state === "buffer") { s.textContent = "[ buffering... 56k users hang tight ]"; }
+  else if (state === "error")  { s.textContent = "[ couldnt play :( tap again ]"; }
+  else                         { s.textContent = "[ stopped ]"; b.textContent = "🔊 Click to play my theme song"; }
+}
+
+function tStartBuffer() {
+  tSrc = tCtx.createBufferSource();
+  tSrc.buffer = tBuf;
+  tSrc.loop = true;
+  tSrc.connect(tCtx.destination);
+  tSrc.start(0);
+  tPlaying = true;
+  themeUI("play");
+}
+
+function tFallback() {
+  var a = document.getElementById("themeAudio");
+  a.loop = true;
+  var p = a.play();
+  if (p && p.then) {
+    p.then(function(){ tPlaying = true; themeUI("play"); })
+     .catch(function(){ themeUI("error"); });
   } else {
-    audio.pause();
-    statusEl.textContent = "[ stopped ]";
-    btn.textContent = "🔊 Click to play my theme song";
+    tPlaying = true; themeUI("play");
   }
+}
+
+function toggleTheme() {
+  // ---- STOP ----
+  if (tPlaying) {
+    if (tSrc) { try { tSrc.stop(); } catch (e) {} tSrc = null; }
+    var a = document.getElementById("themeAudio");
+    if (a && !a.paused) a.pause();
+    tPlaying = false;
+    themeUI("stop");
+    return;
+  }
+  // ---- PLAY (prefer Web Audio so the iOS silent switch can't mute it) ----
+  var AC = window.AudioContext || window.webkitAudioContext;
+  if (!AC) { tFallback(); return; }                // very old browser → <audio> fallback
+  if (!tCtx) tCtx = new AC();
+  if (tCtx.state === "suspended") tCtx.resume();    // unlock within the gesture
+  if (tBuf) { tStartBuffer(); return; }             // already decoded
+  if (tLoading) return;
+  tLoading = true;
+  themeUI("buffer");
+  fetch("theme.m4a")
+    .then(function(r){ return r.arrayBuffer(); })
+    .then(function(ab){ return tCtx.decodeAudioData(ab); })
+    .then(function(buf){ tBuf = buf; tLoading = false; tStartBuffer(); })
+    .catch(function(){ tLoading = false; tFallback(); });   // decode unsupported → <audio>
 }
 
 /* ===================================================================
