@@ -1,727 +1,902 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NeatSipper</title>
-  <meta name="description" content="NeatSipper — bourbon enthusiast, content creator, and obsessive bottle hunter. ASMR pours, rare bottle hunts, and honest tasting notes." />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NeatSipper</title>
+<meta name="description" content="NeatSipper — bourbon enthusiast, content creator, and obsessive bottle hunter. ASMR pours, rare bottle hunts, and honest tasting notes." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.neatsipper.com/" />
+<meta property="og:title" content="NeatSipper" />
+<meta property="og:description" content="ASMR-style pours, rare bottle hunts, and tasting notes from the hard-to-find bottles worth chasing." />
+<meta property="og:image" content="https://neatsipper.com/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="NeatSipper" />
+<meta name="twitter:description" content="ASMR-style pours, rare bottle hunts, and tasting notes from the hard-to-find bottles worth chasing." />
+<meta name="twitter:image" content="https://neatsipper.com/og-image.png" />
+<meta name="theme-color" content="#17151f" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sancreek&family=Barlow+Condensed:wght@500;600;700&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --gold: #c9a24b;
+    --amber: #7c5024;
+    --crimson: #8c1913;
+    --navy: #33325a;
+    --cream: #ead9c0;
+    --ink: #17151f;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.neatsipper.com/" />
-  <meta property="og:title" content="NeatSipper" />
-  <meta property="og:description" content="ASMR-style pours, rare bottle hunts, and tasting notes from the hard-to-find bottles worth chasing." />
-  <meta property="og:image" content="https://neatsipper.com/logo.png" />
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    background: var(--ink);
+    touch-action: none; /* finger drags stir the liquid instead of scrolling */
+    overscroll-behavior: none; /* no rubber-band on iOS */
+    -webkit-user-select: none;
+    user-select: none;
+  }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  body {
+    font-family: "Libre Franklin", system-ui, sans-serif;
+    color: var(--cream);
+  }
 
-  <style>
-    :root {
-      --gold: #f0b85e;
-      --amber: #c97b25;
-      --cream: #f6ead6;
-      --ink: #1c0d04;
-    }
+  /* Fallback whiskey gradient if WebGL is unavailable */
+  #whiskey {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: radial-gradient(ellipse at 50% 60%, #8a4b14 0%, #5a2c0b 45%, var(--ink) 100%);
+  }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+  main {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    pointer-events: none; /* let the liquid feel the cursor everywhere */
+  }
+  main a, main .links { pointer-events: auto; }
 
-    html, body {
-      height: 100%;
-      overflow: hidden;
-      background: #1c0d04;
-      touch-action: none;        /* finger drags stir the liquid instead of scrolling */
-      overscroll-behavior: none; /* no rubber-band on iOS */
-      -webkit-user-select: none;
-      user-select: none;
-    }
+  /* soft scrim so text stays legible over bright swirls */
+  main::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 62% 56% at 50% 50%, rgba(23, 21, 31, 0.56) 0%, rgba(23, 21, 31, 0.30) 55%, transparent 78%);
+    pointer-events: none;
+  }
+  main > * { position: relative; }
 
-    body {
-      font-family: "DM Sans", system-ui, sans-serif;
-      color: var(--cream);
-    }
+  h1 {
+    font-family: "Sancreek", serif;
+    font-weight: 400;
+    font-size: clamp(2.7rem, 7vw, 4.8rem);
+    line-height: 1.04;
+    letter-spacing: 0.01em;
+    color: var(--cream);
+    text-shadow: 0 2px 28px rgba(0, 0, 0, 0.5);
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--gold);
+  }
 
-    /* Fallback whiskey gradient if WebGL is unavailable */
-    #whiskey {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      display: block;
-      background: radial-gradient(ellipse at 50% 60%, #8a4b14 0%, #5a2c0b 45%, #2a1205 100%);
-    }
+  .logo {
+    width: clamp(140px, 16vw, 200px);
+    height: auto;
+    margin-top: 1.6rem;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px var(--gold), 0 14px 40px rgba(0, 0, 0, 0.55);
+  }
 
-    main {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2rem;
-      pointer-events: none; /* let the liquid feel the cursor everywhere */
-    }
+  .about {
+    max-width: 34rem;
+    margin-top: 1.5rem;
+    font-size: clamp(0.98rem, 1.6vw, 1.08rem);
+    font-weight: 300;
+    line-height: 1.65;
+    color: rgba(234, 217, 192, 0.88);
+    text-shadow: 0 1px 16px rgba(0, 0, 0, 0.55);
+  }
 
-    main a, main .links { pointer-events: auto; }
+  /* Latest-video card. Swap the placeholders marked TODO in the markup
+     below with the real video URL + YouTube thumbnail + title. */
+  .latest-video {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-top: 1.7rem;
+    padding: 0.4rem 1.1rem 0.4rem 0.4rem;
+    background: rgba(23, 21, 31, 0.55);
+    border: 1px solid rgba(201, 162, 75, 0.4);
+    border-radius: 999px;
+    text-decoration: none;
+    backdrop-filter: blur(3px);
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+  .latest-video:hover,
+  .latest-video:focus-visible {
+    border-color: var(--gold);
+    transform: translateY(-1px);
+    outline: none;
+  }
+  .latest-video__thumb {
+    width: 58px;
+    height: 34px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, var(--amber), var(--ink)) center/cover no-repeat, var(--ink);
+    background-blend-mode: overlay;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+  }
+  .latest-video__thumb svg { width: 13px; height: 13px; fill: var(--gold); }
+  .latest-video__text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.1rem;
+    text-align: left;
+  }
+  .latest-video__label {
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .latest-video__title {
+    font-family: "Libre Franklin", sans-serif;
+    font-size: 0.82rem;
+    color: var(--cream);
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-    /* soft scrim so text stays legible over bright swirls */
-    main::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 62% 56% at 50% 50%, rgba(18, 8, 2, 0.52) 0%, rgba(18, 8, 2, 0.28) 55%, transparent 78%);
-      pointer-events: none;
-    }
+  .links {
+    display: flex;
+    align-items: center;
+    gap: 1.9rem;
+    margin-top: 2.3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 
-    main > * { position: relative; }
+  .social {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 0.94rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(234, 217, 192, 0.82);
+    text-decoration: none;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid transparent;
+    transition: color 0.25s ease, border-color 0.25s ease;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
+  }
+  .social svg {
+    width: 17px;
+    height: 17px;
+    fill: currentColor;
+    filter: drop-shadow(0 1px 6px rgba(0, 0, 0, 0.4));
+  }
+  .social:hover,
+  .social:focus-visible {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    outline: none;
+  }
 
-    h1 {
-      font-family: "Fraunces", serif;
-      font-weight: 400;
-      font-size: clamp(2.6rem, 7vw, 4.6rem);
-      line-height: 1.04;
-      letter-spacing: -0.01em;
-      color: var(--cream);
-      text-shadow: 0 2px 28px rgba(0, 0, 0, 0.5);
-    }
+  .email-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-top: 2.4rem;
+    padding: 0.55rem 1.9rem 0.55rem 0.85rem;
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 0.92rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--cream);
+    background: rgba(23, 21, 31, 0.6);
+    border: 1.5px solid var(--gold);
+    border-radius: 999px;
+    box-shadow: 0 6px 26px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(3px);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .email-btn:hover,
+  .email-btn:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 34px rgba(201, 162, 75, 0.35);
+    outline: none;
+  }
+  .email-btn.is-pouring { pointer-events: none; }
 
-    h1 em {
-      font-style: italic;
-      font-weight: 400;
-      color: var(--gold);
-    }
+  .email-glass {
+    width: 26px;
+    height: 31px;
+    flex: none;
+    overflow: visible;
+  }
+  .email-glass__outline {
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 1.6;
+    stroke-linejoin: round;
+  }
+  .email-glass__rim {
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 1.4;
+    opacity: 0.85;
+  }
+  .email-glass__liquid {
+    fill: url(#emailLiquidGradient);
+    y: 32;
+    height: 0;
+    transition: y 0.75s cubic-bezier(0.32, 1.4, 0.44, 1), height 0.75s cubic-bezier(0.32, 1.4, 0.44, 1);
+  }
+  .email-glass__splash {
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 1.1;
+    r: 0;
+    opacity: 0;
+    transform-origin: 15px 14px;
+  }
+  .email-btn.is-pouring .email-glass__liquid {
+    y: 13;
+    height: 19;
+  }
+  .email-btn.is-pouring .email-glass__splash {
+    animation: emailSplash 0.5s ease-out 0.4s forwards;
+  }
+  @keyframes emailSplash {
+    0% { r: 1; opacity: 0.9; }
+    100% { r: 9; opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .email-glass__liquid, .email-glass__splash { transition: none; animation: none; }
+  }
 
-    .logo {
-      width: clamp(96px, 13vw, 132px);
-      height: auto;
-      margin-top: 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0 10px 36px rgba(0, 0, 0, 0.55), 0 2px 10px rgba(0, 0, 0, 0.4);
-    }
+  footer {
+    position: fixed;
+    bottom: 1.3rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: rgba(234, 217, 192, 0.42);
+    pointer-events: none;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+  }
 
-    .about {
-      max-width: 34rem;
-      margin-top: 1.4rem;
-      font-size: clamp(0.98rem, 1.6vw, 1.08rem);
-      font-weight: 300;
-      line-height: 1.65;
-      color: rgba(246, 234, 214, 0.88);
-      text-shadow: 0 1px 16px rgba(0, 0, 0, 0.55);
-    }
+  /* hidden easter egg — pixelated glass of neat bourbon, no rocks.
+     Click it to fall through to the 1997 GeoCities page. */
+  .easter-glass {
+    position: fixed;
+    right: 1.1rem;
+    bottom: 0.9rem;
+    width: 36px;
+    z-index: 20;
+    opacity: 0.26;
+    cursor: pointer;
+    pointer-events: auto;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
+    transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .easter-glass svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    image-rendering: pixelated;
+    shape-rendering: crispEdges;
+  }
+  .easter-glass:hover,
+  .easter-glass:focus-visible {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.14);
+    filter: drop-shadow(0 0 10px rgba(201, 162, 75, 0.7));
+    outline: none;
+  }
 
-    .links {
-      display: flex;
-      align-items: center;
-      gap: 1.9rem;
-      margin-top: 2.3rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
+  @media (prefers-reduced-motion: reduce) {
+    .email-btn { transition: none; }
+    .easter-glass { transition: opacity 0.3s ease; }
+  }
 
-    .social {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      font-size: 0.86rem;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(246, 234, 214, 0.82);
-      text-decoration: none;
-      padding: 0.35rem 0;
-      border-bottom: 1px solid transparent;
-      transition: color 0.25s ease, border-color 0.25s ease;
-      text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
-    }
+  /* short / landscape viewports: tighten the vertical rhythm so the
+     centered stack never collides with the fixed footer */
+  @media (max-height: 700px) {
+    main { padding: 1.2rem; }
+    h1 { font-size: clamp(2rem, 6vw, 3.4rem); }
+    .logo { width: clamp(88px, 11vw, 128px); margin-top: 0.9rem; }
+    .about { margin-top: 0.8rem; font-size: 0.88rem; line-height: 1.5; }
+    .latest-video { margin-top: 0.9rem; }
+    .latest-video__title { display: none; }
+    .links { margin-top: 1.2rem; gap: 1.4rem; }
+    .email-btn { margin-top: 1.2rem; padding: 0.45rem 1.5rem 0.45rem 0.7rem; font-size: 0.82rem; }
+    .email-glass { width: 21px; height: 25px; }
+    footer { bottom: 0.6rem; font-size: 0.66rem; }
+  }
 
-    .social svg {
-      width: 17px;
-      height: 17px;
-      fill: currentColor;
-      filter: drop-shadow(0 1px 6px rgba(0, 0, 0, 0.4));
-    }
-
-    .social:hover,
-    .social:focus-visible {
-      color: var(--gold);
-      border-bottom-color: var(--gold);
-      outline: none;
-    }
-
-    .email-btn {
-      display: inline-block;
-      margin-top: 2.4rem;
-      padding: 0.92rem 2.6rem;
-      font-family: "DM Sans", sans-serif;
-      font-size: 0.88rem;
-      font-weight: 500;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: var(--ink);
-      background: linear-gradient(135deg, #f0b85e, #d98e2b);
-      border-radius: 999px;
-      box-shadow: 0 6px 30px rgba(217, 142, 43, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.35);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .email-btn:hover,
-    .email-btn:focus-visible {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 40px rgba(217, 142, 43, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4);
-      outline: none;
-    }
-
-    footer {
-      position: fixed;
-      bottom: 1.3rem;
-      left: 0;
-      right: 0;
-      text-align: center;
-      font-size: 0.7rem;
-      font-weight: 300;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: rgba(246, 234, 214, 0.38);
-      pointer-events: none;
-      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
-    }
-
-    /* hidden easter egg — pixelated rocks glass of neat bourbon.
-       Click it to fall through to the 1997 GeoCities page. */
-    .easter-glass {
-      position: fixed;
-      right: 1.1rem;
-      bottom: 0.9rem;
-      width: 36px;
-      z-index: 20;
-      opacity: 0.26;
-      cursor: pointer;
-      pointer-events: auto;
-      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
-      transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .easter-glass svg {
-      display: block;
-      width: 100%;
-      height: auto;
-      image-rendering: pixelated;
-      shape-rendering: crispEdges;
-    }
-    .easter-glass:hover,
-    .easter-glass:focus-visible {
-      opacity: 1;
-      transform: translateY(-3px) scale(1.14);
-      filter: drop-shadow(0 0 10px rgba(240, 184, 94, 0.7));
-      outline: none;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .email-btn { transition: none; }
-      .easter-glass { transition: opacity 0.3s ease; }
-    }
-  </style>
+  @media (max-height: 520px) {
+    .about { display: none; }
+    .latest-video { display: none; }
+    .logo { width: clamp(72px, 10vw, 104px); margin-top: 0.6rem; }
+    .links { margin-top: 0.9rem; }
+    .email-btn { margin-top: 0.9rem; }
+  }
+</style>
 </head>
 <body>
+<canvas id="whiskey" aria-hidden="true"></canvas>
 
-  <canvas id="whiskey" aria-hidden="true"></canvas>
+<main>
+  <h1>Neat<em>Sipper</em></h1>
+  <img class="logo" src="logo.png" alt="Neat Sipper — Bourbon Hunting &amp; Reviews" width="400" height="400" />
+  <p class="about">
+    Bourbon enthusiast, content creator, and obsessive bottle hunter based in Chicago.
+    Rare bourbons, slow ASMR pours, and honest tasting notes &mdash; no gatekeeping,
+    no pretension. Just the hunt for what&rsquo;s hard to find.
+  </p>
 
-  <main>
-    <h1>Neat<em>Sipper</em></h1>
-    <img class="logo" src="logo-small.png" alt="Neat Sipper — Bourbon Hunting &amp; Reviews" width="360" height="490" />
-    <p class="about">
-      Bourbon enthusiast, content creator, and obsessive bottle hunter based in Chicago.
-      Rare bourbons, slow ASMR pours, and honest tasting notes &mdash; no gatekeeping,
-      no pretension. Just the hunt for what&rsquo;s hard to find.
-    </p>
-
-    <nav class="links" aria-label="Social links">
-      <a class="social" href="https://www.youtube.com/@neatsipper" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8zM9.5 15.6V8.4L15.8 12l-6.3 3.6z"/></svg>
-        YouTube
-      </a>
-      <a class="social" href="https://www.instagram.com/NeatSipper" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2a3.8 3.8 0 0 1-.9 1.4c-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4a3.8 3.8 0 0 1-1.4-.9 3.8 3.8 0 0 1-.9-1.4c-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.2-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 5.8.2 4.9.4 4.1.7c-.8.3-1.5.8-2.2 1.4A6 6 0 0 0 .7 4.1C.4 4.9.2 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.2.6 3 .3.8.8 1.5 1.4 2.2a6 6 0 0 0 2.2 1.4c.8.3 1.7.5 3 .6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.2-.3 3-.6a6 6 0 0 0 2.2-1.4 6 6 0 0 0 1.4-2.2c.3-.8.5-1.7.6-3 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.2-.6-3a6 6 0 0 0-1.4-2.2A6 6 0 0 0 19.9.7c-.8-.3-1.7-.5-3-.6C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.8-10.4a1.4 1.4 0 1 1-2.9 0 1.4 1.4 0 0 1 2.9 0z"/></svg>
-        Instagram
-      </a>
-      <a class="social" href="https://www.tiktok.com/@jst1nt" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.6 5.8a5.4 5.4 0 0 1-3.4-5.6h-3.7v14.7a3.1 3.1 0 1 1-3.1-3.1c.3 0 .6 0 .9.1V8.1a6.8 6.8 0 1 0 5.9 6.8V8.3a8.9 8.9 0 0 0 5.2 1.7V6.3c-.6 0-1.2-.2-1.8-.5z"/></svg>
-        TikTok
-      </a>
-    </nav>
-
-    <a class="email-btn" href="mailto:Joseph@neatsipper.com">Email Me</a>
-  </main>
-
-  <!-- secret: pours you back to 1997 -->
-  <a class="easter-glass" href="/geocities/" aria-label="A neat pour" title="pour one out for &rsquo;97">
-    <svg viewBox="0 0 11 12" xmlns="http://www.w3.org/2000/svg">
-      <g fill="#e8eef2">
-        <rect x="1" y="0" width="9" height="1" />
-        <rect x="1" y="1" width="1" height="9" />
-        <rect x="9" y="1" width="1" height="9" />
-        <rect x="1" y="10" width="9" height="1" />
-      </g>
-      <rect x="2" y="5" width="7" height="1" fill="#f0b85e" />
-      <rect x="2" y="6" width="7" height="4" fill="#c97b25" />
-      <rect x="2" y="11" width="7" height="1" fill="#3a1d08" />
-    </svg>
+  <!-- TODO: replace the title text below with the short's real title. -->
+  <a class="latest-video" href="https://www.youtube.com/shorts/h_25vIIIf2c" target="_blank" rel="noopener" title="Michter&rsquo;s 20 Year: The Most Stressful 3 Seconds of My Life">
+    <span class="latest-video__thumb" style="background-image:url('https://i.ytimg.com/vi/h_25vIIIf2c/hqdefault.jpg')">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+    </span>
+    <span class="latest-video__text">
+      <span class="latest-video__label">Latest Video</span>
+      <span class="latest-video__title">Michter&rsquo;s 20 Year: The Most Stressful 3 Seconds of My Life</span>
+    </span>
   </a>
 
-  <footer>The Hunt &middot; The Pour &middot; The Notes</footer>
+  <nav class="links" aria-label="Social links">
+    <a class="social" href="https://www.instagram.com/NeatSipper" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2a3.8 3.8 0 0 1-.9 1.4c-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4a3.8 3.8 0 0 1-1.4-.9 3.8 3.8 0 0 1-.9-1.4c-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.2-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 5.8.2 4.9.4 4.1.7c-.8.3-1.5.8-2.2 1.4A6 6 0 0 0 .7 4.1C.4 4.9.2 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.2.6 3 .3.8.8 1.5 1.4 2.2a6 6 0 0 0 2.2 1.4c.8.3 1.7.5 3 .6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.2-.3 3-.6a6 6 0 0 0 2.2-1.4 6 6 0 0 0 1.4-2.2c.3-.8.5-1.7.6-3 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.2-.6-3a6 6 0 0 0-1.4-2.2A6 6 0 0 0 19.9.7c-.8-.3-1.7-.5-3-.6C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.8-10.4a1.4 1.4 0 1 1-2.9 0 1.4 1.4 0 0 1 2.9 0z"/></svg>
+      Instagram
+    </a>
+    <a class="social" href="https://www.tiktok.com/@jst1nt" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.6 5.8a5.4 5.4 0 0 1-3.4-5.6h-3.7v14.7a3.1 3.1 0 1 1-3.1-3.1c.3 0 .6 0 .9.1V8.1a6.8 6.8 0 1 0 5.9 6.8V8.3a8.9 8.9 0 0 0 5.2 1.7V6.3c-.6 0-1.2-.2-1.8-.5z"/></svg>
+      TikTok
+    </a>
+    <a class="social" href="https://www.youtube.com/@neatsipper" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8zM9.5 15.6V8.4L15.8 12l-6.3 3.6z"/></svg>
+      YouTube
+    </a>
+  </nav>
 
-  <script>
-  (function () {
-    'use strict';
+  <a class="email-btn" href="mailto:Joseph@neatsipper.com" id="emailBtn" aria-label="Email Neat Sipper">
+    <svg class="email-glass" viewBox="0 0 30 36" aria-hidden="true">
+      <defs>
+        <linearGradient id="emailLiquidGradient" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="var(--gold)" />
+          <stop offset="100%" stop-color="var(--amber)" />
+        </linearGradient>
+        <clipPath id="emailGlassClip">
+          <path d="M7,4 L23,4 L20,32 L10,32 Z" />
+        </clipPath>
+      </defs>
+      <rect class="email-glass__liquid" x="5" width="20" clip-path="url(#emailGlassClip)" />
+      <circle class="email-glass__splash" cx="15" cy="14" />
+      <path class="email-glass__outline" d="M7,4 L23,4 L20,32 L10,32 Z" />
+      <ellipse class="email-glass__rim" cx="15" cy="4" rx="8" ry="1.6" />
+    </svg>
+    Email Me
+  </a>
+</main>
 
-    var canvas = document.getElementById('whiskey');
-    var gl = canvas.getContext('webgl2', { alpha: false, depth: false, stencil: false, antialias: false });
-    if (!gl) return; // CSS gradient fallback stays
-    var floatExt = gl.getExtension('EXT_color_buffer_float');
-    if (!floatExt) return;
+<!-- secret: pours you back to 1997 -->
+<a class="easter-glass" href="/geocities/" aria-label="A neat pour" title="pour one out for &rsquo;97">
+  <svg viewBox="0 0 11 12" xmlns="http://www.w3.org/2000/svg">
+    <g fill="#e8eef2">
+      <rect x="1" y="0" width="9" height="1" />
+      <rect x="1" y="1" width="1" height="9" />
+      <rect x="9" y="1" width="1" height="9" />
+      <rect x="1" y="10" width="9" height="1" />
+    </g>
+    <rect x="2" y="5" width="7" height="1" fill="#c9a24b" />
+    <rect x="2" y="6" width="7" height="4" fill="#7c5024" />
+    <rect x="2" y="11" width="7" height="1" fill="#3a1d08" />
+  </svg>
+</a>
 
-    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+<footer>The Hunt &middot; The Pour &middot; The Notes</footer>
 
-    // ---------- simulation parameters ----------
-    var SIM_RES = 144;          // velocity / pressure grid
-    var DYE_RES = 512;          // dye (visible swirl) grid
-    var PRESSURE_ITER = 22;
-    var VELOCITY_DECAY = 0.35;  // 1/s
-    var DYE_DECAY = 0.34;       // 1/s
-    var SPLAT_FORCE = 5200;
-    var SPLAT_RADIUS = 0.0022;
-    var CURL_STRENGTH = 24;
+<script>
+(function () {
+  'use strict';
+  var canvas = document.getElementById('whiskey');
+  var gl = canvas.getContext('webgl2', { alpha: false, depth: false, stencil: false, antialias: false });
+  if (!gl) return; // CSS gradient fallback stays
+  var floatExt = gl.getExtension('EXT_color_buffer_float');
+  if (!floatExt) return;
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // ---------- shaders ----------
-    var baseVert = '#version 300 es\nprecision highp float;\n' +
-      'in vec2 aPos; out vec2 vUv;\n' +
-      'void main(){ vUv = aPos * 0.5 + 0.5; gl_Position = vec4(aPos, 0.0, 1.0); }';
+  // ---------- simulation parameters ----------
+  var SIM_RES = 144; // velocity / pressure grid
+  var DYE_RES = 512; // dye (visible swirl) grid
+  var PRESSURE_ITER = 22;
+  var VELOCITY_DECAY = 0.35; // 1/s
+  var DYE_DECAY = 0.34; // 1/s
+  var SPLAT_FORCE = 5200;
+  var SPLAT_RADIUS = 0.0022;
+  var CURL_STRENGTH = 24;
 
-    function frag(body) {
-      return '#version 300 es\nprecision highp float;precision highp sampler2D;\n' +
-        'in vec2 vUv; out vec4 fragColor;\n' + body;
+  // ---------- shaders ----------
+  var baseVert = '#version 300 es\nprecision highp float;\n' +
+    'in vec2 aPos; out vec2 vUv;\n' +
+    'void main(){ vUv = aPos * 0.5 + 0.5; gl_Position = vec4(aPos, 0.0, 1.0); }';
+
+  function frag(body) {
+    return '#version 300 es\nprecision highp float;precision highp sampler2D;\n' +
+      'in vec2 vUv; out vec4 fragColor;\n' + body;
+  }
+
+  var advectionFrag = frag(
+    'uniform sampler2D uVelocity; uniform sampler2D uSource;' +
+    'uniform vec2 uTexel; uniform float uDt; uniform float uDecay;' +
+    'void main(){' +
+    '  vec2 coord = vUv - uDt * texture(uVelocity, vUv).xy * uTexel;' +
+    '  fragColor = texture(uSource, coord) * exp(-uDecay * uDt);' +
+    '}');
+
+  var divergenceFrag = frag(
+    'uniform sampler2D uVelocity; uniform vec2 uTexel;' +
+    'void main(){' +
+    '  float L = texture(uVelocity, vUv - vec2(uTexel.x, 0.0)).x;' +
+    '  float R = texture(uVelocity, vUv + vec2(uTexel.x, 0.0)).x;' +
+    '  float B = texture(uVelocity, vUv - vec2(0.0, uTexel.y)).y;' +
+    '  float T = texture(uVelocity, vUv + vec2(0.0, uTexel.y)).y;' +
+    '  fragColor = vec4(0.5 * (R - L + T - B), 0.0, 0.0, 1.0);' +
+    '}');
+
+  var curlFrag = frag(
+    'uniform sampler2D uVelocity; uniform vec2 uTexel;' +
+    'void main(){' +
+    '  float L = texture(uVelocity, vUv - vec2(uTexel.x, 0.0)).y;' +
+    '  float R = texture(uVelocity, vUv + vec2(uTexel.x, 0.0)).y;' +
+    '  float B = texture(uVelocity, vUv - vec2(0.0, uTexel.y)).x;' +
+    '  float T = texture(uVelocity, vUv + vec2(0.0, uTexel.y)).x;' +
+    '  fragColor = vec4(0.5 * (R - L - T + B), 0.0, 0.0, 1.0);' +
+    '}');
+
+  var vorticityFrag = frag(
+    'uniform sampler2D uVelocity; uniform sampler2D uCurl;' +
+    'uniform vec2 uTexel; uniform float uCurlStrength; uniform float uDt;' +
+    'void main(){' +
+    '  float L = texture(uCurl, vUv - vec2(uTexel.x, 0.0)).x;' +
+    '  float R = texture(uCurl, vUv + vec2(uTexel.x, 0.0)).x;' +
+    '  float B = texture(uCurl, vUv - vec2(0.0, uTexel.y)).x;' +
+    '  float T = texture(uCurl, vUv + vec2(0.0, uTexel.y)).x;' +
+    '  float C = texture(uCurl, vUv).x;' +
+    '  vec2 force = 0.5 * vec2(abs(T) - abs(B), abs(L) - abs(R));' +
+    '  force /= length(force) + 1e-4;' +
+    '  force *= uCurlStrength * C * vec2(1.0, -1.0);' +
+    '  vec2 vel = texture(uVelocity, vUv).xy + force * uDt;' +
+    '  fragColor = vec4(clamp(vel, -1000.0, 1000.0), 0.0, 1.0);' +
+    '}');
+
+  var pressureFrag = frag(
+    'uniform sampler2D uPressure; uniform sampler2D uDivergence; uniform vec2 uTexel;' +
+    'void main(){' +
+    '  float L = texture(uPressure, vUv - vec2(uTexel.x, 0.0)).x;' +
+    '  float R = texture(uPressure, vUv + vec2(uTexel.x, 0.0)).x;' +
+    '  float B = texture(uPressure, vUv - vec2(0.0, uTexel.y)).x;' +
+    '  float T = texture(uPressure, vUv + vec2(0.0, uTexel.y)).x;' +
+    '  float div = texture(uDivergence, vUv).x;' +
+    '  fragColor = vec4((L + R + B + T - div) * 0.25, 0.0, 0.0, 1.0);' +
+    '}');
+
+  var gradientFrag = frag(
+    'uniform sampler2D uPressure; uniform sampler2D uVelocity; uniform vec2 uTexel;' +
+    'void main(){' +
+    '  float L = texture(uPressure, vUv - vec2(uTexel.x, 0.0)).x;' +
+    '  float R = texture(uPressure, vUv + vec2(uTexel.x, 0.0)).x;' +
+    '  float B = texture(uPressure, vUv - vec2(0.0, uTexel.y)).x;' +
+    '  float T = texture(uPressure, vUv + vec2(0.0, uTexel.y)).x;' +
+    '  vec2 vel = texture(uVelocity, vUv).xy - vec2(R - L, T - B);' +
+    '  fragColor = vec4(vel, 0.0, 1.0);' +
+    '}');
+
+  var splatFrag = frag(
+    'uniform sampler2D uTarget; uniform float uAspect;' +
+    'uniform vec3 uColor; uniform vec2 uPoint; uniform float uRadius;' +
+    'void main(){' +
+    '  vec2 p = vUv - uPoint; p.x *= uAspect;' +
+    '  vec3 add = exp(-dot(p, p) / uRadius) * uColor;' +
+    '  fragColor = vec4(texture(uTarget, vUv).xyz + add, 1.0);' +
+    '}');
+
+  // Whiskey rendering: deep barrel-char base, caramel mid-tones where the
+  // dye swirls, gold-foil caustic shimmer driven by slow fbm noise.
+  var displayFrag = frag(
+    'uniform sampler2D uDye; uniform sampler2D uVelocity;' +
+    'uniform float uTime; uniform float uAspect;' +
+    'float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }' +
+    'float noise(vec2 p){' +
+    '  vec2 i = floor(p); vec2 f = fract(p); f = f * f * (3.0 - 2.0 * f);' +
+    '  return mix(mix(hash(i), hash(i + vec2(1, 0)), f.x),' +
+    '    mix(hash(i + vec2(0, 1)), hash(i + vec2(1, 1)), f.x), f.y);' +
+    '}' +
+    'float fbm(vec2 p){' +
+    '  float v = 0.0; float a = 0.5;' +
+    '  for (int i = 0; i < 4; i++){ v += a * noise(p); p = p * 2.03 + 17.7; a *= 0.5; }' +
+    '  return v;' +
+    '}' +
+    'void main(){' +
+    '  vec2 uv = vUv;' +
+    '  vec2 suv = vec2(uv.x * uAspect, uv.y);' +
+    '  vec2 vel = texture(uVelocity, uv).xy;' +
+    '  float dye = texture(uDye, uv).x;' +
+    // ambient liquid: two slowly drifting fbm layers, warped by the flow
+    '  vec2 drift = suv * 3.0 + vel * 0.004;' +
+    '  float n1 = fbm(drift + vec2(uTime * 0.045, uTime * 0.025));' +
+    '  float n2 = fbm(drift * 1.7 - vec2(uTime * 0.03, uTime * 0.05) + n1);' +
+    '  float liquid = n1 * 0.65 + n2 * 0.35;' +
+    // depth: darker at edges, warm pool in the middle
+    '  vec2 c = uv - 0.5; c.x *= uAspect;' +
+    '  float depth = 1.0 - smoothstep(0.18, 0.95, length(c));' +
+    // whiskey palette — barrel char/amber stay true to bourbon; the shimmer reads brand gold
+    '  vec3 char = vec3(0.087, 0.040, 0.014);' +
+    '  vec3 barrel= vec3(0.262, 0.110, 0.030);' +
+    '  vec3 amber = vec3(0.486, 0.314, 0.141);' +
+    '  vec3 gold = vec3(0.788, 0.635, 0.294);' +
+    '  vec3 col = mix(char, barrel, liquid * (0.45 + 0.55 * depth));' +
+    '  col = mix(col, amber, smoothstep(0.45, 0.95, liquid) * depth * 0.55);' +
+    // the stirred swirl: dye brightens toward amber/gold
+    '  float swirl = clamp(dye, 0.0, 1.6);' +
+    '  col = mix(col, amber, smoothstep(0.0, 0.7, swirl) * 0.6);' +
+    '  col = mix(col, gold, smoothstep(0.55, 1.5, swirl) * 0.55);' +
+    // moving caustic glints on the surface
+    '  float glint = pow(fbm(drift * 2.4 + vec2(-uTime * 0.06, uTime * 0.08)), 5.0);' +
+    '  col += gold * glint * (0.35 + swirl * 0.8) * depth;' +
+    // sheen from motion
+    '  col += vec3(1.0, 0.78, 0.45) * min(length(vel) * 0.0016, 0.18);' +
+    // vignette
+    '  col *= 0.55 + 0.45 * depth;' +
+    '  col = pow(col, vec3(0.92));' +
+    '  fragColor = vec4(col, 1.0);' +
+    '}');
+
+  // ---------- GL plumbing ----------
+  function compile(type, src) {
+    var s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+      throw new Error(gl.getShaderInfoLog(s));
+    }
+    return s;
+  }
+  var vertShader = compile(gl.VERTEX_SHADER, baseVert);
+
+  function program(fragSrc) {
+    var p = gl.createProgram();
+    gl.attachShader(p, vertShader);
+    gl.attachShader(p, compile(gl.FRAGMENT_SHADER, fragSrc));
+    gl.linkProgram(p);
+    if (!gl.getProgramParameter(p, gl.LINK_STATUS)) {
+      throw new Error(gl.getProgramInfoLog(p));
+    }
+    var uniforms = {};
+    var n = gl.getProgramParameter(p, gl.ACTIVE_UNIFORMS);
+    for (var i = 0; i < n; i++) {
+      var name = gl.getActiveUniform(p, i).name;
+      uniforms[name] = gl.getUniformLocation(p, name);
+    }
+    return { prog: p, u: uniforms };
+  }
+
+  var progAdvect = program(advectionFrag);
+  var progDiverge = program(divergenceFrag);
+  var progCurl = program(curlFrag);
+  var progVorticity = program(vorticityFrag);
+  var progPressure = program(pressureFrag);
+  var progGradient = program(gradientFrag);
+  var progSplat = program(splatFrag);
+  var progDisplay = program(displayFrag);
+
+  var quad = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, quad);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+  gl.enableVertexAttribArray(0);
+  gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+
+  function createFBO(w, h, internal, format) {
+    var tex = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texImage2D(gl.TEXTURE_2D, 0, internal, w, h, 0, format, gl.HALF_FLOAT, null);
+    var fbo = gl.createFramebuffer();
+    gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tex, 0);
+    gl.clearColor(0, 0, 0, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    return { tex: tex, fbo: fbo, w: w, h: h };
+  }
+
+  function createDoubleFBO(w, h, internal, format) {
+    return {
+      a: createFBO(w, h, internal, format),
+      b: createFBO(w, h, internal, format),
+      swap: function () { var t = this.a; this.a = this.b; this.b = t; }
+    };
+  }
+
+  var velocity, pressure, divergence, curl, dye;
+  var simW, simH, dyeW, dyeH;
+
+  function initFBOs() {
+    var aspect = canvas.width / canvas.height;
+    simW = aspect >= 1 ? Math.round(SIM_RES * aspect) : SIM_RES;
+    simH = aspect >= 1 ? SIM_RES : Math.round(SIM_RES / aspect);
+    dyeW = aspect >= 1 ? Math.round(DYE_RES * aspect) : DYE_RES;
+    dyeH = aspect >= 1 ? DYE_RES : Math.round(DYE_RES / aspect);
+    velocity = createDoubleFBO(simW, simH, gl.RG16F, gl.RG);
+    pressure = createDoubleFBO(simW, simH, gl.R16F, gl.RED);
+    divergence = createFBO(simW, simH, gl.R16F, gl.RED);
+    curl = createFBO(simW, simH, gl.R16F, gl.RED);
+    dye = createDoubleFBO(dyeW, dyeH, gl.R16F, gl.RED);
+  }
+
+  function bindTex(unit, tex) {
+    gl.activeTexture(gl.TEXTURE0 + unit);
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    return unit;
+  }
+
+  function blit(target) {
+    if (target) {
+      gl.viewport(0, 0, target.w, target.h);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, target.fbo);
+    } else {
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    }
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  }
+
+  function resize() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = Math.floor(canvas.clientWidth * dpr);
+    var h = Math.floor(canvas.clientHeight * dpr);
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width = w;
+      canvas.height = h;
+      initFBOs();
+    }
+  }
+
+  // ---------- splats ----------
+  function splat(x, y, dx, dy, dyeAmount) {
+    var aspect = canvas.width / canvas.height;
+    gl.useProgram(progSplat.prog);
+    gl.uniform1f(progSplat.u.uAspect, aspect);
+    gl.uniform2f(progSplat.u.uPoint, x, y);
+    gl.uniform1i(progSplat.u.uTarget, bindTex(0, velocity.a.tex));
+    gl.uniform3f(progSplat.u.uColor, dx, dy, 0);
+    gl.uniform1f(progSplat.u.uRadius, SPLAT_RADIUS * 2.2);
+    blit(velocity.b);
+    velocity.swap();
+
+    gl.uniform1i(progSplat.u.uTarget, bindTex(0, dye.a.tex));
+    gl.uniform3f(progSplat.u.uColor, dyeAmount, 0, 0);
+    gl.uniform1f(progSplat.u.uRadius, SPLAT_RADIUS);
+    blit(dye.b);
+    dye.swap();
+  }
+
+  // ---------- simulation step ----------
+  function step(dt) {
+    var texelX = 1 / simW, texelY = 1 / simH;
+
+    gl.useProgram(progCurl.prog);
+    gl.uniform2f(progCurl.u.uTexel, texelX, texelY);
+    gl.uniform1i(progCurl.u.uVelocity, bindTex(0, velocity.a.tex));
+    blit(curl);
+
+    gl.useProgram(progVorticity.prog);
+    gl.uniform2f(progVorticity.u.uTexel, texelX, texelY);
+    gl.uniform1i(progVorticity.u.uVelocity, bindTex(0, velocity.a.tex));
+    gl.uniform1i(progVorticity.u.uCurl, bindTex(1, curl.tex));
+    gl.uniform1f(progVorticity.u.uCurlStrength, CURL_STRENGTH);
+    gl.uniform1f(progVorticity.u.uDt, dt);
+    blit(velocity.b);
+    velocity.swap();
+
+    gl.useProgram(progDiverge.prog);
+    gl.uniform2f(progDiverge.u.uTexel, texelX, texelY);
+    gl.uniform1i(progDiverge.u.uVelocity, bindTex(0, velocity.a.tex));
+    blit(divergence);
+
+    gl.useProgram(progPressure.prog);
+    gl.uniform2f(progPressure.u.uTexel, texelX, texelY);
+    gl.uniform1i(progPressure.u.uDivergence, bindTex(1, divergence.tex));
+    for (var i = 0; i < PRESSURE_ITER; i++) {
+      gl.uniform1i(progPressure.u.uPressure, bindTex(0, pressure.a.tex));
+      blit(pressure.b);
+      pressure.swap();
     }
 
-    var advectionFrag = frag(
-      'uniform sampler2D uVelocity; uniform sampler2D uSource;' +
-      'uniform vec2 uTexel; uniform float uDt; uniform float uDecay;' +
-      'void main(){' +
-      '  vec2 coord = vUv - uDt * texture(uVelocity, vUv).xy * uTexel;' +
-      '  fragColor = texture(uSource, coord) * exp(-uDecay * uDt);' +
-      '}');
+    gl.useProgram(progGradient.prog);
+    gl.uniform2f(progGradient.u.uTexel, texelX, texelY);
+    gl.uniform1i(progGradient.u.uPressure, bindTex(0, pressure.a.tex));
+    gl.uniform1i(progGradient.u.uVelocity, bindTex(1, velocity.a.tex));
+    blit(velocity.b);
+    velocity.swap();
 
-    var divergenceFrag = frag(
-      'uniform sampler2D uVelocity; uniform vec2 uTexel;' +
-      'void main(){' +
-      '  float L = texture(uVelocity, vUv - vec2(uTexel.x, 0.0)).x;' +
-      '  float R = texture(uVelocity, vUv + vec2(uTexel.x, 0.0)).x;' +
-      '  float B = texture(uVelocity, vUv - vec2(0.0, uTexel.y)).y;' +
-      '  float T = texture(uVelocity, vUv + vec2(0.0, uTexel.y)).y;' +
-      '  fragColor = vec4(0.5 * (R - L + T - B), 0.0, 0.0, 1.0);' +
-      '}');
+    gl.useProgram(progAdvect.prog);
+    gl.uniform2f(progAdvect.u.uTexel, texelX, texelY);
+    gl.uniform1f(progAdvect.u.uDt, dt);
+    gl.uniform1f(progAdvect.u.uDecay, VELOCITY_DECAY);
+    gl.uniform1i(progAdvect.u.uVelocity, bindTex(0, velocity.a.tex));
+    gl.uniform1i(progAdvect.u.uSource, bindTex(0, velocity.a.tex));
+    blit(velocity.b);
+    velocity.swap();
 
-    var curlFrag = frag(
-      'uniform sampler2D uVelocity; uniform vec2 uTexel;' +
-      'void main(){' +
-      '  float L = texture(uVelocity, vUv - vec2(uTexel.x, 0.0)).y;' +
-      '  float R = texture(uVelocity, vUv + vec2(uTexel.x, 0.0)).y;' +
-      '  float B = texture(uVelocity, vUv - vec2(0.0, uTexel.y)).x;' +
-      '  float T = texture(uVelocity, vUv + vec2(0.0, uTexel.y)).x;' +
-      '  fragColor = vec4(0.5 * (R - L - T + B), 0.0, 0.0, 1.0);' +
-      '}');
+    gl.uniform1f(progAdvect.u.uDecay, DYE_DECAY);
+    gl.uniform1i(progAdvect.u.uVelocity, bindTex(0, velocity.a.tex));
+    gl.uniform1i(progAdvect.u.uSource, bindTex(1, dye.a.tex));
+    blit(dye.b);
+    dye.swap();
+  }
 
-    var vorticityFrag = frag(
-      'uniform sampler2D uVelocity; uniform sampler2D uCurl;' +
-      'uniform vec2 uTexel; uniform float uCurlStrength; uniform float uDt;' +
-      'void main(){' +
-      '  float L = texture(uCurl, vUv - vec2(uTexel.x, 0.0)).x;' +
-      '  float R = texture(uCurl, vUv + vec2(uTexel.x, 0.0)).x;' +
-      '  float B = texture(uCurl, vUv - vec2(0.0, uTexel.y)).x;' +
-      '  float T = texture(uCurl, vUv + vec2(0.0, uTexel.y)).x;' +
-      '  float C = texture(uCurl, vUv).x;' +
-      '  vec2 force = 0.5 * vec2(abs(T) - abs(B), abs(L) - abs(R));' +
-      '  force /= length(force) + 1e-4;' +
-      '  force *= uCurlStrength * C * vec2(1.0, -1.0);' +
-      '  vec2 vel = texture(uVelocity, vUv).xy + force * uDt;' +
-      '  fragColor = vec4(clamp(vel, -1000.0, 1000.0), 0.0, 1.0);' +
-      '}');
+  function render(time) {
+    gl.useProgram(progDisplay.prog);
+    gl.uniform1i(progDisplay.u.uDye, bindTex(0, dye.a.tex));
+    gl.uniform1i(progDisplay.u.uVelocity, bindTex(1, velocity.a.tex));
+    gl.uniform1f(progDisplay.u.uTime, time);
+    gl.uniform1f(progDisplay.u.uAspect, canvas.width / canvas.height);
+    blit(null);
+  }
 
-    var pressureFrag = frag(
-      'uniform sampler2D uPressure; uniform sampler2D uDivergence; uniform vec2 uTexel;' +
-      'void main(){' +
-      '  float L = texture(uPressure, vUv - vec2(uTexel.x, 0.0)).x;' +
-      '  float R = texture(uPressure, vUv + vec2(uTexel.x, 0.0)).x;' +
-      '  float B = texture(uPressure, vUv - vec2(0.0, uTexel.y)).x;' +
-      '  float T = texture(uPressure, vUv + vec2(0.0, uTexel.y)).x;' +
-      '  float div = texture(uDivergence, vUv).x;' +
-      '  fragColor = vec4((L + R + B + T - div) * 0.25, 0.0, 0.0, 1.0);' +
-      '}');
+  // ---------- pointer ----------
+  var pointer = { x: 0.5, y: 0.5, px: 0.5, py: 0.5, moved: false, down: false };
 
-    var gradientFrag = frag(
-      'uniform sampler2D uPressure; uniform sampler2D uVelocity; uniform vec2 uTexel;' +
-      'void main(){' +
-      '  float L = texture(uPressure, vUv - vec2(uTexel.x, 0.0)).x;' +
-      '  float R = texture(uPressure, vUv + vec2(uTexel.x, 0.0)).x;' +
-      '  float B = texture(uPressure, vUv - vec2(0.0, uTexel.y)).x;' +
-      '  float T = texture(uPressure, vUv + vec2(0.0, uTexel.y)).x;' +
-      '  vec2 vel = texture(uVelocity, vUv).xy - vec2(R - L, T - B);' +
-      '  fragColor = vec4(vel, 0.0, 1.0);' +
-      '}');
+  function updatePointer(clientX, clientY) {
+    var rect = canvas.getBoundingClientRect();
+    pointer.px = pointer.x;
+    pointer.py = pointer.y;
+    pointer.x = (clientX - rect.left) / rect.width;
+    pointer.y = 1 - (clientY - rect.top) / rect.height;
+    pointer.moved = true;
+  }
 
-    var splatFrag = frag(
-      'uniform sampler2D uTarget; uniform float uAspect;' +
-      'uniform vec3 uColor; uniform vec2 uPoint; uniform float uRadius;' +
-      'void main(){' +
-      '  vec2 p = vUv - uPoint; p.x *= uAspect;' +
-      '  vec3 add = exp(-dot(p, p) / uRadius) * uColor;' +
-      '  fragColor = vec4(texture(uTarget, vUv).xyz + add, 1.0);' +
-      '}');
+  window.addEventListener('pointermove', function (e) {
+    updatePointer(e.clientX, e.clientY);
+  }, { passive: true });
 
-    // Whiskey rendering: deep barrel-char base, caramel mid-tones where the
-    // dye swirls, golden caustic shimmer driven by slow fbm noise.
-    var displayFrag = frag(
-      'uniform sampler2D uDye; uniform sampler2D uVelocity;' +
-      'uniform float uTime; uniform float uAspect;' +
-      'float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }' +
-      'float noise(vec2 p){' +
-      '  vec2 i = floor(p); vec2 f = fract(p); f = f * f * (3.0 - 2.0 * f);' +
-      '  return mix(mix(hash(i), hash(i + vec2(1, 0)), f.x),' +
-      '             mix(hash(i + vec2(0, 1)), hash(i + vec2(1, 1)), f.x), f.y);' +
-      '}' +
-      'float fbm(vec2 p){' +
-      '  float v = 0.0; float a = 0.5;' +
-      '  for (int i = 0; i < 4; i++){ v += a * noise(p); p = p * 2.03 + 17.7; a *= 0.5; }' +
-      '  return v;' +
-      '}' +
-      'void main(){' +
-      '  vec2 uv = vUv;' +
-      '  vec2 suv = vec2(uv.x * uAspect, uv.y);' +
-      '  vec2 vel = texture(uVelocity, uv).xy;' +
-      '  float dye = texture(uDye, uv).x;' +
-      // ambient liquid: two slowly drifting fbm layers, warped by the flow
-      '  vec2 drift = suv * 3.0 + vel * 0.004;' +
-      '  float n1 = fbm(drift + vec2(uTime * 0.045, uTime * 0.025));' +
-      '  float n2 = fbm(drift * 1.7 - vec2(uTime * 0.03, uTime * 0.05) + n1);' +
-      '  float liquid = n1 * 0.65 + n2 * 0.35;' +
-      // depth: darker at edges, warm pool in the middle
-      '  vec2 c = uv - 0.5; c.x *= uAspect;' +
-      '  float depth = 1.0 - smoothstep(0.18, 0.95, length(c));' +
-      // whiskey palette
-      '  vec3 char  = vec3(0.087, 0.040, 0.014);' +
-      '  vec3 barrel= vec3(0.262, 0.110, 0.030);' +
-      '  vec3 amber = vec3(0.620, 0.300, 0.080);' +
-      '  vec3 gold  = vec3(0.940, 0.660, 0.280);' +
-      '  vec3 col = mix(char, barrel, liquid * (0.45 + 0.55 * depth));' +
-      '  col = mix(col, amber, smoothstep(0.45, 0.95, liquid) * depth * 0.55);' +
-      // the stirred swirl: dye brightens toward amber/gold
-      '  float swirl = clamp(dye, 0.0, 1.6);' +
-      '  col = mix(col, amber, smoothstep(0.0, 0.7, swirl) * 0.6);' +
-      '  col = mix(col, gold, smoothstep(0.55, 1.5, swirl) * 0.55);' +
-      // moving caustic glints on the surface
-      '  float glint = pow(fbm(drift * 2.4 + vec2(-uTime * 0.06, uTime * 0.08)), 5.0);' +
-      '  col += gold * glint * (0.35 + swirl * 0.8) * depth;' +
-      // sheen from motion
-      '  col += vec3(1.0, 0.78, 0.45) * min(length(vel) * 0.0016, 0.18);' +
-      // vignette
-      '  col *= 0.55 + 0.45 * depth;' +
-      '  col = pow(col, vec3(0.92));' +
-      '  fragColor = vec4(col, 1.0);' +
-      '}');
+  // On touch, anchor the pointer at the finger-down point so the first
+  // move doesn't splat a huge jump from wherever the pointer last was.
+  window.addEventListener('pointerdown', function (e) {
+    updatePointer(e.clientX, e.clientY);
+    pointer.px = pointer.x;
+    pointer.py = pointer.y;
+    pointer.moved = false;
+  }, { passive: true });
 
-    // ---------- GL plumbing ----------
-    function compile(type, src) {
-      var s = gl.createShader(type);
-      gl.shaderSource(s, src);
-      gl.compileShader(s);
-      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
-        throw new Error(gl.getShaderInfoLog(s));
-      }
-      return s;
-    }
-
-    var vertShader = compile(gl.VERTEX_SHADER, baseVert);
-
-    function program(fragSrc) {
-      var p = gl.createProgram();
-      gl.attachShader(p, vertShader);
-      gl.attachShader(p, compile(gl.FRAGMENT_SHADER, fragSrc));
-      gl.linkProgram(p);
-      if (!gl.getProgramParameter(p, gl.LINK_STATUS)) {
-        throw new Error(gl.getProgramInfoLog(p));
-      }
-      var uniforms = {};
-      var n = gl.getProgramParameter(p, gl.ACTIVE_UNIFORMS);
-      for (var i = 0; i < n; i++) {
-        var name = gl.getActiveUniform(p, i).name;
-        uniforms[name] = gl.getUniformLocation(p, name);
-      }
-      return { prog: p, u: uniforms };
-    }
-
-    var progAdvect = program(advectionFrag);
-    var progDiverge = program(divergenceFrag);
-    var progCurl = program(curlFrag);
-    var progVorticity = program(vorticityFrag);
-    var progPressure = program(pressureFrag);
-    var progGradient = program(gradientFrag);
-    var progSplat = program(splatFrag);
-    var progDisplay = program(displayFrag);
-
-    var quad = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, quad);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
-    gl.enableVertexAttribArray(0);
-    gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
-
-    function createFBO(w, h, internal, format) {
-      var tex = gl.createTexture();
-      gl.bindTexture(gl.TEXTURE_2D, tex);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-      gl.texImage2D(gl.TEXTURE_2D, 0, internal, w, h, 0, format, gl.HALF_FLOAT, null);
-      var fbo = gl.createFramebuffer();
-      gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
-      gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tex, 0);
-      gl.clearColor(0, 0, 0, 1);
-      gl.clear(gl.COLOR_BUFFER_BIT);
-      return { tex: tex, fbo: fbo, w: w, h: h };
-    }
-
-    function createDoubleFBO(w, h, internal, format) {
-      return {
-        a: createFBO(w, h, internal, format),
-        b: createFBO(w, h, internal, format),
-        swap: function () { var t = this.a; this.a = this.b; this.b = t; }
-      };
-    }
-
-    var velocity, pressure, divergence, curl, dye;
-    var simW, simH, dyeW, dyeH;
-
-    function initFBOs() {
-      var aspect = canvas.width / canvas.height;
-      simW = aspect >= 1 ? Math.round(SIM_RES * aspect) : SIM_RES;
-      simH = aspect >= 1 ? SIM_RES : Math.round(SIM_RES / aspect);
-      dyeW = aspect >= 1 ? Math.round(DYE_RES * aspect) : DYE_RES;
-      dyeH = aspect >= 1 ? DYE_RES : Math.round(DYE_RES / aspect);
-      velocity = createDoubleFBO(simW, simH, gl.RG16F, gl.RG);
-      pressure = createDoubleFBO(simW, simH, gl.R16F, gl.RED);
-      divergence = createFBO(simW, simH, gl.R16F, gl.RED);
-      curl = createFBO(simW, simH, gl.R16F, gl.RED);
-      dye = createDoubleFBO(dyeW, dyeH, gl.R16F, gl.RED);
-    }
-
-    function bindTex(unit, tex) {
-      gl.activeTexture(gl.TEXTURE0 + unit);
-      gl.bindTexture(gl.TEXTURE_2D, tex);
-      return unit;
-    }
-
-    function blit(target) {
-      if (target) {
-        gl.viewport(0, 0, target.w, target.h);
-        gl.bindFramebuffer(gl.FRAMEBUFFER, target.fbo);
-      } else {
-        gl.viewport(0, 0, canvas.width, canvas.height);
-        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-      }
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-    }
-
-    function resize() {
-      var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      var w = Math.floor(canvas.clientWidth * dpr);
-      var h = Math.floor(canvas.clientHeight * dpr);
-      if (canvas.width !== w || canvas.height !== h) {
-        canvas.width = w;
-        canvas.height = h;
-        initFBOs();
-      }
-    }
-
-    // ---------- splats ----------
-    function splat(x, y, dx, dy, dyeAmount) {
-      var aspect = canvas.width / canvas.height;
-
-      gl.useProgram(progSplat.prog);
-      gl.uniform1f(progSplat.u.uAspect, aspect);
-      gl.uniform2f(progSplat.u.uPoint, x, y);
-
-      gl.uniform1i(progSplat.u.uTarget, bindTex(0, velocity.a.tex));
-      gl.uniform3f(progSplat.u.uColor, dx, dy, 0);
-      gl.uniform1f(progSplat.u.uRadius, SPLAT_RADIUS * 2.2);
-      blit(velocity.b);
-      velocity.swap();
-
-      gl.uniform1i(progSplat.u.uTarget, bindTex(0, dye.a.tex));
-      gl.uniform3f(progSplat.u.uColor, dyeAmount, 0, 0);
-      gl.uniform1f(progSplat.u.uRadius, SPLAT_RADIUS);
-      blit(dye.b);
-      dye.swap();
-    }
-
-    // ---------- simulation step ----------
-    function step(dt) {
-      var texelX = 1 / simW, texelY = 1 / simH;
-
-      gl.useProgram(progCurl.prog);
-      gl.uniform2f(progCurl.u.uTexel, texelX, texelY);
-      gl.uniform1i(progCurl.u.uVelocity, bindTex(0, velocity.a.tex));
-      blit(curl);
-
-      gl.useProgram(progVorticity.prog);
-      gl.uniform2f(progVorticity.u.uTexel, texelX, texelY);
-      gl.uniform1i(progVorticity.u.uVelocity, bindTex(0, velocity.a.tex));
-      gl.uniform1i(progVorticity.u.uCurl, bindTex(1, curl.tex));
-      gl.uniform1f(progVorticity.u.uCurlStrength, CURL_STRENGTH);
-      gl.uniform1f(progVorticity.u.uDt, dt);
-      blit(velocity.b);
-      velocity.swap();
-
-      gl.useProgram(progDiverge.prog);
-      gl.uniform2f(progDiverge.u.uTexel, texelX, texelY);
-      gl.uniform1i(progDiverge.u.uVelocity, bindTex(0, velocity.a.tex));
-      blit(divergence);
-
-      gl.useProgram(progPressure.prog);
-      gl.uniform2f(progPressure.u.uTexel, texelX, texelY);
-      gl.uniform1i(progPressure.u.uDivergence, bindTex(1, divergence.tex));
-      for (var i = 0; i < PRESSURE_ITER; i++) {
-        gl.uniform1i(progPressure.u.uPressure, bindTex(0, pressure.a.tex));
-        blit(pressure.b);
-        pressure.swap();
-      }
-
-      gl.useProgram(progGradient.prog);
-      gl.uniform2f(progGradient.u.uTexel, texelX, texelY);
-      gl.uniform1i(progGradient.u.uPressure, bindTex(0, pressure.a.tex));
-      gl.uniform1i(progGradient.u.uVelocity, bindTex(1, velocity.a.tex));
-      blit(velocity.b);
-      velocity.swap();
-
-      gl.useProgram(progAdvect.prog);
-      gl.uniform2f(progAdvect.u.uTexel, texelX, texelY);
-      gl.uniform1f(progAdvect.u.uDt, dt);
-      gl.uniform1f(progAdvect.u.uDecay, VELOCITY_DECAY);
-      gl.uniform1i(progAdvect.u.uVelocity, bindTex(0, velocity.a.tex));
-      gl.uniform1i(progAdvect.u.uSource, bindTex(0, velocity.a.tex));
-      blit(velocity.b);
-      velocity.swap();
-
-      gl.uniform1f(progAdvect.u.uDecay, DYE_DECAY);
-      gl.uniform1i(progAdvect.u.uVelocity, bindTex(0, velocity.a.tex));
-      gl.uniform1i(progAdvect.u.uSource, bindTex(1, dye.a.tex));
-      blit(dye.b);
-      dye.swap();
-    }
-
-    function render(time) {
-      gl.useProgram(progDisplay.prog);
-      gl.uniform1i(progDisplay.u.uDye, bindTex(0, dye.a.tex));
-      gl.uniform1i(progDisplay.u.uVelocity, bindTex(1, velocity.a.tex));
-      gl.uniform1f(progDisplay.u.uTime, time);
-      gl.uniform1f(progDisplay.u.uAspect, canvas.width / canvas.height);
-      blit(null);
-    }
-
-    // ---------- pointer ----------
-    var pointer = { x: 0.5, y: 0.5, px: 0.5, py: 0.5, moved: false, down: false };
-
-    function updatePointer(clientX, clientY) {
-      var rect = canvas.getBoundingClientRect();
-      pointer.px = pointer.x;
-      pointer.py = pointer.y;
-      pointer.x = (clientX - rect.left) / rect.width;
-      pointer.y = 1 - (clientY - rect.top) / rect.height;
-      pointer.moved = true;
-    }
-
-    window.addEventListener('pointermove', function (e) {
-      updatePointer(e.clientX, e.clientY);
-    }, { passive: true });
-
-    // On touch, anchor the pointer at the finger-down point so the first
-    // move doesn't splat a huge jump from wherever the pointer last was.
-    window.addEventListener('pointerdown', function (e) {
-      updatePointer(e.clientX, e.clientY);
-      pointer.px = pointer.x;
-      pointer.py = pointer.y;
-      pointer.moved = false;
-    }, { passive: true });
-
-    // Belt and braces for older mobile browsers: drive the sim from touch
-    // events directly and stop the browser from turning the drag into a
-    // scroll. Skipped where Pointer Events already handle touch.
-    if (!window.PointerEvent) {
-      window.addEventListener('touchstart', function (e) {
-        if (e.touches.length > 0) {
-          updatePointer(e.touches[0].clientX, e.touches[0].clientY);
-          pointer.px = pointer.x;
-          pointer.py = pointer.y;
-          pointer.moved = false;
-        }
-      }, { passive: true });
-
-      window.addEventListener('touchmove', function (e) {
-        if (e.touches.length > 0) updatePointer(e.touches[0].clientX, e.touches[0].clientY);
-      }, { passive: true });
-    }
-
-    // iOS Safari can still rubber-band the document; block it everywhere
-    // except over the links and email button so taps keep working.
-    document.addEventListener('touchmove', function (e) {
-      if (!e.target.closest('a')) e.preventDefault();
-    }, { passive: false });
-
-    // ---------- ambient stirring while idle ----------
-    var lastAmbient = 0;
-    function ambient(now) {
-      if (reducedMotion) return;
-      if (now - lastAmbient < 2.6) return;
-      lastAmbient = now + Math.random() * 1.5;
-      var x = 0.2 + Math.random() * 0.6;
-      var y = 0.2 + Math.random() * 0.6;
-      var angle = Math.random() * Math.PI * 2;
-      var force = 220 + Math.random() * 320;
-      splat(x, y, Math.cos(angle) * force, Math.sin(angle) * force, 0.16);
-    }
-
-    // ---------- main loop ----------
-    var lastTime = performance.now();
-
-    function frame(nowMs) {
-      requestAnimationFrame(frame);
-      var dt = Math.min((nowMs - lastTime) / 1000, 1 / 30);
-      lastTime = nowMs;
-      var now = nowMs / 1000;
-
-      resize();
-
-      if (pointer.moved) {
+  // Belt and braces for older mobile browsers: drive the sim from touch
+  // events directly and stop the browser from turning the drag into a
+  // scroll. Skipped where Pointer Events already handle touch.
+  if (!window.PointerEvent) {
+    window.addEventListener('touchstart', function (e) {
+      if (e.touches.length > 0) {
+        updatePointer(e.touches[0].clientX, e.touches[0].clientY);
+        pointer.px = pointer.x;
+        pointer.py = pointer.y;
         pointer.moved = false;
-        var dx = (pointer.x - pointer.px) * SPLAT_FORCE;
-        var dy = (pointer.y - pointer.py) * SPLAT_FORCE;
-        var speed = Math.min(Math.hypot(dx, dy) / SPLAT_FORCE * 10, 1);
-        if (Math.abs(dx) > 0.01 || Math.abs(dy) > 0.01) {
-          splat(pointer.x, pointer.y, dx, dy, 0.22 + speed * 0.55);
-        }
       }
+    }, { passive: true });
+    window.addEventListener('touchmove', function (e) {
+      if (e.touches.length > 0) updatePointer(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+  }
 
-      ambient(now);
-      step(dt);
-      render(now);
-    }
+  // iOS Safari can still rubber-band the document; block it everywhere
+  // except over the links and email button so taps keep working.
+  document.addEventListener('touchmove', function (e) {
+    if (!e.target.closest('a')) e.preventDefault();
+  }, { passive: false });
+
+  // ---------- ambient stirring while idle ----------
+  var lastAmbient = 0;
+  function ambient(now) {
+    if (reducedMotion) return;
+    if (now - lastAmbient < 2.6) return;
+    lastAmbient = now + Math.random() * 1.5;
+    var x = 0.2 + Math.random() * 0.6;
+    var y = 0.2 + Math.random() * 0.6;
+    var angle = Math.random() * Math.PI * 2;
+    var force = 220 + Math.random() * 320;
+    splat(x, y, Math.cos(angle) * force, Math.sin(angle) * force, 0.16);
+  }
+
+  // ---------- main loop ----------
+  var lastTime = performance.now();
+  function frame(nowMs) {
+    requestAnimationFrame(frame);
+    var dt = Math.min((nowMs - lastTime) / 1000, 1 / 30);
+    lastTime = nowMs;
+    var now = nowMs / 1000;
 
     resize();
-    // a first gentle stir so the pool isn't static on load
-    splat(0.42, 0.55, 420, -180, 0.3);
-    splat(0.6, 0.42, -360, 240, 0.3);
-    requestAnimationFrame(frame);
-  })();
-  </script>
+
+    if (pointer.moved) {
+      pointer.moved = false;
+      var dx = (pointer.x - pointer.px) * SPLAT_FORCE;
+      var dy = (pointer.y - pointer.py) * SPLAT_FORCE;
+      var speed = Math.min(Math.hypot(dx, dy) / SPLAT_FORCE * 10, 1);
+      if (Math.abs(dx) > 0.01 || Math.abs(dy) > 0.01) {
+        splat(pointer.x, pointer.y, dx, dy, 0.22 + speed * 0.55);
+      }
+    }
+
+    ambient(now);
+    step(dt);
+    render(now);
+  }
+
+  resize();
+  // a first gentle stir so the pool isn't static on load
+  splat(0.42, 0.55, 420, -180, 0.3);
+  splat(0.6, 0.42, -360, 240, 0.3);
+  requestAnimationFrame(frame);
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+  var btn = document.getElementById('emailBtn');
+  if (!btn) return;
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  btn.addEventListener('click', function (e) {
+    if (btn.classList.contains('is-pouring')) { e.preventDefault(); return; }
+    // let modifier-clicks / middle-clicks behave normally (new tab, etc.)
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button === 1) return;
+    e.preventDefault();
+    if (reducedMotion) { window.location.href = btn.href; return; }
+    btn.classList.add('is-pouring');
+    setTimeout(function () { window.location.href = btn.href; }, 780);
+  });
+
+  // if the mail client hand-off brings the user back via bfcache, reset the pour
+  window.addEventListener('pageshow', function () { btn.classList.remove('is-pouring'); });
+})();
+</script>
 </body>
 </html>
